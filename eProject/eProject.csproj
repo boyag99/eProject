@@ -30,5 +30,6 @@
     <Folder Include="Areas\Admin\Views\Shared\Partial\" />
     <Folder Include="Areas\Admin\Views\Dashboard\" />
     <Folder Include="wwwroot\backend\" />
+    <Folder Include="Views\Shared\Partial\" />
   </ItemGroup>
 </Project>
