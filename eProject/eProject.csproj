@@ -31,5 +31,8 @@
     <Folder Include="Areas\Admin\Views\Dashboard\" />
     <Folder Include="wwwroot\backend\" />
     <Folder Include="Views\Shared\Partial\" />
+    <Folder Include="App\Data\SeedData\" />
+    <Folder Include="Models\ViewModels\" />
+    <Folder Include="Areas\Admin\Views\Account\" />
   </ItemGroup>
 </Project>

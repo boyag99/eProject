@@ -1,4 +1,17 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity;
+@inject UserManager<User> _userManager
+
+@{
+    User user = await _userManager.GetUserAsync(User);
+
+    eProject.Models.ViewModels.UserInfo userInfo = new eProject.Models.ViewModels.UserInfo
+    {
+        FirstName = user.FirstName,
+        LastName = user.LastName,
+        ProfileImage = user.ProfileImage
+    };
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -39,7 +52,7 @@
         @await Html.PartialAsync("./Partial/_Navbar")
         <!-- /.navbar -->
         <!-- Main Sidebar Container -->
-        @await Html.PartialAsync("./Partial/_Sidebar")
+        @await Html.PartialAsync("./Partial/_Sidebar", userInfo)
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
