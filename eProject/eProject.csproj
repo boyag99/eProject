@@ -34,5 +34,7 @@
     <Folder Include="App\Data\SeedData\" />
     <Folder Include="Models\ViewModels\" />
     <Folder Include="Areas\Admin\Views\Account\" />
+    <Folder Include="Areas\Admin\Views\User\" />
+    <Folder Include="App\Validations\" />
   </ItemGroup>
 </Project>

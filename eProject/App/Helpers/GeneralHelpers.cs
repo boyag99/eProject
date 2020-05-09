@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace eProject.App.Helpers
 {
@@ -34,6 +38,18 @@ namespace eProject.App.Helpers
             {
                 File.Delete(filePath); // then delete file path
             }
+        }
+
+        public static string IsSelected(this IHtmlHelper htmlHelper, string controllers, string actions, string cssClass = "active")
+        {
+            string currentAction = htmlHelper.ViewContext.RouteData.Values["action"] as string;
+            string currentController = htmlHelper.ViewContext.RouteData.Values["controller"] as string;
+
+            IEnumerable<string> acceptedActions = (actions ?? currentAction).Split(',');
+            IEnumerable<string> acceptedControllers = (controllers ?? currentController).Split(',');
+
+            return acceptedActions.Contains(currentAction) && acceptedControllers.Contains(currentController) ?
+                cssClass : String.Empty;
         }
     }
 }
