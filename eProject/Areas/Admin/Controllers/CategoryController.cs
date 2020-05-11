@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using eProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using eProject.Data;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace eProject.Areas.Admin.Controllers
 {
@@ -106,6 +107,43 @@ namespace eProject.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+        [HttpGet]
+        [Route("AddSubCategory")]
+        public IActionResult AddSubCategory(int id)
+        {
+            var subCat = new Category()
+            {
+                ParentId = id
+            };
+            return View(subCat);
+
+
+            //Category cat = _applicationDbContext.Categories.SingleOrDefault(c => c.Id == id);
+            //if (cat == null)
+            //{
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //return View(cat);
+        }
+
+        [HttpPost]
+        [Route("AddSubCategory")]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddSubCategory(Category subCat)
+        {
+
+            if (ModelState.IsValid)
+            {
+                _applicationDbContext.Categories.Add(subCat);
+                _applicationDbContext.SaveChanges();
+
+                return RedirectToAction("Index", "Category", new { area = "Admin" });
+            }
+            return View(subCat);
+        }
+
+        
 
     }
 }
