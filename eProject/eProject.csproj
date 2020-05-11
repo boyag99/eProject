@@ -36,5 +36,6 @@
     <Folder Include="Areas\Admin\Views\Account\" />
     <Folder Include="Areas\Admin\Views\User\" />
     <Folder Include="App\Validations\" />
+    <Folder Include="wwwroot\backend\images\users\" />
   </ItemGroup>
 </Project>

@@ -82,12 +82,7 @@ namespace eProject.Areas.Admin.Controllers
                 return View(storeUserRequest);
             }
 
-            var uniqueFileName = "";
-
-            if (storeUserRequest.ProfileImage.FileName != null)
-            {
-                uniqueFileName = GeneralHelpers.UploadedFile(storeUserRequest.ProfileImage, USER_PATH).Result; // upload new image & return image name
-            }
+            var uniqueFileName = GeneralHelpers.UploadedFile(storeUserRequest.ProfileImage, USER_PATH).Result; // upload new image & return image name
 
             User user = new User
             {
@@ -194,12 +189,12 @@ namespace eProject.Areas.Admin.Controllers
             user.Address.City = updateUserRequest.City;
             user.Address.County = updateUserRequest.County;
             user.Address.State = updateUserRequest.State;
-            user.ProfileImage = uniqueImageName ?? user.ProfileImage;
+            user.ProfileImage = uniqueImageName ?? userImage;
 
             _applicationDbContext.Users.Update(user);
             await _applicationDbContext.SaveChangesAsync();
 
-            if (uniqueImageName != null)
+            if (!(uniqueImageName is null))
             {
                 GeneralHelpers.DeleteFile(USER_PATH, userImage); // if update success then delete path old image
             }
