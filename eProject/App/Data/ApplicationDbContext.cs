@@ -16,6 +16,8 @@ namespace eProject.Data
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Photo> Photos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,7 +32,32 @@ namespace eProject.Data
             modelBuilder.Entity<IdentityUserLogin<string>>(entity => { entity.ToTable("UserLogins"); });
             modelBuilder.Entity<IdentityUserToken<string>>(entity => { entity.ToTable("UserTokens"); });
             modelBuilder.Entity<IdentityRoleClaim<string>>(entity => { entity.ToTable("RoleClaims"); });
-            modelBuilder.Entity<Category>(entity => { entity.ToTable(name: "Categories"); });
+            modelBuilder.Entity<Category>(entity => {
+                entity.HasOne(d => d.Parent)
+                       .WithMany(p => p.InverseParent)
+                       .HasForeignKey(d => d.ParentId);
+                entity.ToTable(name: "Categories");
+
+            });
+
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.HasOne(d => d.Category)
+                      .WithMany(p => p.Products)
+                      .HasForeignKey(d => d.CategoryId)
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .HasConstraintName("FK_Category_Product");
+            });
+
+
+            modelBuilder.Entity<Photo>(entity =>
+            {
+                entity.HasOne(d => d.Product)
+                      .WithMany(p => p.Photos)
+                      .HasForeignKey(d => d.ProductId)
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .HasConstraintName("FK_Product_Photo");
+            });
         }
     }
 }

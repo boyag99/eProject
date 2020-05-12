@@ -26,13 +26,14 @@
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Admin\Views\Shared\Partial\" />
     <Folder Include="Areas\Admin\Views\Dashboard\" />
+    <Folder Include="Views\Shared\Components\Category\" />
     <Folder Include="wwwroot\backend\" />
     <Folder Include="Views\Shared\Partial\" />
     <Folder Include="App\Data\SeedData\" />
-    <Folder Include="Models\ViewModels\" />
     <Folder Include="Areas\Admin\Views\Account\" />
     <Folder Include="Areas\Admin\Views\User\" />
     <Folder Include="App\Validations\" />
     <Folder Include="wwwroot\backend\images\users\" />
+    <Folder Include="wwwroot\products\" />
   </ItemGroup>
 </Project>
