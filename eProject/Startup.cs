@@ -22,6 +22,7 @@ namespace eProject
         {
             services.ConfigureDbContext(Configuration);
             services.ConfigureIdentity();
+            services.ConfigureAuthentication();
             services.AddControllersWithViews();
         }
 

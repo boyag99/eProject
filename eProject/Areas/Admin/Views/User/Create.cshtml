@@ -1,0 +1,162 @@
+﻿@model eProject.Models.ViewModels.StoreUserRequest
+
+@{
+    ViewData["Title"] = "Create User Detail";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Users</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Create User Detail</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- general form elements -->
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">User Information</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form asp-area="Admin" asp-controller="User" asp-action="Create" enctype="multipart/form-data" role="form">
+                
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="card-body row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label asp-for="Email"></label>
+                            <input class="form-control" asp-for="Email" placeholder="Enter email">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 p-t-20">
+                        <div class="form-group">
+                            <label asp-for="FirstName"></label>
+                            <input class="form-control" asp-for="FirstName" placeholder="Enter first name">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 p-t-20">
+                        <div class="form-group">
+                            <label asp-for="LastName"></label>
+                            <input class="form-control" asp-for="LastName" placeholder="Enter last name">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 p-t-20">
+                        <div class="form-group">
+                            <label asp-for="Password"></label>
+                            <input class="form-control" asp-for="Password" placeholder="Enter password">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 p-t-20">
+                        <div class="form-group">
+                            <label asp-for="ConfirmPassword"></label>
+                            <input class="form-control" asp-for="ConfirmPassword" placeholder="Enter confirm password">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 p-t-20">
+                        <!-- Date dd/mm/yyyy -->
+                        <div class="form-group">
+                            <label asp-for="DateOfBirthDay"></label>
+
+                            <input class="form-control" asp-for="DateOfBirthDay" />
+                            <!-- /.input group -->
+                        </div>
+                        <!-- /.form group -->
+                    </div>
+                    <div class="col-lg-6 p-t-20">
+                        <div class="form-group">
+                            <label asp-for="Gender"></label>
+                            <select class="form-control select2bs4" asp-for="Gender" asp-items="@Html.GetEnumSelectList<User.GenderType>()" style="width: 100%;">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 p-t-20">
+                        <div class="form-group">
+                            <label asp-for="PhoneNumber"></label>
+                            <input class="form-control" asp-for="PhoneNumber" placeholder="Enter phone number" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 p-t-20">
+                        <div class="form-group">
+                            <label asp-for="PostalCode"></label>
+                            <input class="form-control" asp-for="PostalCode" placeholder="Enter postal code" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 p-t-20">
+                        <div class="form-group">
+                            <label asp-for="StreetAddress"></label>
+                            <textarea class="form-control" asp-for="StreetAddress" placeholder="Enter street address"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 p-t-20">
+                        <div class="form-group">
+                            <label asp-for="City"></label>
+                            <input class="form-control" asp-for="City" placeholder="Enter city" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 p-t-20">
+                        <div class="form-group">
+                            <label asp-for="County"></label>
+                            <input class="form-control" asp-for="County" placeholder="Enter county" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 p-t-20">
+                        <div class="form-group">
+                            <label asp-for="State"></label>
+                            <input class="form-control" asp-for="State" placeholder="Enter city" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 p-t-20">
+                        <div class="form-group">
+                            <label asp-for="ProfileImage"></label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input class="custom-file-input" asp-for="ProfileImage">
+                                    <label class="custom-file-label" asp-for="ProfileImage">Choose file</label>
+                                </div>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="">Upload</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 p-t-20">
+                        <div class="form-group">
+                            <label asp-for="Role"></label>
+                            <select class="form-control select2bs4" asp-for="Role" style="width: 100%;">
+                                <option value="Customer" selected>Customer</option>
+                                <option value="Artist">Artist</option>
+                                <option value="Admin">Admin</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="col-lg-12">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+@section Scripts
+{
+    <script type="text/javascript">$(document).ready(function () {
+            bsCustomFileInput.init();
+        });</script>
+}
