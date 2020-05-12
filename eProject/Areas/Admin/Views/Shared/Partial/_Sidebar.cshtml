@@ -36,7 +36,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
-                     with font-awesome or any other icon font library -->
+         with font-awesome or any other icon font library -->
                 <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link @Html.IsSelected(actions: "Index", controllers: "Dashboard")">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -102,6 +102,32 @@
                         </li>
                     </ul>
                 </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link @Html.IsSelected(actions: null, controllers: "Products")">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            Products
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="Products" asp-action="Index" class="nav-link @Html.IsSelected(actions: "Index", controllers: "Products")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List All Products</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="Category" asp-action="Create" class="nav-link @Html.IsSelected(actions: "Create", controllers: "Products")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create new Product </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-tree"></i>

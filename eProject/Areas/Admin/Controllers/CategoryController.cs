@@ -35,7 +35,8 @@ namespace eProject.Areas.Admin.Controllers
         [Route("Create")]
         public IActionResult Create()
         {
-            return View();
+            Category category = new Category();
+            return View(category);
         }
 
         [HttpPost]
@@ -45,6 +46,7 @@ namespace eProject.Areas.Admin.Controllers
         {
             if(ModelState.IsValid)
             {
+                cat.Parent = null;
                 _applicationDbContext.Categories.Add(cat);
                 _applicationDbContext.SaveChanges();
 
@@ -109,7 +111,7 @@ namespace eProject.Areas.Admin.Controllers
 
 
         [HttpGet]
-        [Route("AddSubCategory")]
+        [Route("AddSubCategory/{id}")]
         public IActionResult AddSubCategory(int id)
         {
             var subCat = new Category()
@@ -117,24 +119,18 @@ namespace eProject.Areas.Admin.Controllers
                 ParentId = id
             };
             return View(subCat);
-
-
-            //Category cat = _applicationDbContext.Categories.SingleOrDefault(c => c.Id == id);
-            //if (cat == null)
-            //{
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //return View(cat);
         }
 
+
         [HttpPost]
-        [Route("AddSubCategory")]
+        [Route("AddSubCategory/{id}")]
         [ValidateAntiForgeryToken]
         public IActionResult AddSubCategory(Category subCat)
         {
 
             if (ModelState.IsValid)
             {
+               
                 _applicationDbContext.Categories.Add(subCat);
                 _applicationDbContext.SaveChanges();
 
