@@ -67,9 +67,21 @@ namespace eProject.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-               
                 _applicationDbContext.Products.Add(productViewModel.Product);
                 _applicationDbContext.SaveChanges();
+
+
+                //Create default photo for new product
+                //var defaultPhoto = new Photo
+                //{
+                //    Name = "photo1.jpg",
+                //    Status = true,
+                //    ProductId = productViewModel.Product.ProductId,
+                //    Featured = true
+                //};
+
+                //_applicationDbContext.Photos.Add(defaultPhoto);
+                //_applicationDbContext.SaveChanges();
 
                 return RedirectToAction("Index", "Products", new { area = "Admin" });
             }
@@ -78,45 +90,45 @@ namespace eProject.Areas.Admin.Controllers
 
 
         [HttpGet]
-        [Route("Edit")]
-        public IActionResult Edit(int id)
+        [Route("Edit/{id}")]
+        public ActionResult Edit(int id)
         {
-            Product product = _applicationDbContext.Products.SingleOrDefault(p => p.ProductId == id);
-            if (product == null)
+            var productViewModel = new ProductViewModel();
+            productViewModel.Product = _applicationDbContext.Products.Find(id);
+            productViewModel.Categories = new List<SelectListItem>();
+            var categories = _applicationDbContext.Categories.ToList();
+            foreach (var category in categories)
             {
-                return RedirectToAction(nameof(Index));
+                var group = new SelectListGroup { Name = category.Name };
+                if (category.InverseParent != null && category.InverseParent.Count > 0)
+                {
+                    foreach (var subCategory in category.InverseParent)
+                    {
+                        var selectListItem = new SelectListItem
+                        {
+                            Text = subCategory.Name,
+                            Value = subCategory.Id.ToString(),
+                            Group = group
+                        };
+                        productViewModel.Categories.Add(selectListItem);
+                    }
+                }
             }
-            return View(product);
+            return View("Edit", productViewModel);
         }
+
+
+
 
         [HttpPost]
         [Route("Edit")]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Product product)
+        public IActionResult Edit(ProductViewModel productViewModel)
         {
-
-            if (ModelState.IsValid)
-            {
-                Product currentProduct = _applicationDbContext.Products.SingleOrDefault(p => p.ProductId == id);
-
-                if (currentProduct == null)
-                {
-                    return View(product);
-                }
-
-                currentProduct.Name = product.Name;
-                currentProduct.Price = product.Price;
-                currentProduct.SalePrice = product.SalePrice;
-                currentProduct.Description = product.Description;
-                currentProduct.Status = product.Status;
-                
-
-                _applicationDbContext.SaveChanges();
-
-                return RedirectToAction("Index", "Products", new { area = "Admin" });
-            }
-            return View(product);
+            _applicationDbContext.Entry(productViewModel.Product).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _applicationDbContext.SaveChanges();
+            return RedirectToAction("Index", "Products", new { area = "admin" });
         }
+
 
         [HttpGet]
         [Route("Delete")]
@@ -133,6 +145,8 @@ namespace eProject.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+      
 
     }
 }

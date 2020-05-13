@@ -41,18 +41,23 @@
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="Product.Photos"></label>
-                        <input type="file" name="photo" accept="image/*">
+                        <label for="exampleInputFile">Photo</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="exampleInputFile" name="photo" accept="image/*">
+                                <label class="custom-file-label" for="exampleInputFile">Photo</label>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label asp-for="Product.Price"></label>
-                        <input class="form-control" asp-for="Product.Price" required="required" type="number" min="0" >
+                        <input class="form-control" asp-for="Product.Price" required="required" type="number" min="0">
                     </div>
 
                     <div class="form-group">
                         <label asp-for="Product.SalePrice"></label>
-                        <input class="form-control" asp-for="Product.SalePrice" required="required" type="number" min="0" >
+                        <input class="form-control" asp-for="Product.SalePrice" required="required" type="number" min="0">
                     </div>
 
                     <div class="form-group">
@@ -60,10 +65,10 @@
                         <select asp-for="Product.UserId" asp-items="@Model.Users" class="form-control">
                         </select>
                     </div>
+
                     <div class="form-group">
                         <label>Category</label>
                         <select asp-for="Product.CategoryId" asp-items="@Model.Categories" class="form-control">
-
                         </select>
 
                     </div>
@@ -73,9 +78,10 @@
                         <textarea class="form-control" rows="3" asp-for="Product.Description"></textarea>
                     </div>
 
-                    <div class="checkbox">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" asp-for="Product.Status">
                         <label asp-for="Product.Status"></label>
-                        <input class="form-control" asp-for="Product.Status">
+
                     </div>
                 </div>
                 <!-- /.card-body -->
