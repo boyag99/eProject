@@ -45,15 +45,15 @@ namespace eProject.Areas.Admin.Controllers
             var categories = _applicationDbContext.Categories.ToList();
             foreach (var category in categories)
             {
-                var group = new SelectListGroup { Name = category.Name };
+                var group = new SelectListGroup { Name = category.CategoryName };
                 if (category.InverseParents != null && category.InverseParents.Count > 0)
                 {
                     foreach (var subCategory in category.InverseParents)
                     {
                         var selectListItem = new SelectListItem
                         {
-                            Text = subCategory.Name,
-                            Value = subCategory.Id.ToString(),
+                            Text = subCategory.CategoryName,
+                            Value = subCategory.CategoryId.ToString(),
                             Group = group
                         };
                         productViewModel.Categories.Add(selectListItem);
@@ -99,15 +99,15 @@ namespace eProject.Areas.Admin.Controllers
             var categories = _applicationDbContext.Categories.ToList();
             foreach (var category in categories)
             {
-                var group = new SelectListGroup { Name = category.Name };
+                var group = new SelectListGroup { Name = category.CategoryName };
                 if (category.InverseParents != null && category.InverseParents.Count > 0)
                 {
                     foreach (var subCategory in category.InverseParents)
                     {
                         var selectListItem = new SelectListItem
                         {
-                            Text = subCategory.Name,
-                            Value = subCategory.Id.ToString(),
+                            Text = subCategory.CategoryName,
+                            Value = subCategory.CategoryId.ToString(),
                             Group = group
                         };
                         productViewModel.Categories.Add(selectListItem);
