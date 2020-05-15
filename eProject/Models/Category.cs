@@ -12,25 +12,22 @@ namespace eProject.Models
     {
         public Category()
         {
-            InverseParent = new HashSet<Category>();
+            InverseParents = new HashSet<Category>();
             Products = new HashSet<Product>();
         }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int CategoryId { get; set; }
 
-
-        public string Name { get; set; }
+        [StringLength(255)]
+        public string CategoryName { get; set; }
 
         public bool Status { get; set; }
 
         public int? ParentId { get; set; }
 
         public virtual Category Parent { get; set; }
-
-        public virtual ICollection<Category> InverseParent { get; set; }
-
+        public virtual ICollection<Category> InverseParents { get; set; }
         public virtual ICollection<Product> Products { get; set; }
     }
 }

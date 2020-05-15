@@ -31,7 +31,7 @@ namespace eProject.Areas.Admin.Controllers
         {
             List<Product> data = _applicationDbContext.Products.ToList();
             return View(data);
-            
+
         }
 
 
@@ -67,6 +67,7 @@ namespace eProject.Areas.Admin.Controllers
         [HttpPost]
         [Route("Create")]
         [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> Create(ProductViewModel productViewModel)
         {
             User user = await _userManager.GetUserAsync(User);
@@ -132,7 +133,7 @@ namespace eProject.Areas.Admin.Controllers
         public IActionResult Delete(int id)
         {
             Product product = _applicationDbContext.Products.SingleOrDefault(p => p.ProductId == id);
-            if ( product!= null)
+            if (product != null)
             {
                 _applicationDbContext.Products.Remove(product);
                 _applicationDbContext.SaveChanges();

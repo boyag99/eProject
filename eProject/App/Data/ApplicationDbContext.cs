@@ -13,7 +13,6 @@ namespace eProject.Data
         {
         }
 
-        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Product> Products { get; set; }
@@ -34,10 +33,8 @@ namespace eProject.Data
             modelBuilder.Entity<IdentityRoleClaim<string>>(entity => { entity.ToTable("RoleClaims"); });
             modelBuilder.Entity<Category>(entity => {
                 entity.HasOne(d => d.Parent)
-                       .WithMany(p => p.InverseParent)
-                       .HasForeignKey(d => d.ParentId);
-                entity.ToTable(name: "Categories");
-
+                    .WithMany(p => p.InverseParents)
+                    .HasForeignKey(d => d.ParentId);
             });
 
             modelBuilder.Entity<Product>(entity =>
