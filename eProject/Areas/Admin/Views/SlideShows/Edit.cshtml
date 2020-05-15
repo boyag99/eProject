@@ -1,0 +1,78 @@
+﻿@model eProject.Models.SlideShow
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_BackendLayout.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Edit Slide</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Edit Slide</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- general form elements -->
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Edit Slide</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form asp-area="Admin" asp-controller="SlideShows" asp-action="Edit" enctype="multipart/form-data">
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="card-body">
+                    <div class="form-group">
+                        @Html.HiddenFor(model=>model.Id)
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputFile">Photo</label>
+                        <input type="file" name="photo" accept="image/*">
+                        <br />
+                        <img src="~/slideshows/@Model.Name" width="120" />
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="Title"></label>
+                        <input class="form-control" asp-for="Title" required="required" type="text">
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <textarea class="form-control" rows="3" asp-for="Description"></textarea>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" asp-for="Status">
+                        <label asp-for="Status"></label>
+
+                    </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="col-lg-12">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->

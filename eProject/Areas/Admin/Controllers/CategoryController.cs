@@ -30,7 +30,7 @@ namespace eProject.Areas.Admin.Controllers
             return View(data);
         }
 
-
+         
         [HttpGet]
         [Route("Create")]
         public IActionResult Create()

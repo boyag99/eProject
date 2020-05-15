@@ -41,7 +41,7 @@
                                 <th>Photo</th>
                                 <th>Price</th>
                                 <th>Sale Price</th>
-                                <th>UserId</th>
+                                @*<th>UserId</th>*@
                                 <th>Category</th>
                                 <th>Description</th>
                                 <th>Status</th>
@@ -58,12 +58,11 @@
                                     @item.Name
                                 </td>
                                 <td>
-                                    @*<img src="~/products/@item.Photos"/>*@
+                                    <img src="~/products/@item.Photos"/>
                                 </td>
                                 <td>@item.Price</td>
                                 <td>@item.SalePrice</td>
-                                <td>@item.UserId</td>
-                                @*<td>@item.Category.Name</td>*@
+                                @*<td>@item.UserId</td>*@
                                 <td>@item.CategoryId</td>
                                 <td>@item.Description</td>
 
