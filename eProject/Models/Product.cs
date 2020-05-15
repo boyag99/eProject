@@ -22,6 +22,7 @@ namespace eProject.Models
 
         public double SalePrice { get; set; }
 
+        [ForeignKey(nameof(User))]
         public string UserId { get; set; }
 
         public int CategoryId { get; set; }

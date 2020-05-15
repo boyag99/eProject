@@ -1,13 +1,10 @@
-﻿
+﻿@model eProject.Areas.Admin.Models.ViewModels.ProductViewModel
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_BackendLayout.cshtml";
 }
 
-
-@model eProject.Areas.Admin.Models.ViewModels.ProductViewModel
-
-<h1>Add new Product</h1>
+<h1>Edit new Product</h1>
 
 <!-- Main content -->
 <section class="content">
@@ -19,7 +16,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form method="post" asp-area="admin" asp-controller="Products" asp-action="create">
+            <form method="post" asp-area="Admin" asp-controller="Products" asp-action="edit">
                 <div class="card-body">
 
                     <div class="form-group">
@@ -51,7 +48,6 @@
                         <input type="checkbox" class="form-check-input" id="checkbox" asp-for="Product.Status">
                         <label class="form-check-label" for="checkbox">Status</label>
                     </div>
-
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="checkbox1" asp-for="Product.Featured">
                         <label class="form-check-label" for="checkbox1">Featured</label>
@@ -61,6 +57,7 @@
 
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Save</button>
+                    <input type="hidden" asp-for="Product.ProductId" />
                 </div>
             </form>
         </div>
