@@ -20,11 +20,11 @@ namespace eProject.Areas.Admin.Controllers
     public class AboutController : Controller
     {
         private readonly ApplicationDbContext _applicationDbContext;
-        private readonly IHostEnvironment Environment;
-        public AboutController(ApplicationDbContext applicationDbContext, IHostEnvironment _Environment)
+        //private readonly IHostEnvironment Environment;
+        public AboutController(ApplicationDbContext applicationDbContext)
         {
             _applicationDbContext = applicationDbContext;
-            Environment = _Environment;
+            
 
         }
 
@@ -53,10 +53,11 @@ namespace eProject.Areas.Admin.Controllers
             {
                 if (photo.Length > 0)
                 {
-                    var path = Path.Combine(this.Environment.ContentRootPath, "wwwroot/about", photo.FileName);
+                    var path = Path.Combine("wwwroot/about", photo.FileName);
                     var stream = new FileStream(path, FileMode.Create);
                     photo.CopyToAsync(stream);
-                    //about.Name = photo.FileName;
+
+                    about.Image = "about/"+photo.FileName;
 
                     _applicationDbContext.About.Add(about);
                     _applicationDbContext.SaveChanges();
@@ -67,6 +68,9 @@ namespace eProject.Areas.Admin.Controllers
 
             return View();
         }
+
+
+        
 
       
 
@@ -99,11 +103,13 @@ namespace eProject.Areas.Admin.Controllers
             var currentAboutContent = _applicationDbContext.About.Find(id);
             if (photo != null && !string.IsNullOrEmpty(photo.FileName))
             {
-                var path = Path.Combine(this.Environment.ContentRootPath, "wwwroot/about", photo.FileName);
+                var path = Path.Combine( "wwwroot/about", photo.FileName);
                 var stream = new FileStream(path, FileMode.Create);
                 photo.CopyToAsync(stream);
-                
+
+                about.Image = "about/" + photo.FileName;
             }
+            currentAboutContent.Image = about.Image;
             currentAboutContent.Name = about.Name;
             currentAboutContent.Description = about.Description;
             currentAboutContent.Slogan = about.Slogan;
