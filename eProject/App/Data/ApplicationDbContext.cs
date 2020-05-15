@@ -17,6 +17,7 @@ namespace eProject.Data
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Photo> Photos { get; set; }
+        public virtual DbSet<About> About { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
