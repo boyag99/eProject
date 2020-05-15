@@ -46,9 +46,9 @@ namespace eProject.Areas.Admin.Controllers
             foreach (var category in categories)
             {
                 var group = new SelectListGroup { Name = category.Name };
-                if (category.InverseParent != null && category.InverseParent.Count > 0)
+                if (category.InverseParents != null && category.InverseParents.Count > 0)
                 {
-                    foreach (var subCategory in category.InverseParent)
+                    foreach (var subCategory in category.InverseParents)
                     {
                         var selectListItem = new SelectListItem
                         {
@@ -100,9 +100,9 @@ namespace eProject.Areas.Admin.Controllers
             foreach (var category in categories)
             {
                 var group = new SelectListGroup { Name = category.Name };
-                if (category.InverseParent != null && category.InverseParent.Count > 0)
+                if (category.InverseParents != null && category.InverseParents.Count > 0)
                 {
-                    foreach (var subCategory in category.InverseParent)
+                    foreach (var subCategory in category.InverseParents)
                     {
                         var selectListItem = new SelectListItem
                         {
