@@ -32,7 +32,6 @@
     <Folder Include="Areas\Admin\Views\User\" />
     <Folder Include="App\Validations\" />
     <Folder Include="wwwroot\backend\images\users\" />
-    <Folder Include="wwwroot\products\" />
     <Folder Include="wwwroot\frontend\" />
     <Folder Include="Views\Shared\Partial\" />
     <Folder Include="Views\Home\" />

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using eProject.Data;
 using eProject.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace eProject.ViewComponents
 {
@@ -19,8 +20,8 @@ namespace eProject.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            List<Category> data = _applicationDbContext.Categories.Where(c=>c.Status).ToList();
-            return View(data);
+            return View(await _applicationDbContext.Categories.Where(o => o.Status).ToListAsync());
+            //return View(await _applicationDbContext.Categories.Where(c => c.Parent == null).Where(o => o.Status).ToListAsync());
         }
 
 
