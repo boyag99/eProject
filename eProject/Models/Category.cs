@@ -8,11 +8,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace eProject.Models
 {
     [Table("Categories")]
-    public class Category
+    public partial class Category
     {
         public Category()
         {
-            InverseParent = new HashSet<Category>();
+            InverseParents = new HashSet<Category>();
             Products = new HashSet<Product>();
         }
 
@@ -29,7 +29,7 @@ namespace eProject.Models
 
         public virtual Category Parent { get; set; }
 
-        public virtual ICollection<Category> InverseParent { get; set; }
+        public virtual ICollection<Category> InverseParents { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }
     }

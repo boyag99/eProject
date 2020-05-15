@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using eProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using eProject.Data;
-using eProject.Areas.Admin.Models.ViewModels;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Identity;
 
 namespace eProject.Areas.Admin.Controllers
 {
@@ -17,9 +16,11 @@ namespace eProject.Areas.Admin.Controllers
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _applicationDbContext;
-        public ProductsController(ApplicationDbContext applicationDbContext)
+        private readonly UserManager<User> _userManager;
+        public ProductsController(ApplicationDbContext applicationDbContext, UserManager<User> userManager)
         {
             _applicationDbContext = applicationDbContext;
+            _userManager = userManager;
         }
 
         [Route("")]
@@ -63,31 +64,19 @@ namespace eProject.Areas.Admin.Controllers
         [HttpPost]
         [Route("Create")]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ProductViewModel productViewModel)
+        public async Task<IActionResult> Create(Product product)
         {
             if (ModelState.IsValid)
             {
-                _applicationDbContext.Products.Add(productViewModel.Product);
+                var user = await _userManager.GetUserAsync(User);
+                product.UserId = user.Id;
+                _applicationDbContext.Products.Add(product);
                 _applicationDbContext.SaveChanges();
-
-
-                //Create default photo for new product
-                //var defaultPhoto = new Photo
-                //{
-                //    Name = "photo1.jpg",
-                //    Status = true,
-                //    ProductId = productViewModel.Product.ProductId,
-                //    Featured = true
-                //};
-
-                //_applicationDbContext.Photos.Add(defaultPhoto);
-                //_applicationDbContext.SaveChanges();
 
                 return RedirectToAction("Index", "Products", new { area = "Admin" });
             }
-            return View(productViewModel);
+            return View(product);
         }
-
 
         [HttpGet]
         [Route("Edit/{id}")]

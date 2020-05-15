@@ -17,23 +17,4 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="App\" />
-    <Folder Include="App\Extensions\" />
-    <Folder Include="App\Helpers\" />
-    <Folder Include="App\Data\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Areas\Admin\Views\Shared\Partial\" />
-    <Folder Include="Areas\Admin\Views\Dashboard\" />
-    <Folder Include="Views\Shared\Components\Category\" />
-    <Folder Include="wwwroot\backend\" />
-    <Folder Include="Views\Shared\Partial\" />
-    <Folder Include="App\Data\SeedData\" />
-    <Folder Include="Areas\Admin\Views\Account\" />
-    <Folder Include="Areas\Admin\Views\User\" />
-    <Folder Include="App\Validations\" />
-    <Folder Include="wwwroot\backend\images\users\" />
-    <Folder Include="wwwroot\slideshows\" />
-  </ItemGroup>
 </Project>
