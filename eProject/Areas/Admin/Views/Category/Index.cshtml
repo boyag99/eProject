@@ -64,9 +64,9 @@
                                 </td>
                             </tr>
 
-                                if(category.InverseParent !=null && category.InverseParent.Count !=0)
+                                if(category.InverseParents !=null && category.InverseParents.Count !=0)
                                 {
-                                    foreach(var subCategory in category.InverseParent)
+                                    foreach(var subCategory in category.InverseParents)
                                     {
                                                 <tr>
                                                     <td>@subCategory.Id</td>
