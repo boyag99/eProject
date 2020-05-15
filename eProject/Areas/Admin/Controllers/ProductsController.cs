@@ -29,7 +29,7 @@ namespace eProject.Areas.Admin.Controllers
         {
             List<Product> data = _applicationDbContext.Products.ToList();
             return View(data);
-            
+
         }
 
 
@@ -91,7 +91,7 @@ namespace eProject.Areas.Admin.Controllers
                 currentProduct.SalePrice = product.SalePrice;
                 currentProduct.Description = product.Description;
                 currentProduct.Status = product.Status;
-                
+
 
                 _applicationDbContext.SaveChanges();
 
@@ -105,7 +105,7 @@ namespace eProject.Areas.Admin.Controllers
         public IActionResult Delete(int id)
         {
             Product product = _applicationDbContext.Products.SingleOrDefault(p => p.ProductId == id);
-            if ( product!= null)
+            if (product != null)
             {
                 _applicationDbContext.Products.Remove(product);
                 _applicationDbContext.SaveChanges();
@@ -114,8 +114,6 @@ namespace eProject.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-        sdfds
-
 
     }
 }

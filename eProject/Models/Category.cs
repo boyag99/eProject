@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace eProject.Models
 {
     [Table("Categories")]
-    public partial class Category
+    public class Category
     {
         public Category()
         {
@@ -17,20 +17,17 @@ namespace eProject.Models
         }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int CategoryId { get; set; }
 
-
-        public string Name { get; set; }
+        [StringLength(255)]
+        public string CategoryName { get; set; }
 
         public bool Status { get; set; }
 
         public int? ParentId { get; set; }
 
         public virtual Category Parent { get; set; }
-
         public virtual ICollection<Category> InverseParents { get; set; }
-
         public virtual ICollection<Product> Products { get; set; }
     }
 }
