@@ -29,9 +29,8 @@ namespace eProject.Areas.Admin.Controllers
         [Route("Index")]
         public IActionResult Index()
         {
-            List<Product> data = _applicationDbContext.Products.ToList();
-            return View(data);
-
+            ViewBag.Products = _applicationDbContext.Products.ToList();
+            return View();
         }
 
 

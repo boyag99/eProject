@@ -8,23 +8,32 @@ using Microsoft.Extensions.Logging;
 using eProject.Models;
 using eProject.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using eProject.Data;
 
 namespace eProject.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ApplicationDbContext _applicationDbContext;
         private readonly ILogger<HomeController> _logger;
         private readonly SignInManager<User> _signInManager;
 
-        public HomeController(ILogger<HomeController> logger, SignInManager<User> signInManager)
+        public HomeController(ILogger<HomeController> logger, SignInManager<User> signInManager, ApplicationDbContext applicationDbContext)
         {
             _logger = logger;
             _signInManager = signInManager;
+            _applicationDbContext = applicationDbContext;
         }
 
 
+        [Route("")]
+        [Route("index")]
         public IActionResult Index()
         {
+            ViewBag.isHome = true;
+            var featuredProducts = _applicationDbContext.Products.OrderByDescending(p => p.ProductId).Where(p => p.Status && p.Featured).ToList();
+            ViewBag.FeaturedProducts = featuredProducts;
+            ViewBag.CountFeaturedProducts = featuredProducts.Count();
             return View();
         }
 

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<eProject.Models.Product>
+﻿
+@using eProject.Models;
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_BackendLayout.cshtml";
@@ -35,8 +36,6 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-
-                                <th>Id</th>
                                 <th>Name</th>
                                 <th>Photo</th>
                                 <th>Price</th>
@@ -45,36 +44,62 @@
                                 <th>Category</th>
                                 <th>Description</th>
                                 <th>Status</th>
+                                <th>Featured</th>
                                 <th>Action</th>
 
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
+                            @foreach (var item in ViewBag.Products)
                             {
+                                Product pr = (Product)item;
+                                Photo mainPhoto = pr.Photos.SingleOrDefault(p => p.Featured == true);
                             <tr>
-                                <td>@item.ProductId</td>
-                                <td>
-                                    @item.Name
-                                </td>
-                                <td>
-                                    @*<img src="~/products/@item.Photos"/>*@
-                                </td>
+                                <td>=@item.Name</td>
+                                <td><img src="~/products/@(mainPhoto != null ? mainPhoto.Name :"")" width="120" /></td>
                                 <td>@item.Price</td>
                                 <td>@item.SalePrice</td>
                                 <td>@item.UserId</td>
-                                @*<td>@item.Category.Name</td>*@
                                 <td>@item.CategoryId</td>
+                               
                                 <td>@item.Description</td>
 
-                                <td>@(item.Status ? "Show" : "Hide")</td>
-
-
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.ProductId }, new { onclick = "return confirm('Are you sure?')" }) |
+                                    @if (item.Status == true)
+                                    {
+                                        <span style="color:green;font-weight:bold;">Show</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color:red;">Hide</span>
+                                    }
+                                </td>
+                                <td>@(item.Featured ? "Featured" : "")</td>
+                                <td>
+                                    <a asp-area="admin" asp-controller="Products"
+                                       asp-action="edit" asp-route-id="@item.ProductId" class="btn btn-primary">
+                                        <i class="fa fa-wrench" aria-hidden="true"></i>
+                                        Edit
+                                    </a>
 
+                                    <a asp-area="admin" asp-controller="Products"
+                                       asp-action="delete" asp-route-id="@item.ProductId"
+                                       onclick="return confirm('Are you sure?')" class="btn btn-danger">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                        Delete
+                                    </a>
 
+                                    <a asp-area="admin" asp-controller="Photo"
+                                       asp-action="index" asp-route-id="@item.ProductId" class="btn btn-info">
+                                        <i class="fa fa-list-alt" aria-hidden="true"></i>
+                                        Photo List
+                                    </a>
+
+                                    <a asp-area="admin" asp-controller="Photo"
+                                       asp-action="add" asp-route-id="@item.ProductId" class="btn btn-warning">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                        Add Photo
+                                    </a>
                                 </td>
                             </tr>
 
@@ -82,14 +107,15 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Id</th>
                                 <th>Name</th>
+                                <th>Photo</th>
                                 <th>Price</th>
                                 <th>Sale Price</th>
                                 <th>UserId</th>
                                 <th>Category</th>
                                 <th>Description</th>
                                 <th>Status</th>
+                                <th>Featured</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>

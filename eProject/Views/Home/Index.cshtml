@@ -1,129 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Home";
 }
+@using eProject.Models
 
-            <!-- PAGE -->
-<section class="page-section no-padding slider">
-    <div class="container full-width">
-
-        <div class="main-slider">
-            <div class="owl-carousel" id="main-slider">
-
-                <!-- Slide 1 -->
-                <div class="item slide1">
-                    <img class="slide-img" src="~/frontend/assets/img/preview/slider/slide-1.jpg" alt="" />
-                    <div class="caption">
-                        <div class="container">
-                            <div class="div-table">
-                                <div class="div-cell">
-                                    <div class="caption-content">
-                                        <h2 class="caption-title">The Biggest</h2>
-                                        <h3 class="caption-subtitle">Sale</h3>
-                                        <p class="caption-text">
-                                            <a class="btn btn-theme" href="#">Shop Now</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /Slide 1 -->
-                <!-- Slide 2 -->
-                <div class="item slide2 alt">
-                    <img class="slide-img" src="~/frontend/assets/img/preview/slider/slide-2.jpg" alt="" />
-                    <div class="caption">
-                        <div class="container">
-                            <div class="div-table">
-                                <div class="div-cell">
-                                    <div class="caption-content">
-                                        <h2 class="caption-title">New Arrivals On Sale</h2>
-                                        <h3 class="caption-subtitle"><span>Summer Collection</span></h3>
-                                        <div class="price">
-                                            <span>$</span><ins>49</ins>
-                                            <span>$</span><del>86</del>
-                                        </div>
-                                        <p class="caption-text">
-                                            <a class="btn btn-theme" href="#">Shop this item Now</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /Slide 2 -->
-                <!-- Slide 3 -->
-                <div class="item slide3 dark">
-                    <img class="slide-img" src="~/frontend/assets/img/preview/slider/slide-3.jpg" alt="" />
-                    <div class="caption">
-                        <div class="container">
-                            <div class="div-table">
-                                <div class="div-cell">
-                                    <div class="caption-content">
-                                        <h2 class="caption-title">New Arrivals On Sale</h2>
-                                        <h3 class="caption-subtitle"><span>Summer Collection</span></h3>
-                                        <p class="caption-text">
-                                            <a class="btn btn-theme" href="#">Shop this item Now</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /Slide 3 -->
-
-            </div>
-        </div>
-
-    </div>
-</section>
-<!-- /PAGE -->
-<!-- PAGE -->
-<section class="page-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="thumbnail no-border no-padding thumbnail-banner size-1x3">
-                    <div class="media">
-                        <a class="media-link" href="#">
-                            <div class="img-bg" style="background-image: url('frontend/assets/img/preview/shop/banner-1.jpg')"></div>
-                            <div class="caption">
-                                <div class="caption-wrapper div-table">
-                                    <div class="caption-inner div-cell">
-                                        <h2 class="caption-title"><span>Lorem Ipsum</span></h2>
-                                        <h3 class="caption-sub-title"><span>Dolor Sir Amet Percpectum</span></h3>
-                                        <span class="btn btn-theme btn-theme-sm">Shop Now</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="thumbnail no-border no-padding thumbnail-banner size-1x3">
-                    <div class="media">
-                        <a class="media-link" href="#">
-                            <div class="img-bg" style="background-image: url('frontend/assets/img/preview/shop/banner-2.jpg')"></div>
-                            <div class="caption text-right">
-                                <div class="caption-wrapper div-table">
-                                    <div class="caption-inner div-cell">
-                                        <h2 class="caption-title"><span>Lorem Ipsum</span></h2>
-                                        <h3 class="caption-sub-title"><span>Dolor Sir Amet Percpectum</span></h3>
-                                        <span class="btn btn-theme btn-theme-sm">Shop Now</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- /PAGE -->
 <!-- PAGE -->
 <section class="page-section">
     <div class="container">
@@ -132,7 +11,7 @@
             <ul id="tabs" class="nav nav-justified-off">
                 <!--
                 -->
-                <li class=""><a href="#tab-1" data-toggle="tab">Featured</a></li>
+                <li class=""><a href="#tab-1" data-toggle="tab">Featured<small>(@(ViewBag.CountFeaturedProducts))</small></a></li>
                 <!--
                 -->
                 <li class="active"><a href="#tab-2" data-toggle="tab">Newest</a></li>
@@ -147,158 +26,50 @@
             <!-- tab 1 -->
             <div class="tab-pane fade" id="tab-1">
                 <div class="row">
-                    <div class="col-md-3 col-sm-6">
-                        <div class="thumbnail no-border no-padding">
-                            <div class="media">
-                                <a class="media-link" data-gal="prettyPhoto" href="~/frontend/assets/img/preview/shop/product-1-big.jpg">
-                                    <img src="~/frontend/assets/img/preview/shop/product-3.jpg" alt="" />
-                                    <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
-                                </a>
-                            </div>
-                            <div class="caption text-center">
-                                <h4 class="caption-title"><a href="product-details.html">Standard Product Header</a></h4>
-                                <div class="rating">
-                                    <span class="star"></span>
-                                    <!--
-                                    -->
-                                    <span class="star active"></span>
-                                    <!--
-                                    -->
-                                    <span class="star active"></span>
-                                    <!--
-                                    -->
-                                    <span class="star active"></span>
-                                    <!--
-                                    -->
-                                    <span class="star active"></span>
+                    @foreach (var featuredProduct in ViewBag.FeaturedProducts)
+                    {
+                        Product product = (Product)featuredProduct;
+                        Photo photo = product.Photos.SingleOrDefault(ph => ph.Status && ph.Featured);
+                        var photoName = photo == null ? "no-image.jpg" : photo.Name;
+                        <div class="col-md-3 col-sm-6">
+                            <div class="thumbnail no-border no-padding">
+                                <div class="media">
+                                    <a class="media-link" data-gal="prettyPhoto" href="~/products/@photoName">
+                                        <img src="~/products/@photoName" alt="" />
+                                        <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
+                                    </a>
                                 </div>
-                                <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
-                                <div class="buttons">
-                                    <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>
-                                    <!--
-                                    -->
-                                    <a class="btn btn-theme btn-theme-transparent btn-icon-left" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                    <!--
-                                    -->
-                                    <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="thumbnail no-border no-padding">
-                            <div class="media">
-                                <a class="media-link" data-gal="prettyPhoto" href="~/frontend/assets/img/preview/shop/product-1-big.jpg">
-                                    <img src="~/frontend/assets/img/preview/shop/product-4.jpg" alt="" />
-                                    <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
-                                </a>
-                            </div>
-                            <div class="caption text-center">
-                                <h4 class="caption-title"><a href="product-details.html">Standard Product Header</a></h4>
-                                <div class="rating">
-                                    <span class="star"></span>
-                                    <!--
-                                    -->
-                                    <span class="star active"></span>
-                                    <!--
-                                    -->
-                                    <span class="star active"></span>
-                                    <!--
-                                    -->
-                                    <span class="star active"></span>
-                                    <!--
-                                    -->
-                                    <span class="star active"></span>
-                                </div>
-                                <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
-                                <div class="buttons">
-                                    <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>
-                                    <!--
-                                    -->
-                                    <a class="btn btn-theme btn-theme-transparent btn-icon-left" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                    <!--
-                                    -->
-                                    <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
+                                <div class="caption text-center">
+                                    <h4 class="caption-title"><a asp-controller="Product" asp-action="details" asp-route-id="@featuredProduct.ProductId">@featuredProduct.Name</a></h4>
+                                    <div class="rating">
+                                        <span class="star"></span>
+                                        <!--
+                                        -->
+                                        <span class="star active"></span>
+                                        <!--
+                                        -->
+                                        <span class="star active"></span>
+                                        <!--
+                                        -->
+                                        <span class="star active"></span>
+                                        <!--
+                                        -->
+                                        <span class="star active"></span>
+                                    </div>
+                                    <div class="price"><ins>@featuredProduct.Price</ins> <del>$425.00</del></div>
+                                    <div class="buttons">
+                                        <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>
+                                        <!--
+                                        -->
+                                        <a class="btn btn-theme btn-theme-transparent btn-icon-left" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                                        <!--
+                                        -->
+                                        <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="thumbnail no-border no-padding">
-                            <div class="media">
-                                <a class="media-link" data-gal="prettyPhoto" href="~/frontend/assets/img/preview/shop/product-1-big.jpg">
-                                    <img src="~/frontend/assets/img/preview/shop/product-1.jpg" alt="" />
-                                    <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
-                                </a>
-                            </div>
-                            <div class="caption text-center">
-                                <h4 class="caption-title"><a href="product-details.html">Standard Product Header</a></h4>
-                                <div class="rating">
-                                    <span class="star"></span>
-                                    <!--
-                                    -->
-                                    <span class="star active"></span>
-                                    <!--
-                                    -->
-                                    <span class="star active"></span>
-                                    <!--
-                                    -->
-                                    <span class="star active"></span>
-                                    <!--
-                                    -->
-                                    <span class="star active"></span>
-                                </div>
-                                <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
-                                <div class="buttons">
-                                    <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>
-                                    <!--
-                                    -->
-                                    <a class="btn btn-theme btn-theme-transparent btn-icon-left" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                    <!--
-                                    -->
-                                    <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="thumbnail no-border no-padding">
-                            <div class="media">
-                                <a class="media-link" data-gal="prettyPhoto" href="~/frontend/assets/img/preview/shop/product-1-big.jpg">
-                                    <img src="~/frontend/assets/img/preview/shop/product-2.jpg" alt="" />
-                                    <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
-                                </a>
-                            </div>
-                            <div class="caption text-center">
-                                <h4 class="caption-title"><a href="product-details.html">Standard Product Header</a></h4>
-                                <div class="rating">
-                                    <span class="star"></span>
-                                    <!--
-                                    -->
-                                    <span class="star active"></span>
-                                    <!--
-                                    -->
-                                    <span class="star active"></span>
-                                    <!--
-                                    -->
-                                    <span class="star active"></span>
-                                    <!--
-                                    -->
-                                    <span class="star active"></span>
-                                </div>
-                                <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
-                                <div class="buttons">
-                                    <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>
-                                    <!--
-                                    -->
-                                    <a class="btn btn-theme btn-theme-transparent btn-icon-left" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                    <!--
-                                    -->
-                                    <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
 
@@ -308,8 +79,8 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="thumbnail no-border no-padding">
                             <div class="media">
-                                <a class="media-link" data-gal="prettyPhoto" href="~/frontend/assets/img/preview/shop/product-1-big.jpg">
-                                    <img src="~/frontend/assets/img/preview/shop/product-1.jpg" alt="" />
+                                <a class="media-link" data-gal="prettyPhoto" href="user/img/preview/shop/product-1-big.jpg">
+                                    <img src="~/user/img/preview/shop/product-1.jpg" alt="" />
                                     <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
                                 </a>
                             </div>
@@ -346,8 +117,8 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="thumbnail no-border no-padding">
                             <div class="media">
-                                <a class="media-link" data-gal="prettyPhoto" href="~/frontend/assets/img/preview/shop/product-1-big.jpg">
-                                    <img src="~/frontend/assets/img/preview/shop/product-2.jpg" alt="" />
+                                <a class="media-link" data-gal="prettyPhoto" href="~user/img/preview/shop/product-1-big.jpg">
+                                    <img src="~/user/img/preview/shop/product-2.jpg" alt="" />
                                     <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
                                 </a>
                             </div>
@@ -384,8 +155,8 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="thumbnail no-border no-padding">
                             <div class="media">
-                                <a class="media-link" data-gal="prettyPhoto" href="~/frontend/assets/img/preview/shop/product-1-big.jpg">
-                                    <img src="~/frontend/assets/img/preview/shop/product-3.jpg" alt="" />
+                                <a class="media-link" data-gal="prettyPhoto" href="~/user/img/preview/shop/product-1-big.jpg">
+                                    <img src="~/user/img/preview/shop/product-3.jpg" alt="" />
                                     <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
                                 </a>
                             </div>
@@ -422,8 +193,8 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="thumbnail no-border no-padding">
                             <div class="media">
-                                <a class="media-link" data-gal="prettyPhoto" href="~/frontend/assets/img/preview/shop/product-1-big.jpg">
-                                    <img src="~/frontend/assets/img/preview/shop/product-4.jpg" alt="" />
+                                <a class="media-link" data-gal="prettyPhoto" href="~/user/img/preview/shop/product-1-big.jpg">
+                                    <img src="~/user/img/preview/shop/product-4.jpg" alt="" />
                                     <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
                                 </a>
                             </div>
@@ -466,8 +237,8 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="thumbnail no-border no-padding">
                             <div class="media">
-                                <a class="media-link" data-gal="prettyPhoto" href="~/frontend/assets/img/preview/shop/product-1-big.jpg">
-                                    <img src="~/frontend/assets/img/preview/shop/product-2.jpg" alt="" />
+                                <a class="media-link" data-gal="prettyPhoto" href="~/user/img/preview/shop/product-1-big.jpg">
+                                    <img src="~/user/img/preview/shop/product-2.jpg" alt="" />
                                     <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
                                 </a>
                             </div>
@@ -504,8 +275,8 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="thumbnail no-border no-padding">
                             <div class="media">
-                                <a class="media-link" data-gal="prettyPhoto" href="~/frontend/assets/img/preview/shop/product-1-big.jpg">
-                                    <img src="~/frontend/assets/img/preview/shop/product-3.jpg" alt="" />
+                                <a class="media-link" data-gal="prettyPhoto" href="~/user/img/preview/shop/product-1-big.jpg">
+                                    <img src="~/user/img/preview/shop/product-3.jpg" alt="" />
                                     <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
                                 </a>
                             </div>
@@ -542,8 +313,8 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="thumbnail no-border no-padding">
                             <div class="media">
-                                <a class="media-link" data-gal="prettyPhoto" href="~/frontend/assets/img/preview/shop/product-1-big.jpg">
-                                    <img src="~/frontend/assets/img/preview/shop/product-4.jpg" alt="" />
+                                <a class="media-link" data-gal="prettyPhoto" href="~/user/img/preview/shop/product-1-big.jpg">
+                                    <img src="~/user/img/preview/shop/product-4.jpg" alt="" />
                                     <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
                                 </a>
                             </div>
@@ -580,8 +351,8 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="thumbnail no-border no-padding">
                             <div class="media">
-                                <a class="media-link" data-gal="prettyPhoto" href="~/frontend/assets/img/preview/shop/product-1-big.jpg">
-                                    <img src="~/frontend/assets/img/preview/shop/product-1.jpg" alt="" />
+                                <a class="media-link" data-gal="prettyPhoto" href="~/user/img/preview/shop/product-1-big.jpg">
+                                    <img src="~/user/img/preview/shop/product-1.jpg" alt="" />
                                     <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
                                 </a>
                             </div>
@@ -641,8 +412,8 @@
             <div class="owl-carousel" id="top-products-carousel">
                 <div class="thumbnail no-border no-padding">
                     <div class="media">
-                        <a class="media-link" data-gal="prettyPhoto" href="~/frontend/assets/img/preview/shop/product-1-big.jpg">
-                            <img src="~/frontend/assets/img/preview/shop/top-rated-1.jpg" alt="" />
+                        <a class="media-link" data-gal="prettyPhoto" href="~/user/img/preview/shop/product-1-big.jpg">
+                            <img src="~/user/img/preview/shop/top-rated-1.jpg" alt="" />
                             <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
                         </a>
                     </div>
@@ -677,8 +448,8 @@
                 </div>
                 <div class="thumbnail no-border no-padding">
                     <div class="media">
-                        <a class="media-link" data-gal="prettyPhoto" href="~/frontend/assets/img/preview/shop/product-1-big.jpg">
-                            <img src="~/frontend/assets/img/preview/shop/top-rated-2.jpg" alt="" />
+                        <a class="media-link" data-gal="prettyPhoto" href="~/user/img/preview/shop/product-1-big.jpg">
+                            <img src="~/user/img/preview/shop/top-rated-2.jpg" alt="" />
                             <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
                         </a>
                     </div>
@@ -713,8 +484,8 @@
                 </div>
                 <div class="thumbnail no-border no-padding">
                     <div class="media">
-                        <a class="media-link" data-gal="prettyPhoto" href="~/frontend/assets/img/preview/shop/product-1-big.jpg">
-                            <img src="~/frontend/assets/img/preview/shop/top-rated-3.jpg" alt="" />
+                        <a class="media-link" data-gal="prettyPhoto" href="~/user/img/preview/shop/product-1-big.jpg">
+                            <img src="~/user/img/preview/shop/top-rated-3.jpg" alt="" />
                             <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
                         </a>
                     </div>
@@ -749,8 +520,8 @@
                 </div>
                 <div class="thumbnail no-border no-padding">
                     <div class="media">
-                        <a class="media-link" data-gal="prettyPhoto" href="~/frontend/assets/img/preview/shop/product-1-big.jpg">
-                            <img src="~/frontend/assets/img/preview/shop/top-rated-4.jpg" alt="" />
+                        <a class="media-link" data-gal="prettyPhoto" href="~/user/img/preview/shop/product-1-big.jpg">
+                            <img src="~/user/img/preview/shop/top-rated-4.jpg" alt="" />
                             <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
                         </a>
                     </div>
@@ -785,8 +556,8 @@
                 </div>
                 <div class="thumbnail no-border no-padding">
                     <div class="media">
-                        <a class="media-link" data-gal="prettyPhoto" href="~/frontend/assets/img/preview/shop/product-1-big.jpg">
-                            <img src="~/frontend/assets/img/preview/shop/top-rated-5.jpg" alt="" />
+                        <a class="media-link" data-gal="prettyPhoto" href="~/user/img/preview/shop/product-1-big.jpg">
+                            <img src="~/user/img/preview/shop/top-rated-5.jpg" alt="" />
                             <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
                         </a>
                     </div>
@@ -821,8 +592,8 @@
                 </div>
                 <div class="thumbnail no-border no-padding">
                     <div class="media">
-                        <a class="media-link" data-gal="prettyPhoto" href="~/frontend/assets/img/preview/shop/product-1-big.jpg">
-                            <img src="~/frontend/assets/img/preview/shop/top-rated-6.jpg" alt="" />
+                        <a class="media-link" data-gal="prettyPhoto" href="~/user/img/preview/shop/product-1-big.jpg">
+                            <img src="~/user/img/preview/shop/top-rated-6.jpg" alt="" />
                             <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
                         </a>
                     </div>
@@ -857,8 +628,8 @@
                 </div>
                 <div class="thumbnail no-border no-padding">
                     <div class="media">
-                        <a class="media-link" data-gal="prettyPhoto" href="~/frontend/assets/img/preview/shop/product-1-big.jpg">
-                            <img src="~/frontend/assets/img/preview/shop/top-rated-1.jpg" alt="" />
+                        <a class="media-link" data-gal="prettyPhoto" href="~/user/img/preview/shop/product-1-big.jpg">
+                            <img src="~/user/img/preview/shop/top-rated-1.jpg" alt="" />
                             <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
                         </a>
                     </div>
@@ -893,8 +664,8 @@
                 </div>
                 <div class="thumbnail no-border no-padding">
                     <div class="media">
-                        <a class="media-link" data-gal="prettyPhoto" href="~/frontend/assets/img/preview/shop/product-1-big.jpg">
-                            <img src="~/frontend/assets/img/preview/shop/top-rated-2.jpg" alt="" />
+                        <a class="media-link" data-gal="prettyPhoto" href="~/user/img/preview/shop/product-1-big.jpg">
+                            <img src="~/user/img/preview/shop/top-rated-2.jpg" alt="" />
                             <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
                         </a>
                     </div>
@@ -942,7 +713,7 @@
                 <div class="recent-post">
                     <div class="media">
                         <a class="pull-left media-link" href="#">
-                            <img class="media-object" src="~/frontend/assets/img/preview/blog/recent-post-1.jpg" alt="">
+                            <img class="media-object" src="~/user/img/preview/blog/recent-post-1.jpg" alt="">
                             <i class="fa fa-plus"></i>
                         </a>
                         <div class="media-body">
@@ -962,7 +733,7 @@
                 <div class="recent-post">
                     <div class="media">
                         <a class="pull-left media-link" href="#">
-                            <img class="media-object" src="~/frontend/assets/img/preview/blog/recent-post-2.jpg" alt="">
+                            <img class="media-object" src="~/user/img/preview/blog/recent-post-2.jpg" alt="">
                             <i class="fa fa-plus"></i>
                         </a>
                         <div class="media-body">
@@ -982,7 +753,7 @@
                 <div class="recent-post">
                     <div class="media">
                         <a class="pull-left media-link" href="#">
-                            <img class="media-object" src="~/frontend/assets/img/preview/blog/recent-post-3.jpg" alt="">
+                            <img class="media-object" src="~/user/img/preview/blog/recent-post-3.jpg" alt="">
                             <i class="fa fa-plus"></i>
                         </a>
                         <div class="media-body">
@@ -1002,7 +773,7 @@
                 <div class="recent-post">
                     <div class="media">
                         <a class="pull-left media-link" href="#">
-                            <img class="media-object" src="~/frontend/assets/img/preview/blog/recent-post-4.jpg" alt="">
+                            <img class="media-object" src="~/user/img/preview/blog/recent-post-4.jpg" alt="">
                             <i class="fa fa-plus"></i>
                         </a>
                         <div class="media-body">
@@ -1028,18 +799,18 @@
         <h2 class="section-title"><span>Brand &amp; Clients</span></h2>
         <div class="partners-carousel">
             <div class="owl-carousel" id="partners">
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
+                <div><a href="#"><img src="~/user/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
+                <div><a href="#"><img src="~/user/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
+                <div><a href="#"><img src="~/user/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
+                <div><a href="#"><img src="~/user/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
+                <div><a href="#"><img src="~/user/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
+                <div><a href="#"><img src="~/user/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
+                <div><a href="#"><img src="~/user/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
+                <div><a href="#"><img src="~/user/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
+                <div><a href="#"><img src="~/user/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
+                <div><a href="#"><img src="~/user/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
+                <div><a href="#"><img src="~/user/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
+                <div><a href="#"><img src="~/user/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
             </div>
         </div>
     </div>
@@ -1055,7 +826,7 @@
                     <h4 class="block-title"><span>Top Sellers</span></h4>
                     <div class="media">
                         <a class="pull-left media-link" href="#">
-                            <img class="media-object" src="~/frontend/assets/img/preview/shop/top-sellers-1.jpg" alt="">
+                            <img class="media-object" src="~/user/img/preview/shop/top-sellers-1.jpg" alt="">
                             <i class="fa fa-plus"></i>
                         </a>
                         <div class="media-body">
@@ -1080,7 +851,7 @@
                     </div>
                     <div class="media">
                         <a class="pull-left media-link" href="#">
-                            <img class="media-object" src="~/frontend/assets/img/preview/shop/top-sellers-2.jpg" alt="">
+                            <img class="media-object" src="~/user/img/preview/shop/top-sellers-2.jpg" alt="">
                             <i class="fa fa-plus"></i>
                         </a>
                         <div class="media-body">
@@ -1105,7 +876,7 @@
                     </div>
                     <div class="media">
                         <a class="pull-left media-link" href="#">
-                            <img class="media-object" src="~/frontend/assets/img/preview/shop/top-sellers-3.jpg" alt="">
+                            <img class="media-object" src="~/user/img/preview/shop/top-sellers-3.jpg" alt="">
                             <i class="fa fa-plus"></i>
                         </a>
                         <div class="media-body">
@@ -1136,7 +907,7 @@
                     <h4 class="block-title"><span>Top Accessories</span></h4>
                     <div class="media">
                         <a class="pull-left media-link" href="#">
-                            <img class="media-object" src="~/frontend/assets/img/preview/shop/top-sellers-4.jpg" alt="">
+                            <img class="media-object" src="~/user/img/preview/shop/top-sellers-4.jpg" alt="">
                             <i class="fa fa-plus"></i>
                         </a>
                         <div class="media-body">
@@ -1161,7 +932,7 @@
                     </div>
                     <div class="media">
                         <a class="pull-left media-link" href="#">
-                            <img class="media-object" src="~/frontend/assets/img/preview/shop/top-sellers-5.jpg" alt="">
+                            <img class="media-object" src="~/user/img/preview/shop/top-sellers-5.jpg" alt="">
                             <i class="fa fa-plus"></i>
                         </a>
                         <div class="media-body">
@@ -1186,7 +957,7 @@
                     </div>
                     <div class="media">
                         <a class="pull-left media-link" href="#">
-                            <img class="media-object" src="~/frontend/assets/img/preview/shop/top-sellers-6.jpg" alt="">
+                            <img class="media-object" src="~/user/img/preview/shop/top-sellers-6.jpg" alt="">
                             <i class="fa fa-plus"></i>
                         </a>
                         <div class="media-body">
@@ -1217,7 +988,7 @@
                     <h4 class="block-title"><span>Top Newest</span></h4>
                     <div class="media">
                         <a class="pull-left media-link" href="#">
-                            <img class="media-object" src="~/frontend/assets/img/preview/shop/top-sellers-7.jpg" alt="">
+                            <img class="media-object" src="~/user/img/preview/shop/top-sellers-7.jpg" alt="">
                             <i class="fa fa-plus"></i>
                         </a>
                         <div class="media-body">
@@ -1242,7 +1013,7 @@
                     </div>
                     <div class="media">
                         <a class="pull-left media-link" href="#">
-                            <img class="media-object" src="~/frontend/assets/img/preview/shop/top-sellers-8.jpg" alt="">
+                            <img class="media-object" src="~/user/img/preview/shop/top-sellers-8.jpg" alt="">
                             <i class="fa fa-plus"></i>
                         </a>
                         <div class="media-body">
@@ -1267,7 +1038,7 @@
                     </div>
                     <div class="media">
                         <a class="pull-left media-link" href="#">
-                            <img class="media-object" src="~/frontend/assets/img/preview/shop/top-sellers-9.jpg" alt="">
+                            <img class="media-object" src="~/user/img/preview/shop/top-sellers-9.jpg" alt="">
                             <i class="fa fa-plus"></i>
                         </a>
                         <div class="media-body">
