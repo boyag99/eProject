@@ -10,12 +10,11 @@ namespace eProject.Models
     [Table("About")]
     public class About
     {
-        public About()
-        {
-            Photos = new HashSet<Photo>();
-        }
+        
 
         public int AboutId { get; set; }
+
+        public string Image { get; set; }
 
         public string Name  { get; set; }
 
@@ -23,6 +22,6 @@ namespace eProject.Models
 
         public string Slogan { get; set; }
 
-        public virtual ICollection<Photo> Photos { get; set; }
+        
     }
 }
