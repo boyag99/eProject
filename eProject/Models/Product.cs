@@ -15,8 +15,6 @@ namespace eProject.Models
             Photos = new HashSet<Photo>();
         }
             
-
-
         public int ProductId { get; set; }
         public string Name { get; set; }
 
@@ -31,6 +29,8 @@ namespace eProject.Models
         public string  Description { get; set; }
 
         public bool Status { get; set; }
+
+        public bool Featured { get; set; }
 
         public virtual Category Category { get; set; }
 

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using eProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using eProject.Data;
+using eProjectASP.Areas.Admin.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace eProject.Areas.Admin.Controllers
 {
@@ -34,8 +36,29 @@ namespace eProject.Areas.Admin.Controllers
         [Route("Create")]
         public IActionResult Create()
         {
-            Product product = new Product();
-            return View(product);
+            var productViewModel = new ProductViewModel();
+            productViewModel.Product = new Product();
+            productViewModel.Categories = new List<SelectListItem>();
+            var categories = _applicationDbContext.Categories.ToList();
+            foreach (var category in categories)
+            {
+                var group = new SelectListGroup { Name = category.Name };
+                if (category.InverseParent != null && category.InverseParent.Count > 0)
+                {
+                    foreach (var subCategory in category.InverseParent)
+                    {
+                        var selectListItem = new SelectListItem
+                        {
+                            Text = subCategory.Name,
+                            Value = subCategory.Id.ToString(),
+                            Group = group
+                        };
+                        productViewModel.Categories.Add(selectListItem);
+                    }
+                }
+            }
+
+            return View("Create", productViewModel);
         }
 
         [HttpPost]
@@ -110,8 +133,5 @@ namespace eProject.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-        sdfds
-
-
     }
 }
