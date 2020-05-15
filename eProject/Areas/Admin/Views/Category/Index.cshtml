@@ -4,95 +4,82 @@
     Layout = "~/Areas/Admin/Views/Shared/_BackendLayout.cshtml";
 }
 
-<!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Category List</h1>
+                <h1>Categories</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">List All Categories</li>
+                    <li class="breadcrumb-item active">List Categories</li>
                 </ol>
             </div>
         </div>
     </div><!-- /.container-fluid -->
 </section>
 
-<!-- Main content -->
 <section class="content">
     <div class="row">
         <div class="col-12">
 
             <div class="card">
                 <div class="card-header">
-                    <a class="btn btn-primary float-right" asp-area="Admin" asp-controller="Category" asp-action="Create">Add new Category</a>
+                    <h3 class="card-title">Categories</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                
                                 <th>Id</th>
                                 <th>Name</th>
                                 <th>Status</th>
                                 <th>Parent</th>
                                 <th>Action</th>
-                                
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
+                            @foreach (Category category in Model)
                             {
                                 <tr>
-                                    <td>@item.Id</td>
-                                    <td><b>@item.Name</b></td>
-                                    <td>@(item.Status ? "Show" : "Hide")</td>
-                                    <td>@(item.Parent == null ? "" : @item.Parent.Name)</td>
+                                    <td>@category.CategoryId</td>
                                     <td>
-                                        <a asp-area="admin" asp-controller="Category"
-                                           asp-action="edit" asp-route-id="@item.Id">
-                                            Edit
-                                        </a> <span>|</span>
-                                        @if (item.InverseParents != null && item.InverseParents.Count == 0)
+                                        <b>@category.CategoryName</b>
+                                    </td>
+                                    <td>@(category.Status ? "Show" : "Hide")</td>
+                                    <td>@(category.Parent == null ? "" : @category.Parent.CategoryName)</td>
+                                    <td>
+                                        <a asp-area="Admin" asp-controller="Category" asp-action="Edit" asp-route-id="@category.CategoryId">Edit</a> |
+                                        @if (!(category.InverseParents is null) && category.InverseParents.Count == 0)
                                         {
-                                            <a asp-area="admin" asp-controller="Category"
-                                               asp-action="delete" asp-route-id="@item.Id"
-                                               onclick="return confirm('Are you sure?')">Delete</a> <span>|</span>
-
+                                            <a asp-area="Admin" asp-controller="Category" asp-action="Delete" asp-route-id="@category.CategoryId" onclick="return confirm('Are you sure?')">Delete</a>
+                                            <span>|</span>
                                         }
-                                        <a asp-area="admin" asp-controller="Category"
-                                           asp-action="addsubcategory" asp-route-id="@item.Id">
-                                            Add sub category
-                                        </a>
+                                        <a asp-area="Admin" asp-controller="Category" asp-action="AddSubCategory" asp-route-id="@category.CategoryId">Add Sub Category</a>
                                     </td>
                                 </tr>
-                                if (item.InverseParents != null && item.InverseParents.Count != 0)
+
+                                if (!(category.InverseParents is null) && category.InverseParents.Count != 0)
                                 {
-                                    foreach (var subCategory in item.InverseParents)
+                                    foreach (var subCategory in category.InverseParents)
                                     {
                                         <tr>
-                                            <td>@subCategory.Id</td>
-                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@subCategory.Name</td>
-                                            <td>@(subCategory.Status ? "Show" : "Hide")</td>
-                                            <td>@subCategory.Parent.Name</td>
+                                            <td>@subCategory.CategoryId</td>
                                             <td>
-                                                <a asp-area="admin" asp-controller="Category"
-                                                   asp-action="edit" asp-route-id="@subCategory.Id">
-                                                    Edit
-                                                </a> <span>|</span>
-                                                <a asp-area="admin" asp-controller="Category"
-                                                   asp-action="delete" asp-route-id="@subCategory.Id"
-                                                   onclick="return confirm('Are you sure?')">Delete</a>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;@subCategory.CategoryName
+                                            </td>
+                                            <td>@(subCategory.Status ? "Show" : "Hide")</td>
+                                            <td>@subCategory.Parent.CategoryName</td>
+                                            <td>
+                                                <a asp-area="Admin" asp-controller="Category" asp-action="Edit" asp-route-id="@subCategory.CategoryId">Edit</a> |
+                                                <a asp-area="Admin" asp-controller="Category" asp-action="Delete" asp-route-id="@subCategory.CategoryId" onclick="return confirm('Are you sure?')">Delete</a>
                                             </td>
                                         </tr>
                                     }
                                 }
                             }
-
                         </tbody>
                         <tfoot>
                             <tr>
@@ -107,31 +94,19 @@
                 </div>
                 <!-- /.card-body -->
             </div>
-            <!-- /.card -->
         </div>
         <!-- /.col -->
     </div>
     <!-- /.row -->
 </section>
-<!-- /.content -->
 
 @section Scripts
 {
-    <script>
-$(function () {
+
+    <!-->script>$(function () {
             $("#example1").DataTable({
                 "responsive": true,
                 "autoWidth": false,
             });
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
-        });</script>
+        });</!--script-->
 }
-
