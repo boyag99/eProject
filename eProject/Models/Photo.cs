@@ -21,5 +21,7 @@ namespace eProject.Models
         public bool Featured { get; set; }
 
         public virtual Product Product { get; set; }
+
+        public virtual About About { get; set; }
     }
 }
