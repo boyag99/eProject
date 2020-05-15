@@ -7,6 +7,7 @@ using eProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using eProject.Data;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 
 namespace eProject.Areas.Admin.Controllers
 {
@@ -21,125 +22,111 @@ namespace eProject.Areas.Admin.Controllers
             _applicationDbContext = applicationDbContext;
         }
 
-
         [Route("")]
         [Route("Index")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Category> data = _applicationDbContext.Categories.ToList();
-            return View(data);
+            List<Category> categories = await _applicationDbContext.Categories
+                                .ToListAsync();
+            return View(categories);
         }
-
 
         [HttpGet]
         [Route("Create")]
         public IActionResult Create()
         {
-            Category category = new Category();
-            return View(category);
+            var category = new Category();
+            return View("Create", category);
         }
 
         [HttpPost]
-        [Route("Create")] 
+        [Route("Create")]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Category cat)
+        public async Task<IActionResult> Create(Category category)
         {
-            if(ModelState.IsValid)
-            {
-                cat.Parent = null;
-                _applicationDbContext.Categories.Add(cat);
-                _applicationDbContext.SaveChanges();
-
-                return RedirectToAction("Index", "Category", new {area = "Admin" });
-            }
-            return View(cat);
-        }
-
-
-
-        [HttpGet]
-        [Route("Edit")]
-        public IActionResult Edit(int id)
-        {
-            Category cat = _applicationDbContext.Categories.SingleOrDefault(c => c.Id == id);
-            if(cat==null)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            return View(cat);
-        }
-
-        [HttpPost]
-        [Route("Edit")]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Category category)
-        {
-
             if (ModelState.IsValid)
             {
-                Category currentCategory = _applicationDbContext.Categories.SingleOrDefault(c => c.Id == id);
+                category.Parent = null;
+                _applicationDbContext.Categories.Add(category);
+                await _applicationDbContext.SaveChangesAsync();
 
-                if(currentCategory==null)
-                {
-                    return View(category);
-                }
-
-                currentCategory.Name = category.Name;
-                currentCategory.Status = category.Status;
-
-                _applicationDbContext.SaveChanges();
-
-                return RedirectToAction("Index", "Category", new { area = "Admin" });
+                return RedirectToAction(nameof(Index));
             }
+
+            return View("Create", category);
+        }
+
+        [HttpGet]
+        [Route("Edit/{id}")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            Category category = await _applicationDbContext.Categories.FirstOrDefaultAsync(c => c.CategoryId == id);
+
+            if(category is null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View("Edit", category);
+        }
+
+        [HttpPost]
+        [Route("Edit/{id}")]
+        public async Task<IActionResult> Edit(int id, Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                Category categoryToUpdate = await _applicationDbContext.Categories.FirstOrDefaultAsync(c => c.CategoryId == id);
+
+                categoryToUpdate.CategoryName = category.CategoryName;
+                categoryToUpdate.Status = category.Status;
+
+                await _applicationDbContext.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+
             return View(category);
         }
 
         [HttpGet]
-        [Route("Delete")]
-        public IActionResult Delete(int id)
+        [Route("Delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            Category cat = _applicationDbContext.Categories.SingleOrDefault(c => c.Id == id);
-            if (cat != null)
-            {
-                _applicationDbContext.Categories.Remove(cat);
-                _applicationDbContext.SaveChanges();
-                return RedirectToAction(nameof(Index));
-            }
+
+            Category category = await _applicationDbContext.Categories.FirstOrDefaultAsync(c => c.CategoryId == id);
+
+            _applicationDbContext.Categories.Remove(category);
+            await _applicationDbContext.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }
-
 
         [HttpGet]
         [Route("AddSubCategory/{id}")]
         public IActionResult AddSubCategory(int id)
         {
-            var subCat = new Category()
+            Category subCategory = new Category
             {
                 ParentId = id
             };
-            return View(subCat);
-        }
 
+            return View("AddSubCategory", subCategory);
+        }
 
         [HttpPost]
         [Route("AddSubCategory/{id}")]
-        [ValidateAntiForgeryToken]
-        public IActionResult AddSubCategory(Category subCat)
+        public async Task<IActionResult> AddSubCategory(int id, Category subCategory)
         {
-
             if (ModelState.IsValid)
             {
-               
-                _applicationDbContext.Categories.Add(subCat);
-                _applicationDbContext.SaveChanges();
+                _applicationDbContext.Categories.Add(subCategory);
+                await _applicationDbContext.SaveChangesAsync();
 
-                return RedirectToAction("Index", "Category", new { area = "Admin" });
+                return RedirectToAction(nameof(Index));
             }
-            return View(subCat);
+
+            return View(subCategory);
         }
-
-        
-
     }
 }
