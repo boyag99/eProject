@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using eProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using eProject.Data;
+using eProject.Areas.Admin.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Identity;
 
 namespace eProject.Areas.Admin.Controllers
@@ -37,67 +39,93 @@ namespace eProject.Areas.Admin.Controllers
         [Route("Create")]
         public IActionResult Create()
         {
-            Product product = new Product();
-            return View(product);
+            var productViewModel = new ProductViewModel();
+            productViewModel.Product = new Product();
+            productViewModel.Categories = new List<SelectListItem>();
+            var categories = _applicationDbContext.Categories.ToList();
+            foreach (var category in categories)
+            {
+                var group = new SelectListGroup { Name = category.Name };
+                if (category.InverseParent != null && category.InverseParent.Count > 0)
+                {
+                    foreach (var subCategory in category.InverseParent)
+                    {
+                        var selectListItem = new SelectListItem
+                        {
+                            Text = subCategory.Name,
+                            Value = subCategory.Id.ToString(),
+                            Group = group
+                        };
+                        productViewModel.Categories.Add(selectListItem);
+                    }
+                }
+            }
+
+            return View("Create", productViewModel);
         }
 
         [HttpPost]
         [Route("Create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Product product)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await _userManager.GetUserAsync(User);
-                product.UserId = user.Id;
-                _applicationDbContext.Products.Add(product);
-                _applicationDbContext.SaveChanges();
 
-                return RedirectToAction("Index", "Products", new { area = "Admin" });
-            }
-            return View(product);
+        public async Task<IActionResult> Create(ProductViewModel productViewModel)
+        {
+            User user = await _userManager.GetUserAsync(User);
+            productViewModel.Product.UserId = user.Id;
+            _applicationDbContext.Products.Add(productViewModel.Product);
+            _applicationDbContext.SaveChanges();
+
+            //Create default photo for new product
+            var defaultPhoto = new Photo
+            {
+                Name = "no-image.jpg",
+                Status = true,
+                ProductId = productViewModel.Product.ProductId,
+                Featured = true
+            };
+            _applicationDbContext.Photos.Add(defaultPhoto);
+            _applicationDbContext.SaveChanges();
+            return RedirectToAction("Index", "Products", new { area = "Admin" });
         }
 
 
         [HttpGet]
-        [Route("Edit")]
-        public IActionResult Edit(int id)
+        [Route("edit/{id}")]
+        public ActionResult Edit(int id)
         {
-            Product product = _applicationDbContext.Products.SingleOrDefault(p => p.ProductId == id);
-            if (product == null)
+            var productViewModel = new ProductViewModel();
+            productViewModel.Product = _applicationDbContext.Products.Find(id);
+            productViewModel.Categories = new List<SelectListItem>();
+            var categories = _applicationDbContext.Categories.ToList();
+            foreach (var category in categories)
             {
-                return RedirectToAction(nameof(Index));
+                var group = new SelectListGroup { Name = category.Name };
+                if (category.InverseParent != null && category.InverseParent.Count > 0)
+                {
+                    foreach (var subCategory in category.InverseParent)
+                    {
+                        var selectListItem = new SelectListItem
+                        {
+                            Text = subCategory.Name,
+                            Value = subCategory.Id.ToString(),
+                            Group = group
+                        };
+                        productViewModel.Categories.Add(selectListItem);
+                    }
+                }
             }
-            return View(product);
+            return View("Edit", productViewModel);
         }
 
         [HttpPost]
-        [Route("Edit")]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Product product)
+        [Route("edit/{id}")]
+        public async Task<IActionResult> Edit(int id, ProductViewModel productViewModel)
         {
-
-            if (ModelState.IsValid)
-            {
-                Product currentProduct = _applicationDbContext.Products.SingleOrDefault(p => p.ProductId == id);
-
-                if (currentProduct == null)
-                {
-                    return View(product);
-                }
-
-                currentProduct.Name = product.Name;
-                currentProduct.Price = product.Price;
-                currentProduct.SalePrice = product.SalePrice;
-                currentProduct.Description = product.Description;
-                currentProduct.Status = product.Status;
-
-
-                _applicationDbContext.SaveChanges();
-
-                return RedirectToAction("Index", "Products", new { area = "Admin" });
-            }
-            return View(product);
+            User user = await _userManager.GetUserAsync(User);
+            productViewModel.Product.UserId = user.Id;
+            _applicationDbContext.Entry(productViewModel.Product).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _applicationDbContext.SaveChanges();
+            return RedirectToAction("Index", "Products", new { area = "Admin" });
         }
 
         [HttpGet]
@@ -114,6 +142,5 @@ namespace eProject.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
     }
 }
