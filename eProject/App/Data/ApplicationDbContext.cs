@@ -34,7 +34,7 @@ namespace eProject.Data
             modelBuilder.Entity<IdentityRoleClaim<string>>(entity => { entity.ToTable("RoleClaims"); });
             modelBuilder.Entity<Category>(entity => {
                 entity.HasOne(d => d.Parent)
-                       .WithMany(p => p.InverseParent)
+                       .WithMany(p => p.InverseParents)
                        .HasForeignKey(d => d.ParentId);
                 entity.ToTable(name: "Categories");
 

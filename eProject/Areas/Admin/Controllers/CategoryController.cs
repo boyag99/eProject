@@ -26,7 +26,7 @@ namespace eProject.Areas.Admin.Controllers
         [Route("Index")]
         public IActionResult Index()
         {
-            List<Category> data = _applicationDbContext.Categories.ToList();
+            var data = _applicationDbContext.Categories.Where(c => c.Parent == null).ToList();
             return View(data);
         }
 
