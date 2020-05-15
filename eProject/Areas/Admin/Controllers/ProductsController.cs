@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using eProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using eProject.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace eProject.Areas.Admin.Controllers
 {
@@ -15,9 +16,11 @@ namespace eProject.Areas.Admin.Controllers
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _applicationDbContext;
-        public ProductsController(ApplicationDbContext applicationDbContext)
+        private readonly UserManager<User> _userManager;
+        public ProductsController(ApplicationDbContext applicationDbContext, UserManager<User> userManager)
         {
             _applicationDbContext = applicationDbContext;
+            _userManager = userManager;
         }
 
         [Route("")]
@@ -41,11 +44,12 @@ namespace eProject.Areas.Admin.Controllers
         [HttpPost]
         [Route("Create")]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Product product)
+        public async Task<IActionResult> Create(Product product)
         {
             if (ModelState.IsValid)
             {
-               
+                var user = await _userManager.GetUserAsync(User);
+                product.UserId = user.Id;
                 _applicationDbContext.Products.Add(product);
                 _applicationDbContext.SaveChanges();
 
