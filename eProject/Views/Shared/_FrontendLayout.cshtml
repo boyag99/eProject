@@ -22,7 +22,7 @@
 
     <!-- Theme CSS -->
     <link href="~/frontend/assets/css/theme.css" rel="stylesheet">
-    <link href="~/frontend/assets/css/theme-green-1.css" rel="stylesheet" id="theme-config-link">
+    <link href="~/frontend/assets/css/theme-gray.css" rel="stylesheet" id="theme-config-link">
 
     <!-- Head Libs -->
     <script src="~/frontend/assets/plugins/modernizr.custom.js"></script>
@@ -100,7 +100,7 @@
 
                     <!-- Logo -->
                     <div class="logo">
-                        <a href="index.html"><img src="~/frontend/assets/img/logo-bella-shop.png" alt="Bella Shop" /></a>
+                        <a asp-controller="Home" asp-action="index"><img src="~/frontend/assets/img/newlogo1.png" alt="Art gallery Shop" /></a>
                     </div>
                     <!-- /Logo -->
                     <!-- Header search -->
@@ -166,12 +166,6 @@
 
     <!-- JS Page Level -->
     <script src="~/frontend/assets/js/theme.js"></script>
-
-    <!--[if (gte IE 9)|!(IE)]><!-->
-    <script src="~/frontend/assets/plugins/jquery.cookie.js"></script>
-    <script src="~/frontend/assets/js/theme-config.js"></script>
-    <!--<![endif]-->
-
 
     @await RenderSectionAsync("scripts", required: false)
 </body>

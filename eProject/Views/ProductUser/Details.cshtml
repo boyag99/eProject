@@ -270,7 +270,7 @@
                                 </a>
                             </div>
                             <div class="caption text-center">
-                                <h4 class="caption-title">@productInfo.Name</h4>
+                                <h4 class="caption-title"><a asp-controller="Product" asp-action="details" asp-route-id="@relatedProduct.ProductId">@productInfo.Name</a></h4>
                                 <div class="rating">
                                     <span class="star"></span>
                                     <!--
@@ -302,7 +302,6 @@
                 </div>
             </div>
             <hr class="page-divider half" />
-            <a class="btn btn-theme btn-view-more-block" href="#" style="max-width: 100%;">View More</a>
         </div>
     </section>
     <!-- /PAGE -->

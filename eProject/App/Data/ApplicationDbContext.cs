@@ -14,6 +14,7 @@ namespace eProject.Data
         }
 
         public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<SlideShow> SlideShows { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Photo> Photos { get; set; }
