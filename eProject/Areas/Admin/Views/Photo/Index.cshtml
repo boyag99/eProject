@@ -51,13 +51,13 @@
                                     <td><img src="~/products/@photo.Name" width="120" /></td>
                                     <td>@(photo.Status ? "Show" : "Hide")</td>
                                     <td>
-                                        @if (!photo.Featured)
+                                        @if (photo.Featured == false)
                                         {
                                             <a asp-area="admin" asp-controller="Photo" asp-action="SetFeatured" asp-route-id="@photo.PhotoId" asp-route-productId="@photo.ProductId">Set Featured</a>
                                         }
                                         else
                                         {
-                                    <a asp-area="admin" asp-controller="Photo" asp-action="SetNonFeatured" asp-route-id="@photo.PhotoId" asp-route-productId="@photo.ProductId">Featured</a>
+                                            <span>Featured</span>
                                         }
                                     </td>
                                     <td>
