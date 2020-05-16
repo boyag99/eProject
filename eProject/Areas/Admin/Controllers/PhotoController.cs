@@ -8,6 +8,7 @@ using eProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 
 namespace eProjectASP.Areas.Admin.Controllers
@@ -91,22 +92,18 @@ namespace eProjectASP.Areas.Admin.Controllers
             return RedirectToAction("index", "photo", new { area = "admin", id = productId });
         }
 
-        [HttpGet]
-        [Route("SetNonFeatured/{id}/{productId}")]
-        public IActionResult SetNonFeatured(int id, int productId)
-        {
-            var photo = _applicationDbContext.Photos.Find(id);
-            photo.Featured = false;
-            _applicationDbContext.SaveChanges();
-
-            return RedirectToAction("index", "photo", new { area = "admin", id = productId });
-        }
-        [HttpGet]
-        [Route("SetFeatured/{id}/{productId}")]
         public IActionResult SetFeatured(int id, int productId)
         {
-            var photo = _applicationDbContext.Photos.Find(id);
+            var product = _applicationDbContext.Products.Include(p => p.Photos).FirstOrDefault(p=>p.ProductId == productId);
+            product.Photos.ToList().ForEach(p =>
+            {
+                p.Featured = false;
+                _applicationDbContext.Photos.Update(p);
+                
+            });
+            var photo = _applicationDbContext.Photos.FirstOrDefault(p => p.PhotoId == id);
             photo.Featured = true;
+
             _applicationDbContext.SaveChanges();
             return RedirectToAction("index", "photo", new { area = "admin", id = productId });
         }

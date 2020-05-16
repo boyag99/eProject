@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using eProject.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace eProject.Controllers
 {
@@ -20,7 +21,7 @@ namespace eProject.Controllers
         [Route("details/{id}")]
         public IActionResult Details(int id)
         {
-            var product = _applicationDbContext.Products.Find(id);
+            var product = _applicationDbContext.Products.Include(p=>p.Photos).FirstOrDefault(p=>p.ProductId ==id);
             var featuredPhoto = product.Photos.SingleOrDefault(p => p.Status && p.Featured);
             ViewBag.Product = product;
             ViewBag.FeaturedPhoto = featuredPhoto == null ? "no-image.jpg" : featuredPhoto.Name;
@@ -32,7 +33,7 @@ namespace eProject.Controllers
         [Route("index")]
         public IActionResult Index()
         {
-            ViewBag.Products = _applicationDbContext.Products.Where(p => p.Status).ToList();
+            ViewBag.Products = _applicationDbContext.Products.Include(p => p.Photos).Where(p => p.Status).ToList();
             return View("Index");
         }
         [Route("category/{id}")]

@@ -9,6 +9,7 @@ using eProject.Data;
 using eProject.Areas.Admin.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace eProject.Areas.Admin.Controllers
 {
@@ -29,7 +30,7 @@ namespace eProject.Areas.Admin.Controllers
         [Route("Index")]
         public IActionResult Index()
         {
-            ViewBag.Products = _applicationDbContext.Products.ToList();
+            ViewBag.Products = _applicationDbContext.Products.Include(p=>p.Photos).ToList();
             return View();
         }
 
