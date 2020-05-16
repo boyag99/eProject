@@ -32,9 +32,9 @@
     <Folder Include="Areas\Admin\Views\User\" />
     <Folder Include="App\Validations\" />
     <Folder Include="wwwroot\backend\images\users\" />
-    <Folder Include="wwwroot\frontend\" />
     <Folder Include="Views\Shared\Partial\" />
     <Folder Include="Views\Home\" />
+    <Folder Include="wwwroot\slideshows\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\frontend\assets\css\inc\pagination.less" />
