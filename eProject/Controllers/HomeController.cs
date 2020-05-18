@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,6 +9,7 @@ using eProject.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using eProject.Data;
 using Microsoft.EntityFrameworkCore;
+using eProject.Service;
 
 namespace eProject.Controllers
 {
@@ -19,13 +19,19 @@ namespace eProject.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
+        private readonly IEmailSender _emailSender;
 
-        public HomeController(ILogger<HomeController> logger, SignInManager<User> signInManager, ApplicationDbContext applicationDbContext, UserManager<User> userManager)
+        public HomeController(ILogger<HomeController> logger,
+            SignInManager<User> signInManager,
+            ApplicationDbContext applicationDbContext,
+            UserManager<User> userManager,
+            IEmailSender emailSender)
         {
             _logger = logger;
             _signInManager = signInManager;
             _applicationDbContext = applicationDbContext;
             _userManager = userManager;
+            _emailSender = emailSender;
         }
 
 
@@ -70,8 +76,14 @@ namespace eProject.Controllers
 
             if (signInResult.IsLockedOut)
             {
-                ModelState.AddModelError(string.Empty, "The account has been locked.");
-                return View("Index");
+                var forgotPassLink = Url.Action(nameof(ForgotPassword), "Home", new { }, Request.Scheme);
+                var content = string.Format("Your account is locked out, to reset your password, please click this link: {0}", forgotPassLink);
+
+                var message = new EmailMessage(new string[] { loginRequest.Email }, "Locked out account information", content, null);
+                await _emailSender.SendEmailAsync(message);
+
+                ModelState.AddModelError("", "The account is locked out");
+                return View();
             }
             else
             {
@@ -122,9 +134,15 @@ namespace eProject.Controllers
 
                     if (addRoleUser.Succeeded)
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        var confirmationLink = Url.Action(nameof(ConfirmEmail), "Home", new { token, email = user.Email }, Request.Scheme);
 
-                        return RedirectToAction("Index", "Account");
+                        var message = new EmailMessage(new string[] { user.Email }, "Confirmation email link", confirmationLink, null);
+                        await _emailSender.SendEmailAsync(message);
+
+                        //await _signInManager.SignInAsync(user, isPersistent: false);
+
+                        return RedirectToAction(nameof(SuccessRegistration));
                     }
 
                     foreach (var error in createUser.Errors)
@@ -143,6 +161,111 @@ namespace eProject.Controllers
         }
 
         [HttpGet]
+        [Route("ForgotPassword")]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route("ForgotPassword")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPassword forgotPasswordModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(forgotPasswordModel.Email);
+                if (user == null)
+                {
+                    return RedirectToAction(nameof(ForgotPasswordConfirmation));
+                }
+
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var callback = Url.Action(nameof(ResetPassword), "Home", new { token, email = user.Email }, Request.Scheme);
+
+                var message = new EmailMessage(new string[] { user.Email }, "Reset password token", callback, null);
+                await _emailSender.SendEmailAsync(message);
+
+                return RedirectToAction(nameof(ForgotPasswordConfirmation));
+            }
+
+            return View(forgotPasswordModel);
+        }
+
+        [HttpGet]
+        [Route("ForgotPasswordConfirmation")]
+        public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Route("ResetPassword")]
+        public IActionResult ResetPassword(string token, string email)
+        {
+            var model = new ResetPassword { Token = token, Email = email };
+            return View(model);
+        }
+
+        [HttpPost]
+        [Route("ResetPassword")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPassword resetPasswordModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(resetPasswordModel.Email);
+                if (user == null)
+                {
+                    RedirectToAction(nameof(ResetPasswordConfirmation));
+                }
+
+                var resetPassResult = await _userManager.ResetPasswordAsync(user, resetPasswordModel.Token, resetPasswordModel.Password);
+                if (!resetPassResult.Succeeded)
+                {
+                    foreach (var error in resetPassResult.Errors)
+                    {
+                        ModelState.TryAddModelError(error.Code, error.Description);
+                    }
+
+                    return View();
+                }
+
+                return RedirectToAction(nameof(ResetPasswordConfirmation));
+            }
+
+            return View(resetPasswordModel);
+        }
+
+        [HttpGet]
+        [Route("ResetPasswordConfirmation")]
+        public IActionResult ResetPasswordConfirmation()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Route("ConfirmEmail")]
+        public async Task<IActionResult> ConfirmEmail(string token, string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return View("Error");
+            }
+                
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+            return View(result.Succeeded ? nameof(ConfirmEmail) : "Error");
+        }
+
+        [HttpGet]
+        [Route("SuccessRegistration")]
+        public IActionResult SuccessRegistration()
+        {
+            return View();
+        }
+
+        [HttpGet]
         [Route("Logout")]
         public async Task<IActionResult> Logout()
         {
@@ -151,10 +274,9 @@ namespace eProject.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
     }
 }

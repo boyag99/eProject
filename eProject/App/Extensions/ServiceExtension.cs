@@ -3,6 +3,7 @@ using eProject.Data;
 using eProject.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -22,7 +23,7 @@ namespace eProject.App.Extensions
         public static void ConfigureIdentity(this IServiceCollection services)
         {
             services.AddIdentity<User, IdentityRole>(options => {
-                options.SignIn.RequireConfirmedAccount = false;
+                options.SignIn.RequireConfirmedAccount = true;
 
                 //// Password settings.
                 options.Password.RequireDigit = true;
@@ -31,6 +32,10 @@ namespace eProject.App.Extensions
                 options.Password.RequireUppercase = true;
                 options.Password.RequiredLength = 6;
                 options.Password.RequiredUniqueChars = 1;
+
+                options.Lockout.AllowedForNewUsers = true;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(2);
+                options.Lockout.MaxFailedAccessAttempts = 3;
 
             })
                 .AddDefaultTokenProviders()
@@ -57,6 +62,28 @@ namespace eProject.App.Extensions
                 options.AccessDeniedPath = "/";
                 options.LogoutPath = "/Logout";
                 options.SlidingExpiration = true;
+            });
+        }
+
+        public static void ConfigureEmail(this IServiceCollection services, IConfiguration configuration)
+        {
+            var emailConfig = configuration
+                .GetSection("EmailConfiguration")
+                .Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
+
+            
+        }
+
+        public static void ConfigureService(this IServiceCollection services)
+        {
+            services.Configure<DataProtectionTokenProviderOptions>(options =>
+                options.TokenLifespan = TimeSpan.FromHours(2));
+
+            services.Configure<FormOptions>(options => {
+                options.ValueLengthLimit = int.MaxValue;
+                options.MultipartBodyLengthLimit = int.MaxValue;
+                options.MemoryBufferThreshold = int.MaxValue;
             });
         }
     }
