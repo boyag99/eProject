@@ -67,30 +67,7 @@
                     <div class="widget account-details">
                         <h2 class="widget-title">Account</h2>
                         <ul>
-                            @if (User.IsInRole("Customer"))
-                            {
-                                <li class="active"><a href="accountinformation.html"> Account Information </a></li>
-                                <li><a href="myaccount.html">My Accont</a></li>
-                                <li><a href="cng-pw.html">Change Password</a></li>
-                                <li><a href="address-book.html">Address Books</a></li>
-                                <li><a href="order-history.html">Order History</a></li>
-                                <li><a href="review-rating.html">Reviews and Ratings</a></li>
-                                <li><a href="return.html">Returns Requests</a></li>
-                                <li><a href="newsletter.html">Newsletter</a></li>
-                                <li><a href="myaccount-leftsidebar.html">Left Sidebar</a></li>
-                            }
-                            else
-                            {
-                                <li class="active"><a href="accountinformation.html"> Account Information </a></li>
-                                <li><a href="myaccount.html">My Accont</a></li>
-                                <li><a href="cng-pw.html">Change Password</a></li>
-                                <li><a href="address-book.html">Address Books</a></li>
-                                <li><a href="order-history.html">Order History</a></li>
-                                <li><a href="review-rating.html">Reviews and Ratings</a></li>
-                                <li><a href="return.html">Returns Requests</a></li>
-                                <li><a href="newsletter.html">Newsletter</a></li>
-                                <li><a href="myaccount-leftsidebar.html">Left Sidebar</a></li>
-                            }
+                            @await Html.PartialAsync("./Partial/_Sidebar")
                         </ul>
                     </div>
                 </div>

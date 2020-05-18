@@ -36,6 +36,7 @@
     <Folder Include="Views\Home\" />
     <Folder Include="Views\Account\" />
     <Folder Include="wwwroot\slideshows\" />
+    <Folder Include="Views\Account\Partial\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\frontend\assets\css\inc\pagination.less" />

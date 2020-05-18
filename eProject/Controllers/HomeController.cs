@@ -20,11 +20,12 @@ namespace eProject.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
 
-        public HomeController(ILogger<HomeController> logger, SignInManager<User> signInManager, ApplicationDbContext applicationDbContext)
+        public HomeController(ILogger<HomeController> logger, SignInManager<User> signInManager, ApplicationDbContext applicationDbContext, UserManager<User> userManager)
         {
             _logger = logger;
             _signInManager = signInManager;
             _applicationDbContext = applicationDbContext;
+            _userManager = userManager;
         }
 
 
@@ -113,18 +114,26 @@ namespace eProject.Controllers
                     ProfileImage = null,
                 };
 
-                await _userManager.CreateAsync(user, storeUserRequest.Password); // create new user
+                IdentityResult createUser =  await _userManager.CreateAsync(user, storeUserRequest.Password); // create new user
 
-                IdentityResult result = await _userManager.AddToRoleAsync(user, "Customer"); // add role for user
-
-                if (result.Succeeded)
+                if (createUser.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    IdentityResult addRoleUser = await _userManager.AddToRoleAsync(user, "Customer"); // add role for user
 
-                    return RedirectToAction("Index", "Account");
+                    if (addRoleUser.Succeeded)
+                    {
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+
+                        return RedirectToAction("Index", "Account");
+                    }
+
+                    foreach (var error in createUser.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
 
-                foreach (var error in result.Errors)
+                foreach (var error in createUser.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
