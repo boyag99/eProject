@@ -57,7 +57,7 @@ namespace eProject.Areas.Admin.Controllers
                     var stream = new FileStream(path, FileMode.Create);
                     photo.CopyToAsync(stream);
 
-                    about.Image = "about/"+photo.FileName;
+                    about.Image = "/about/"+photo.FileName;
 
                     _applicationDbContext.About.Add(about);
                     _applicationDbContext.SaveChanges();
@@ -107,7 +107,7 @@ namespace eProject.Areas.Admin.Controllers
                 var stream = new FileStream(path, FileMode.Create);
                 photo.CopyToAsync(stream);
 
-                about.Image = "about/" + photo.FileName;
+                about.Image = "/about/" + photo.FileName;
             }
             currentAboutContent.Image = about.Image;
             currentAboutContent.Name = about.Name;
