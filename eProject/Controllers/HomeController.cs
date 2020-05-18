@@ -42,7 +42,7 @@ namespace eProject.Controllers
             ViewBag.isHome = true;
             var featuredProducts = _applicationDbContext.Products.Include(p=>p.Photos).OrderByDescending(p => p.ProductId).Where(p => p.Status && p.Featured).ToList();
             ViewBag.FeaturedProducts = featuredProducts;
-            ViewBag.CountFeaturedProducts = featuredProducts.Count();
+            ViewBag.NewestProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.ProductId).Where(p => p.Status).Take(8).ToList();
             return View();
         }
 
