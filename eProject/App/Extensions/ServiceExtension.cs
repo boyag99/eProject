@@ -38,9 +38,9 @@ namespace eProject.App.Extensions
 
             services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = new PathString("/Admin/Account/Index");
+                options.LoginPath = new PathString("/Login");
                 options.AccessDeniedPath = new PathString("/");
-                options.LogoutPath = new PathString("/Admin/Account/Logout");
+                options.LogoutPath = new PathString("/Logout");
             });
         }
     }
