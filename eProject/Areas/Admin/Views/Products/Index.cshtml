@@ -55,7 +55,7 @@
                                 Product pr = (Product)item;
                                 Photo mainPhoto = pr.Photos.SingleOrDefault(p => p.Featured == true);
                             <tr>
-                                <td>=@item.Name</td>
+                                <td>@item.Name</td>
                                 <td><img src="~/products/@(mainPhoto != null ? mainPhoto.Name :"")" width="120" /></td>
                                 <td>@item.Price</td>
                                 <td>@item.SalePrice</td>
