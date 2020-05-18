@@ -36,6 +36,7 @@
     <Folder Include="Views\Shared\Partial\" />
     <Folder Include="Views\Home\" />
     <Folder Include="Views\Account\" />
+    <Folder Include="wwwroot\blog\" />
     <Folder Include="wwwroot\slideshows\" />
     <Folder Include="Views\Account\Partial\" />
   </ItemGroup>
