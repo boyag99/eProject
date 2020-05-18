@@ -8,25 +8,34 @@ using Microsoft.Extensions.Logging;
 using eProject.Models;
 using eProject.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using eProject.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace eProject.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ApplicationDbContext _applicationDbContext;
         private readonly ILogger<HomeController> _logger;
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
 
-        public HomeController(ILogger<HomeController> logger, SignInManager<User> signInManager, UserManager<User> userManager)
+        public HomeController(ILogger<HomeController> logger, SignInManager<User> signInManager, ApplicationDbContext applicationDbContext)
         {
             _logger = logger;
             _signInManager = signInManager;
-            _userManager = userManager;
+            _applicationDbContext = applicationDbContext;
         }
 
 
+        [Route("")]
+        [Route("index")]
         public IActionResult Index()
         {
+            ViewBag.isHome = true;
+            var featuredProducts = _applicationDbContext.Products.Include(p=>p.Photos).OrderByDescending(p => p.ProductId).Where(p => p.Status && p.Featured).ToList();
+            ViewBag.FeaturedProducts = featuredProducts;
+            ViewBag.CountFeaturedProducts = featuredProducts.Count();
             return View();
         }
 

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<eProject.Models.About>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_BackendLayout.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>About Content</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">List About Content</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+
+            <div class="card">
+                <div class="card-header">
+                    <a class="btn btn-primary float-right" asp-area="Admin" asp-controller="About" asp-action="Create">Add new About Content</a>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+
+                                <th>Id</th>
+                                <th>Photo</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Slogan</th>
+                                <th>Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>@item.AboutId</td>
+                                <td>
+                                    <img src="@item.Image" width="120" height="130" />
+                                </td>
+                                <td>
+                                    @item.Name
+                                </td>
+                                <td>@item.Description</td>
+                                <td>@item.Slogan</td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.AboutId }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.AboutId }, new { onclick = "return confirm('Are you sure?')" }) |
+
+
+                                </td>
+                            </tr>
+
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Id</th>
+                                <th>Photo</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
