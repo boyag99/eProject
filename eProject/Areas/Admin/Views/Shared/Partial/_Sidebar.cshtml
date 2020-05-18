@@ -37,8 +37,8 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
          with font-awesome or any other icon font library -->
-                <li class="nav-item has-treeview menu-open">
-                    <a href="#" class="nav-link @Html.IsSelected(actions: "Index", controllers: "Dashboard")">
+                <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "Dashboard")">
+                    <a href="#" class="nav-link @Html.ActiveMenuLink(actions: "Index", controllers: "Dashboard")">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -47,15 +47,15 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link @Html.IsSelected(actions: "Index", controllers: "Dashboard")">
+                            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link @Html.ActiveMenuLink(actions: "Index", controllers: "Dashboard")">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Dashboard v1</p>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link @Html.IsSelected(actions: null, controllers: "User")">
+                <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "User")">
+                    <a href="#" class="nav-link @Html.ActiveMenuLink(actions: null, controllers: "User")">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
                             Users
@@ -64,13 +64,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a asp-area="Admin" asp-controller="User" asp-action="Index" class="nav-link @Html.IsSelected(actions: "Index", controllers: "User")">
+                            <a asp-area="Admin" asp-controller="User" asp-action="Index" class="nav-link @Html.ActiveMenuLink(actions: "Index", controllers: "User")">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>List All Users</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-area="Admin" asp-controller="User" asp-action="Create" class="nav-link @Html.IsSelected(actions: "Create", controllers: "User")">
+                            <a asp-area="Admin" asp-controller="User" asp-action="Create" class="nav-link @Html.ActiveMenuLink(actions: "Create", controllers: "User")">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Create User Detail</p>
                             </a>
@@ -79,23 +79,23 @@
                 </li>
 
 
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link @Html.IsSelected(actions: null, controllers: "Category")">
+                <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "Category")">
+                    <a href="#" class="nav-link @Html.ActiveMenuLink(actions: null, controllers: "Category")">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
                             Category
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
+                    <ul class="nav nav-treeview @Html.ActiveMenuItem(actions: "Index", controllers: "Category")">
                         <li class="nav-item">
-                            <a asp-area="Admin" asp-controller="Category" asp-action="Index" class="nav-link @Html.IsSelected(actions: "Index", controllers: "Category")">
+                            <a asp-area="Admin" asp-controller="Category" asp-action="Index" class="nav-link @Html.ActiveMenuLink(actions: "Index", controllers: "Category")">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>List All Categories</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-area="Admin" asp-controller="Category" asp-action="Create" class="nav-link @Html.IsSelected(actions: "Create", controllers: "Category")">
+                            <a asp-area="Admin" asp-controller="Category" asp-action="Create" class="nav-link @Html.ActiveMenuLink(actions: "Create", controllers: "Category")">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Create new Category </p>
                             </a>
@@ -103,8 +103,8 @@
                     </ul>
                 </li>
 
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link @Html.IsSelected(actions: null, controllers: "Products")">
+                <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "Products")">
+                    <a href="#" class="nav-link @Html.ActiveMenuLink(actions: null, controllers: "Products")">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
                             Products
@@ -113,13 +113,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a asp-area="Admin" asp-controller="Products" asp-action="Index" class="nav-link @Html.IsSelected(actions: "Index", controllers: "Products")">
+                            <a asp-area="Admin" asp-controller="Products" asp-action="Index" class="nav-link @Html.ActiveMenuLink(actions: "Index", controllers: "Products")">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>List All Products</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-area="Admin" asp-controller="Category" asp-action="Create" class="nav-link @Html.IsSelected(actions: "Create", controllers: "Products")">
+                            <a asp-area="Admin" asp-controller="Category" asp-action="Create" class="nav-link @Html.ActiveMenuLink(actions: "Create", controllers: "Products")">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Create new Product </p>
                             </a>

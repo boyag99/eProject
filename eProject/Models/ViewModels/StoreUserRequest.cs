@@ -8,11 +8,11 @@ namespace eProject.Models.ViewModels
 {
     public class StoreUserRequest
     {
-        [Required, StringLength(32)]
+        [StringLength(32)]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
-        [Required, StringLength(32)]
+        [StringLength(32)]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
@@ -32,12 +32,10 @@ namespace eProject.Models.ViewModels
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
         [Display(Name = "Phone Number")]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
 
-        [Required]
         public GenderType Gender { get; set; }
 
         [Display(Name = "Birth Day")]

@@ -15,15 +15,24 @@ namespace eProject.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
 
-        public HomeController(ILogger<HomeController> logger, SignInManager<User> signInManager)
+        public HomeController(ILogger<HomeController> logger, SignInManager<User> signInManager, UserManager<User> userManager)
         {
             _logger = logger;
             _signInManager = signInManager;
+            _userManager = userManager;
         }
 
 
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Route("Login")]
+        public IActionResult Login()
         {
             return View();
         }
@@ -41,11 +50,12 @@ namespace eProject.Controllers
 
             if (signInResult.Succeeded)
             {
-                if (User.IsInRole("Admin") == true)
+                if (User.IsInRole("ADMIN"))
                 {
                     return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
                 }
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction("Index", "Account");
             }
 
             if (signInResult.IsLockedOut)
@@ -58,6 +68,60 @@ namespace eProject.Controllers
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 return View("Index", loginRequest);
             }
+        }
+
+        [HttpGet]
+        [Route("Register")]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route("Register")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(StoreUserRequest storeUserRequest)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = new User
+                {
+                    FirstName = null,
+                    LastName = null,
+                    UserName = storeUserRequest.Email,
+                    Email = storeUserRequest.Email,
+                    PhoneNumber = storeUserRequest.PhoneNumber,
+                    Gender = Models.User.GenderType.Other,
+                    DateOfBirthDay = DateTime.Now,
+                    Address = new Address
+                    {
+                        StreetAddress = null,
+                        City = null,
+                        County = null,
+                        PostalCode = null,
+                        State = null
+                    },
+                    ProfileImage = null,
+                };
+
+                await _userManager.CreateAsync(user, storeUserRequest.Password); // create new user
+
+                IdentityResult result = await _userManager.AddToRoleAsync(user, "Customer"); // add role for user
+
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    return RedirectToAction("Index", "Account");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            return View(storeUserRequest);
         }
 
         [HttpGet]
