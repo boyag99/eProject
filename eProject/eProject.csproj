@@ -26,6 +26,7 @@
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Admin\Views\Shared\Partial\" />
     <Folder Include="Areas\Admin\Views\Dashboard\" />
+    <Folder Include="wwwroot\about\" />
     <Folder Include="wwwroot\backend\" />
     <Folder Include="App\Data\SeedData\" />
     <Folder Include="Areas\Admin\Views\Account\" />
