@@ -25,7 +25,9 @@ namespace eProject.Controllers
         {
   
             Product product = _applicationDbContext.Products.Include(p=>p.Photos).Include(p => p.Category)
-                .Include(p => p.User).FirstOrDefault(p=>p.ProductId ==id);
+                .Include(p => p.User)
+                .ThenInclude(u => u.Address)
+                .FirstOrDefault(p=>p.ProductId ==id);
             product.Hot += 1;
             _applicationDbContext.SaveChanges();
 
@@ -54,49 +56,77 @@ namespace eProject.Controllers
         }
 
         [Route("index")]
-        public IActionResult Index(int? page)
+        public IActionResult Index(int? page, string currentSearch, string search = null)
         {
             var pageNumber = page ?? 1;
-            var product = _applicationDbContext.Products.Include(p => p.Photos).Where(p => p.Status).ToList().ToPagedList(pageNumber,3);
-            ViewBag.Products = product;
 
-            List<Product> hotProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.Hot).Take(3).ToList();
+            if(search != null)
+            {
+                pageNumber = 1;
+            }else
+            {
+                search = currentSearch;
+            }
+
+            ViewData["CurrentSearch"] = search;
+
+            var product = _applicationDbContext.Products.Include(p => p.Photos).Where(p => p.Status);
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                product = product.Where(p => p.Name.ToLower().Contains(search.Trim().ToLower()));
+            }
+
+            ViewBag.Products = product.ToPagedList(pageNumber, 12);
+
+            List<Product> hotProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.Hot).Take(4).ToList();
             ViewBag.Hot = hotProducts;
 
-            List<Product> newProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.Created_At).Take(3).ToList();
+            List<Product> newProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.Created_At).Take(4).ToList();
             ViewBag.NewProducts = newProducts;
 
-            List<Product> saleProducts = _applicationDbContext.Products.Include(p => p.Photos).Where(p=>p.SalePrice>0).Take(3).ToList();
+            List<Product> saleProducts = _applicationDbContext.Products.Include(p => p.Photos).Where(p=>p.SalePrice>0).Take(4).ToList();
             ViewBag.SaleProducts = saleProducts;
 
 
             return View("Index");
         }
         [Route("category/{id}")]
-        public IActionResult Category(int id, int? page)
+        public IActionResult Category(int id, int? page, string currentSearch, string search = null)
         {
-
             var pageNumber = page ?? 1;
-
-            ViewBag.Category = _applicationDbContext.Categories.Include(c => c.Products).SingleOrDefault(p => p.CategoryId == id);
-
+            if (search != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                search = currentSearch;
+            }
+            ViewData["CurrentSearch"] = search;
             var product = _applicationDbContext.Products
                 .Include(p => p.Photos)
-                .Where(p => p.CategoryId == id).ToList().ToPagedList(pageNumber, 3);
+                .Where(p => p.CategoryId == id);
+            if (!string.IsNullOrEmpty(search))
+            {
+                product = product.Where(p => p.Name.ToLower().Contains(search.Trim().ToLower()));
+            }
 
-            ViewBag.Products = product;
+            ViewBag.Products = product.ToPagedList(pageNumber, 12);
+
+            ViewBag.Category = _applicationDbContext.Categories.Include(c => c.Products).SingleOrDefault(p => p.CategoryId == id);
 
             ViewBag.CountProducts = _applicationDbContext.Products
                 .Where(p => p.CategoryId == id)
                 .Count(p => p.Status);
 
-            List<Product> hotProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.Hot).Take(3).ToList();
+            List<Product> hotProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.Hot).Take(4).ToList();
             ViewBag.Hot = hotProducts;
 
-            List<Product> newProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.Created_At).Take(3).ToList();
+            List<Product> newProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.Created_At).Take(4).ToList();
             ViewBag.NewProducts = newProducts;
 
-            List<Product> saleProducts = _applicationDbContext.Products.Include(p => p.Photos).Where(p => p.SalePrice > 0).Take(3).ToList();
+            List<Product> saleProducts = _applicationDbContext.Products.Include(p => p.Photos).Where(p => p.SalePrice > 0).Take(4).ToList();
             ViewBag.SaleProducts = saleProducts;
 
             return View("Category");
