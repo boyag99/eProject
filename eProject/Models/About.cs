@@ -7,11 +7,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eProject.Models
 {
-    [Table("About")]
+    [Table("Abouts")]
     public class About
     {
         
-
         public int AboutId { get; set; }
 
         public string Image { get; set; }

@@ -6,14 +6,14 @@
 
 @if (User.IsInRole("Customer"))
 {
-    <li class="@Html.ActiveMenuLink(actions: "Index", controllers: "Account")"><a asp-controller="Account" asp-action="Index"> Account Information </a></li>
-    <li><a href="myaccount.html">My Account</a></li>
-    <li><a href="cng-pw.html">Change Password</a></li>
-    <li><a href="address-book.html">Address Books</a></li>
+    <li class="@Html.ActiveMenuLink(actions: "AccountInformation", controllers: "Account")"><a asp-controller="Account" asp-action="AccountInformation"> Account Information </a></li>
+    <li class="@Html.ActiveMenuLink(actions: "Index", controllers: "Account")"><a asp-controller="Account" asp-action="Index">My Account</a></li>
+    <li class="@Html.ActiveMenuLink(actions: "ChangePassword", controllers: "Account")"><a asp-controller="Account" asp-action="ChangePassword">Change Password</a></li>
+    <li class="@Html.ActiveMenuLink(actions: "AddressBook", controllers: "Account")"><a asp-controller="Account" asp-action="AddressBook">Address Books</a></li>
     <li><a href="order-history.html">Order History</a></li>
     <li><a href="review-rating.html">Reviews and Ratings</a></li>
     <li><a href="return.html">Returns Requests</a></li>
-    <li><a href="newsletter.html">Newsletter</a></li>
+    <li class="@Html.ActiveMenuLink(actions: "Artist", controllers: "Account")"><a asp-controller="Account" asp-action="Artist">Register / Unregister Artist</a></li>
     <li><a href="myaccount-leftsidebar.html">Left Sidebar</a></li>
 }
 else

@@ -4,9 +4,6 @@
     Layout = "~/Views/Shared/_FrontendLayout.cshtml";
 }
 
-
-
-
 <!-- CONTENT AREA -->
 <div class="content-area">
 
@@ -17,7 +14,10 @@
             <div class="row product-single">
                 <div class="col-md-6">
                     <div class="badges">
-                        <div class="hot">hot</div>
+                        @if (ViewBag.Hot is true)
+                        {
+                            <div class="hot">hot</div>
+                        }
                         <div class="new">new</div>
                     </div>
                     <div class="owl-carousel img-carousel">
@@ -42,13 +42,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="back-to-category">
-                        <span class="link"><i class="fa fa-angle-left"></i> Back to <a href="category.html">Category</a></span>
-                        <div class="pull-right">
-                            <a class="btn btn-theme btn-theme-transparent btn-previous" href="#"><i class="fa fa-angle-left"></i></a>
-                            <!--
-                            -->
-                            <a class="btn btn-theme btn-theme-transparent btn-next" href="#"><i class="fa fa-angle-right"></i></a>
-                        </div>
+                        <span class="link"><i class="fa fa-angle-left"></i> <a asp-controller="ProductUser" asp-action="index">Back to Category</a></span>
                     </div>
                     <h2 class="product-title">@ViewBag.Product.Name</h2>
                     <div class="product-rating clearfix">
@@ -69,50 +63,23 @@
                         </div>
                         <a class="reviews" href="#">16 reviews</a> | <a class="add-review" href="#">Add Your Review</a>
                     </div>
-                    <div class="product-availability">Availability: <strong>In stock</strong> 21 Item(s)</div>
+                    @if (ViewBag.Product.Quantity > 0)
+                    {
+                        <div class="product-availability">Availability: <strong style="color:green">In stock</strong></div>
+                    }
+                    else
+                    {
+                <div class="product-availability" style="font-size: 30px;">Availability: <strong style="color:red">Sold out</strong></div>
+                    }
                     <hr class="page-divider small" />
 
-                    <div class="product-price">@ViewBag.Product.Price</div>
+                    <div class="product-price">@ViewBag.Product.Price $</div>
                     <hr class="page-divider" />
 
                     <div class="product-text">
-                        <p>Etiam eu justo ut nisi sollicitudin bibendum. Fusce sed dui ac turpis vulputate tincidunt vel sed magna. Pellentesque <strong>pretium</strong> mollis metus vel feugiat. Cum sociis natoque penatibus <strong>et magnis</strong> dis parturient montes, nascetur ridiculus mus. <strong>Vestibulum</strong> commodo mauris eget sapien posuere, id <a href="#">efficitur mi tristique</a>.</p>
-                        <ul>
-                            <li>- Cras tristique neque a mauris volutpat, eget sodales neque elementum.</li>
-                            <li>- Vestibulum iaculis velit sed dolor suscipit pretium.</li>
-                            <li>- Etiam mattis risus id leo imperdiet tincidunt.</li>
-                        </ul>
+                        @ViewBag.Product.Description
                     </div>
                     <hr class="page-divider" />
-
-                    @*<form action="#" class="row variable">
-                            <div class="col-sm-6">
-                                <div class="form-group selectpicker-wrapper">
-                                    <label for="exampleSelect1">Size</label>
-                                    <select id="exampleSelect1"
-                                            class="selectpicker input-price" data-live-search="true" data-width="100%"
-                                            data-toggle="tooltip" title="Select">
-                                        <option>Select Your Size</option>
-                                        <option>Size 1</option>
-                                        <option>Size 2</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group selectpicker-wrapper">
-                                    <label for="exampleSelect2">Color</label>
-                                    <select id="exampleSelect2"
-                                            class="selectpicker input-price" data-live-search="true" data-width="100%"
-                                            data-toggle="tooltip" title="Select">
-                                        <option>Select Your Color</option>
-                                        <option>Color 1</option>
-                                        <option>Color 2</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </form>*@
-                    <hr class="page-divider small" />
-
 
                     <div class="buttons">
                         @*<div class="quantity">
@@ -120,7 +87,7 @@
                                 <input class="form-control qty" type="number" step="1" min="1" name="quantity" value="1" title="Qty">
                                 <button class="btn"><i class="fa fa-plus"></i></button>
                             </div>*@
-                        <button class="btn btn-theme btn-cart btn-icon-left" type="submit"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                        <a class="btn btn-theme btn-cart btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@ViewBag.Product.ProductId"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                         <button class="btn btn-theme btn-wish-list"><i class="fa fa-heart"></i></button>
                         <button class="btn btn-theme btn-compare"><i class="fa fa-exchange"></i></button>
                     </div>
@@ -130,11 +97,11 @@
                     <table>
                         <tr>
                             <td class="title">Category:</td>
-                            <td>Men Dress</td>
+                            <td>@ViewBag.Product.Category.CategoryName</td>
                         </tr>
                         <tr>
-                            <td class="title">Product Code:</td>
-                            <td>PS08</td>
+                            <td class="title">Artist:</td>
+                            <td>@ViewBag.Product.User.FirstName @ViewBag.Product.User.LastName</td>
                         </tr>
                         <tr>
                             <td class="title">Tags:</td>
@@ -153,47 +120,6 @@
                 </div>
             </div>
 
-        </div>
-    </section>
-    <!-- /PAGE -->
-    <!-- PAGE -->
-    <section class="page-section md-padding">
-        <div class="container">
-            <div class="row blocks shop-info-banners">
-                <div class="col-md-4">
-                    <div class="block">
-                        <div class="media">
-                            <div class="pull-right"><i class="fa fa-gift"></i></div>
-                            <div class="media-body">
-                                <h4 class="media-heading">Buy 1 Get 1</h4>
-                                Proin dictum elementum velit. Fusce euismod consequat ante.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="block">
-                        <div class="media">
-                            <div class="pull-right"><i class="fa fa-comments"></i></div>
-                            <div class="media-body">
-                                <h4 class="media-heading">Call to Free</h4>
-                                Proin dictum elementum velit. Fusce euismod consequat ante.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="block">
-                        <div class="media">
-                            <div class="pull-right"><i class="fa fa-trophy"></i></div>
-                            <div class="media-body">
-                                <h4 class="media-heading">Money Back!</h4>
-                                Proin dictum elementum velit. Fusce euismod consequat ante.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
     <!-- /PAGE -->

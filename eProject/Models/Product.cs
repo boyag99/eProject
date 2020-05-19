@@ -7,12 +7,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eProject.Models
 {
-    [Table("Product")]
+    [Table("Products")]
     public class Product
     {
         public Product()
         {
             Photos = new HashSet<Photo>();
+            InvoiceDetails = new HashSet<InvoiceDetail>();
         }
             
         public int ProductId { get; set; }
@@ -21,6 +22,12 @@ namespace eProject.Models
         public double Price { get; set; }
 
         public double SalePrice { get; set; }
+
+        public int Quantity { get; set; }
+
+        public int Hot { get; set; }
+
+        public DateTime Created_At { get; set; } = DateTime.Now;
 
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
@@ -35,8 +42,11 @@ namespace eProject.Models
 
         public virtual Category Category { get; set; }
 
+        public virtual User User { get; set; }
+
         public virtual ICollection<Photo> Photos { get; set; }
- 
+        public virtual ICollection<InvoiceDetail> InvoiceDetails { get; set; }
+
 
     }
 }

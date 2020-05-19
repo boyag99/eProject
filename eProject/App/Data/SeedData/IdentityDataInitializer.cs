@@ -37,7 +37,8 @@ namespace eProject.App.Data.SeedData
                         City = "Ho Chi Minh",
                         County = "Binh Chanh",
                         State = "Viet Nam"
-                    }
+                    },
+                    EmailConfirmed = true
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "123456!Aa").Result;

@@ -16,6 +16,7 @@
 </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1" />
+    <PackageReference Include="NETCore.MailKit" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +40,7 @@
     <Folder Include="wwwroot\blog\" />
     <Folder Include="wwwroot\slideshows\" />
     <Folder Include="Views\Account\Partial\" />
+    <Folder Include="Service\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\frontend\assets\css\inc\pagination.less" />

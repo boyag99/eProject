@@ -14,12 +14,12 @@
     <section class="page-section breadcrumbs">
         <div class="container">
             <div class="page-header">
-                <h1>@ViewBag.Category.Name <span class="count">(@ViewBag.CountProducts)</span></h1>
+                <h1>@ViewBag.Category.CategoryName <span class="count">(@ViewBag.CountProducts)</span></h1>
             </div>
             <ul class="breadcrumb">
                 <li><a href="#">Home</a></li>
                 <li><a href="#">ArtWorks</a></li>
-                <li><a href="#">@ViewBag.Category.Name</a></li>
+                <li><a href="#">@ViewBag.Category.CategoryName</a></li>
             </ul>
         </div>
     </section>
@@ -30,17 +30,10 @@
             <div class="row">
                 <!-- SIDEBAR -->
                 <aside class="col-md-3 sidebar" id="sidebar">
-                    <!-- widget search -->
-                    <div class="widget">
-                        <div class="widget-search">
-                            <input class="form-control" type="text" placeholder="Search">
-                            <button><i class="fa fa-search"></i></button>
-                        </div>
-                    </div>
-                    <!-- /widget search -->
+                    
                     <!-- widget shop categories -->
 
-                    @await Component.InvokeAsync("Category");
+                    @await Component.InvokeAsync("Category")
 
                     <!-- /widget shop categories -->
                     <!-- widget price filter -->
@@ -562,35 +555,22 @@
                 <!-- /SIDEBAR -->
                 <!-- CONTENT -->
                 <div class="col-md-9 content" id="content">
-
-
-
                     <!-- shop-sorting -->
                     <div class="shop-sorting">
                         <div class="row">
-                            <div class="col-sm-8">
-                                <form class="form-inline" action="">
-                                    <div class="form-group selectpicker-wrapper">
-                                        <select class="selectpicker input-price" data-live-search="true" data-width="100%"
-                                                data-toggle="tooltip" title="Select">
-                                            <option>Product Name</option>
-                                            <option>Product Name</option>
-                                            <option>Product Name</option>
-                                        </select>
+                            <div class="col-sm-6">
+                                <!-- widget search -->
+                                <div class="widget">
+                                    <div class="widget-search">
+                                        <input class="form-control" type="text" placeholder="Search">
+                                        <button><i class="fa fa-search"></i></button>
                                     </div>
-                                    <div class="form-group selectpicker-wrapper">
-                                        <select class="selectpicker input-price" data-live-search="true" data-width="100%"
-                                                data-toggle="tooltip" title="Select">
-                                            <option>Select Manifacturers</option>
-                                            <option>Select Manifacturers</option>
-                                            <option>Select Manifacturers</option>
-                                        </select>
-                                    </div>
-                                </form>
+                                </div>
+                                <!-- /widget search -->
                             </div>
-                            <div class="col-sm-4 text-right-sm">
-                                <a class="btn btn-theme btn-theme-transparent btn-theme-sm" href="#"><img src="assets/img/icon-list.png" alt="" /></a>
-                                <a class="btn btn-theme btn-theme-transparent btn-theme-sm" href="#"><img src="assets/img/icon-grid.png" alt="" /></a>
+                            <div class="col-sm-6 text-right-sm">
+                                <a class="btn btn-theme btn-theme-transparent btn-theme-sm" href="#"><img src="~/frontend/assets/img/icon-list.png" alt="" /></a>
+                                <a class="btn btn-theme btn-theme-transparent btn-theme-sm" href="#"><img src="~/frontend/assets/img/icon-grid.png" alt="" /></a>
                             </div>
                         </div>
                     </div>
@@ -606,7 +586,7 @@
                             <div class="col-md-4 col-sm-6">
                                 <div class="thumbnail no-border no-padding">
                                     <div class="media">
-                                        <a class="media-link" asp-controller="Product" asp-action="index" asp-route-id="@product.Id">
+                                        <a class="media-link" asp-controller="Product" asp-action="index" asp-route-id="@product.ProductId">
                                             <img src="~/products/@photoName" alt="" />
                                             <span class="icon-view">
                                                 <strong><i class="fa fa-eye"></i></strong>
@@ -614,7 +594,7 @@
                                         </a>
                                     </div>
                                     <div class="caption text-center">
-                                        <h4 class="caption-title">Standard Product Header</h4>
+                                        <h4 class="caption-title"><a asp-controller="Product" asp-action="details" asp-route-id="@product.ProductId">@product.Name</a></h4>
                                         <div class="rating">
                                             <span class="star"></span>
                                             <!--
@@ -630,7 +610,7 @@
                                             -->
                                             <span class="star active"></span>
                                         </div>
-                                        <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
+                                        <div class="price"><ins>@product.Price</ins> <del>$425.00</del></div>
                                         <div class="buttons">
                                             <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>
                                             <!--

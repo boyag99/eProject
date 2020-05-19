@@ -8,7 +8,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eProject.Models
 {
-     
+
+    [Table("Blogs")]
     public class Blog
     {
         [Key]
