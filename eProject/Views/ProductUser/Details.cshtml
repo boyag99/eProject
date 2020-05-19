@@ -82,7 +82,12 @@
                     <hr class="page-divider" />
 
                     <div class="buttons">
-                        <button class="btn btn-theme btn-cart btn-icon-left" type="submit"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                        @*<div class="quantity">
+                                <button class="btn"><i class="fa fa-minus"></i></button>
+                                <input class="form-control qty" type="number" step="1" min="1" name="quantity" value="1" title="Qty">
+                                <button class="btn"><i class="fa fa-plus"></i></button>
+                            </div>*@
+                        <a class="btn btn-theme btn-cart btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@ViewBag.Product.ProductId"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                         <button class="btn btn-theme btn-wish-list"><i class="fa fa-heart"></i></button>
                         <button class="btn btn-theme btn-compare"><i class="fa fa-exchange"></i></button>
                     </div>

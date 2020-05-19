@@ -19,6 +19,8 @@ namespace eProject.Data
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Photo> Photos { get; set; }
         public virtual DbSet<About> About { get; set; }
+        public virtual DbSet<Invoice>Invoices {get;set;}
+        public virtual DbSet<InvoiceDetail>InvoiceDetails { get; set; }
         public virtual DbSet<Blog> Blog { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -52,6 +54,23 @@ namespace eProject.Data
                       .HasForeignKey(d => d.ProductId)
                       .OnDelete(DeleteBehavior.Cascade)
                       .HasConstraintName("FK_Product_Photo");
+            });
+            modelBuilder.Entity<Invoice>(entity =>
+            {
+                entity.HasOne(d => d.User)
+                      .WithMany(p => p.Invoices)
+                      .HasForeignKey(d => d.UserId)
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .HasConstraintName("FK_Category_Product");
+            });
+            modelBuilder.Entity<InvoiceDetail>(entity =>
+            {
+                entity.HasKey(e => new { e.InvoiceId, e.ProductId });
+                entity.HasOne(d => d.Invoice)
+                      .WithMany(p => p.InvoiceDetails)
+                      .HasForeignKey(d => d.InvoiceId)
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .HasConstraintName("FK_InvoiceDetail_Invoice");
             });
         }
     }
