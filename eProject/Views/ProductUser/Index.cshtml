@@ -39,7 +39,7 @@
                     <!-- /widget search -->
                     <!-- widget shop categories -->
 
-                    @await Component.InvokeAsync("Category");
+                    @await Component.InvokeAsync("Category")
 
                     <!-- /widget shop categories -->
                     <!-- widget price filter -->
@@ -56,21 +56,26 @@
                     <div class="widget widget-tabs">
                         <div class="widget-content">
                             <ul id="tabs" class="nav nav-justified">
-                                <li><a href="#tab-s1" data-toggle="tab">Top</a></li>
-                                <li class="active"><a href="#tab-s2" data-toggle="tab">Sale Off</a></li>
-                                <li><a href="#tab-s3" data-toggle="tab">Deals</a></li>
+                                <li><a href="#tab-s1" data-toggle="tab">Hot</a></li>
+                                <li class="active"><a href="#tab-s2" data-toggle="tab">New</a></li>
+                                <li><a href="#tab-s3" data-toggle="tab">Sale</a></li>
                             </ul>
                             <div class="tab-content">
                                 <!-- tab 1 -->
                                 <div class="tab-pane fade" id="tab-s1">
                                     <div class="product-list">
+                                        @foreach (var HotProduct in ViewBag.Hot)
+                                        {
+                                            Product productInfo = (Product)HotProduct;
+                                            Photo photo = productInfo.Photos.SingleOrDefault(ph => ph.Status && ph.Featured);
+                                            var photoName = photo == null ? "no-image.jpg" : photo.Name;
                                         <div class="media">
-                                            <a class="pull-left media-link" href="#">
-                                                <img class="media-object" src="assets/img/preview/shop/top-sellers-1.jpg" alt="">
+                                            <a class="pull-left media-link" asp-controller="Product" asp-action="details" asp-route-id="@HotProduct.ProductId">
+                                                <img class="media-object" src="~/products/@photoName" alt="">
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                             <div class="media-body">
-                                                <h4 class="media-heading"><a href="#">Standard Product Header</a></h4>
+                                                <h4 class="media-heading"><a asp-controller="Product" asp-action="details" asp-route-id="@HotProduct.ProductId">@HotProduct.Name</a></h4>
                                                 <div class="rating">
                                                     <span class="star"></span>
                                                     <!--
@@ -86,72 +91,28 @@
                                                     -->
                                                     <span class="star active"></span>
                                                 </div>
-                                                <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
+                                                <div class="price"><ins>$ @HotProduct.Price</ins> <del>$ @HotProduct.SalePrice</del></div>
                                             </div>
                                         </div>
-                                        <div class="media">
-                                            <a class="pull-left media-link" href="#">
-                                                <img class="media-object" src="assets/img/preview/shop/top-sellers-2.jpg" alt="">
-                                                <i class="fa fa-plus"></i>
-                                            </a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading"><a href="#">Standard Product Header</a></h4>
-                                                <div class="rating">
-                                                    <span class="star"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                </div>
-                                                <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
-                                            </div>
-                                        </div>
-                                        <div class="media">
-                                            <a class="pull-left media-link" href="#">
-                                                <img class="media-object" src="assets/img/preview/shop/top-sellers-3.jpg" alt="">
-                                                <i class="fa fa-plus"></i>
-                                            </a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading"><a href="#">Standard Product Header</a></h4>
-                                                <div class="rating">
-                                                    <span class="star"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                </div>
-                                                <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
-                                            </div>
-                                        </div>
+                                        }
                                     </div>
                                 </div>
 
                                 <!-- tab 2 -->
                                 <div class="tab-pane fade in active" id="tab-s2">
                                     <div class="product-list">
+                                        @foreach (var newProducts in ViewBag.NewProducts)
+                                        {
+                                            Product productInfo = (Product)newProducts;
+                                            Photo photo = productInfo.Photos.SingleOrDefault(ph => ph.Status && ph.Featured);
+                                            var photoName = photo == null ? "no-image.jpg" : photo.Name;
                                         <div class="media">
-                                            <a class="pull-left media-link" href="#">
-                                                <img class="media-object" src="assets/img/preview/shop/top-sellers-4.jpg" alt="">
+                                            <a class="pull-left media-link" asp-controller="Product" asp-action="details" asp-route-id="@newProducts.ProductId">
+                                                <img class="media-object" src="~/products/@photoName" alt="">
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                             <div class="media-body">
-                                                <h4 class="media-heading"><a href="#">Standard Product Header</a></h4>
+                                                <h4 class="media-heading"><a href="#">@newProducts.Name</a></h4>
                                                 <div class="rating">
                                                     <span class="star"></span>
                                                     <!--
@@ -167,144 +128,51 @@
                                                     -->
                                                     <span class="star active"></span>
                                                 </div>
-                                                <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
+                                                <div class="price"><ins>$ @newProducts.Price</ins> <del>$ @newProducts.SalePrice</del></div>
                                             </div>
                                         </div>
-                                        <div class="media">
-                                            <a class="pull-left media-link" href="#">
-                                                <img class="media-object" src="assets/img/preview/shop/top-sellers-5.jpg" alt="">
-                                                <i class="fa fa-plus"></i>
-                                            </a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading"><a href="#">Standard Product Header</a></h4>
-                                                <div class="rating">
-                                                    <span class="star"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                </div>
-                                                <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
-                                            </div>
-                                        </div>
-                                        <div class="media">
-                                            <a class="pull-left media-link" href="#">
-                                                <img class="media-object" src="assets/img/preview/shop/top-sellers-6.jpg" alt="">
-                                                <i class="fa fa-plus"></i>
-                                            </a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading"><a href="#">Standard Product Header</a></h4>
-                                                <div class="rating">
-                                                    <span class="star"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                </div>
-                                                <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
-                                            </div>
-                                        </div>
+                                        }
                                     </div>
                                 </div>
 
                                 <!-- tab 3 -->
                                 <div class="tab-pane fade" id="tab-s3">
                                     <div class="product-list">
+                                        @foreach (var saleProducts in ViewBag.SaleProducts)
+                                        {
+                                            Product productInfo = (Product)saleProducts;
+                                            Photo photo = productInfo.Photos.SingleOrDefault(ph => ph.Status && ph.Featured);
+                                            var photoName = photo == null ? "no-image.jpg" : photo.Name;
                                         <div class="media">
-                                            <a class="pull-left media-link" href="#">
-                                                <img class="media-object" src="assets/img/preview/shop/top-sellers-7.jpg" alt="">
+                                            <a class="pull-left media-link" asp-controller="Product" asp-action="details" asp-route-id="@saleProducts.ProductId">
+                                                <img class="media-object" src="~/products/@photoName" alt="">
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                             <div class="media-body">
-                                                <h4 class="media-heading"><a href="#">Standard Product Header</a></h4>
+                                                <h4 class="media-heading"><a href="#">@saleProducts.Name</a></h4>
                                                 <div class="rating">
                                                     <span class="star"></span>
                                                     <!--
-                                                    -->
+            -->
                                                     <span class="star active"></span>
                                                     <!--
-                                                    -->
+            -->
                                                     <span class="star active"></span>
                                                     <!--
-                                                    -->
+            -->
                                                     <span class="star active"></span>
                                                     <!--
-                                                    -->
+            -->
                                                     <span class="star active"></span>
                                                 </div>
-                                                <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
+                                                <div class="price"><ins>$ @saleProducts.Price</ins> <del>$ @saleProducts.SalePrice</del></div>
                                             </div>
                                         </div>
-                                        <div class="media">
-                                            <a class="pull-left media-link" href="#">
-                                                <img class="media-object" src="assets/img/preview/shop/top-sellers-8.jpg" alt="">
-                                                <i class="fa fa-plus"></i>
-                                            </a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading"><a href="#">Standard Product Header</a></h4>
-                                                <div class="rating">
-                                                    <span class="star"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                </div>
-                                                <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
-                                            </div>
+                                        }
+
                                         </div>
-                                        <div class="media">
-                                            <a class="pull-left media-link" href="#">
-                                                <img class="media-object" src="assets/img/preview/shop/top-sellers-9.jpg" alt="">
-                                                <i class="fa fa-plus"></i>
-                                            </a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading"><a href="#">Standard Product Header</a></h4>
-                                                <div class="rating">
-                                                    <span class="star"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                </div>
-                                                <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-                            <a class="btn btn-theme btn-theme-dark btn-theme-sm btn-block" href="#">More Products</a>
                         </div>
                     </div>
                     <!-- /widget tabs -->
@@ -567,29 +435,19 @@
                     <!-- shop-sorting -->
                     <div class="shop-sorting">
                         <div class="row">
-                            <div class="col-sm-8">
-                                <form class="form-inline" action="">
-                                    <div class="form-group selectpicker-wrapper">
-                                        <select class="selectpicker input-price" data-live-search="true" data-width="100%"
-                                                data-toggle="tooltip" title="Select">
-                                            <option>Product Name</option>
-                                            <option>Product Name</option>
-                                            <option>Product Name</option>
-                                        </select>
+                            <div class="col-sm-6">
+                                <!-- widget search -->
+                                <div class="widget">
+                                    <div class="widget-search">
+                                        <input class="form-control" type="text" placeholder="Search">
+                                        <button><i class="fa fa-search"></i></button>
                                     </div>
-                                    <div class="form-group selectpicker-wrapper">
-                                        <select class="selectpicker input-price" data-live-search="true" data-width="100%"
-                                                data-toggle="tooltip" title="Select">
-                                            <option>Select Manifacturers</option>
-                                            <option>Select Manifacturers</option>
-                                            <option>Select Manifacturers</option>
-                                        </select>
-                                    </div>
-                                </form>
+                                </div>
+                                <!-- /widget search -->
                             </div>
-                            <div class="col-sm-4 text-right-sm">
-                                <a class="btn btn-theme btn-theme-transparent btn-theme-sm" href="#"><img src="assets/img/icon-list.png" alt="" /></a>
-                                <a class="btn btn-theme btn-theme-transparent btn-theme-sm" href="#"><img src="assets/img/icon-grid.png" alt="" /></a>
+                            <div class="col-sm-6 text-right-sm">
+                                <a class="btn btn-theme btn-theme-transparent btn-theme-sm" href="#"><img src="~/frontend/assets/img/icon-list.png" alt="" /></a>
+                                <a class="btn btn-theme btn-theme-transparent btn-theme-sm" href="#"><img src="~/frontend/assets/img/icon-grid.png" alt="" /></a>
                             </div>
                         </div>
                     </div>

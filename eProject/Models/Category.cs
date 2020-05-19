@@ -12,7 +12,6 @@ namespace eProject.Models
     {
         public Category()
         {
-            InverseParents = new HashSet<Category>();
             Products = new HashSet<Product>();
         }
 
@@ -24,10 +23,6 @@ namespace eProject.Models
 
         public bool Status { get; set; }
 
-        public int? ParentId { get; set; }
-
-        public virtual Category Parent { get; set; }
-        public virtual ICollection<Category> InverseParents { get; set; }
         public virtual ICollection<Product> Products { get; set; }
     }
 }
