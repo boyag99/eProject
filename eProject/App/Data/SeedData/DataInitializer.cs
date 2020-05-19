@@ -443,6 +443,9 @@ namespace eProject.App.Data.SeedData
                     Description = "Description Slide Show 3"
                 },
             };
+
+            applicationDbContext.SlideShows.AddRange(slideShows);
+            applicationDbContext.SaveChanges();
         }
     }
 }
