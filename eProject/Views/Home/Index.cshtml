@@ -200,8 +200,8 @@
         <a class="btn btn-theme btn-title-more btn-icon-left" asp-controller="Blog" asp-action="index"><i class="fa fa-file-text-o"></i>See All Posts</a>
         <h2 class="block-title"><span>Our Recent posts</span></h2>
         <div class="row">
-            @foreach(var post in ViewBag.Post)
-            { 
+            @foreach (var post in ViewBag.Post)
+            {
             <div class="col-md-6">
                 <div class="recent-post">
                     <div class="media">
@@ -213,6 +213,7 @@
                             <p class="media-category"><a href="#">Author</a> : <a href="#">@post.AuthorName</a></p>
                             <h4 class="media-heading"><a href="#">@post.Title</a></h4>
                             @post.Description
+                        </div>
                         <div class="media-meta">
                             @post.PostedDate
                         </div>
@@ -227,7 +228,7 @@
 <!-- PAGE -->
 <section class="page-section">
     <div class="container">
-        <h2 class="section-title"><span>Brand &amp; Clients</span></h2>
+        <h2 class="section-title"><span>Artist</span></h2>
         <div class="partners-carousel">
             <div class="owl-carousel" id="partners">
                 <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
@@ -255,8 +256,8 @@
                     <div class="media">
                         <div class="pull-right"><i class="fa fa-gift"></i></div>
                         <div class="media-body">
-                            <h4 class="media-heading">Buy 1 Get 1</h4>
-                            Proin dictum elementum velit. Fusce euismod consequat ante.
+                            <h4 class="media-heading">Free Shipping</h4>
+                            Ship around the world
                         </div>
                     </div>
                 </div>
@@ -267,7 +268,7 @@
                         <div class="pull-right"><i class="fa fa-comments"></i></div>
                         <div class="media-body">
                             <h4 class="media-heading">Call to Free</h4>
-                            Proin dictum elementum velit. Fusce euismod consequat ante.
+                            Support 24/7. call number: 1800 1530
                         </div>
                     </div>
                 </div>
@@ -277,8 +278,8 @@
                     <div class="media">
                         <div class="pull-right"><i class="fa fa-trophy"></i></div>
                         <div class="media-body">
-                            <h4 class="media-heading">Money Back!</h4>
-                            Proin dictum elementum velit. Fusce euismod consequat ante.
+                            <h4 class="media-heading">Payment</h4>
+                            Credit Card - Paypal - Card
                         </div>
                     </div>
                 </div>
