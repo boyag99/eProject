@@ -35,6 +35,7 @@ namespace eProject
                         var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
                         IdentityDataInitializer.SeedData(userManager, roleManager);
+                        DataInitializer.SeedData(context, userManager);
                     }
                 }
             }

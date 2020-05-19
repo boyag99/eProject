@@ -19,6 +19,7 @@ namespace eProject.Controllers
     [Route("Account")]
     public class AccountController : Controller
     {
+        private const string USER_PATH = "images/users";
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
@@ -70,11 +71,15 @@ namespace eProject.Controllers
                     return RedirectToAction(nameof(Index));
                 }
 
+                var uniqueFileName = GeneralHelpers.UploadedFile(updateUserRequest.ProfileImage, USER_PATH).Result; // upload new image & return image name
+
+
                 user.FirstName = updateUserRequest.FirstName;
                 user.LastName = updateUserRequest.LastName;
                 user.PhoneNumber = updateUserRequest.PhoneNumber;
                 user.Gender = updateUserRequest.Gender;
                 user.DateOfBirthDay = updateUserRequest.DateOfBirthDay;
+                user.ProfileImage = uniqueFileName;
 
                 _applicationDbContext.Users.Update(user);
                 await _applicationDbContext.SaveChangesAsync();
@@ -203,6 +208,45 @@ namespace eProject.Controllers
         public IActionResult Artist()
         {
             return View();
+        }
+
+        [HttpPost]
+        [Route("RegisterArtist")]
+        public async Task<IActionResult> RegisterArtist(ArtistRegisterRequest artistRegisterRequest)
+        {
+            User user = await _userManager.GetUserAsync(User);
+
+            var userImage = user.ProfileImage;
+            var uniqueImageName = GeneralHelpers.UploadedFile(artistRegisterRequest.ProfileImage, USER_PATH).Result; // upload image & return image name
+
+            if (ModelState.IsValid)
+            {
+                user.Exhibition = artistRegisterRequest.Exhibition;
+                user.Biography = artistRegisterRequest.Biography;
+                user.ProfileImage = uniqueImageName ?? userImage;
+
+                _applicationDbContext.Users.Update(user);
+                await _applicationDbContext.SaveChangesAsync();
+
+                await UpdateRole(user, "Artist");
+
+                await _signInManager.RefreshSignInAsync(user);
+                return RedirectToAction("Artist", "Account");
+            }
+
+            return View("Artist", artistRegisterRequest);
+        }
+
+        private async Task UpdateRole(User user, string role)
+        {
+            var roleUser = await _userManager.GetRolesAsync(user); // get role user
+            var removeRole = await _userManager.RemoveFromRoleAsync(user, roleUser[0]); // remove user old role
+
+            if (removeRole.Succeeded)
+            {
+
+                await _userManager.AddToRoleAsync(user, role); // add role for user
+            }
         }
     }
 }

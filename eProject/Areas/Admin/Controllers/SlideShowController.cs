@@ -45,7 +45,7 @@ namespace eProjectASP.Areas.Admin.Controllers
         [Route("add")]
         public IActionResult Add(SlideShow slideShow, IFormFile photo)
         {
-            var path = Path.Combine(this._environment.ContentRootPath, "wwwroot/slideshows", photo.FileName);
+            var path = Path.Combine(this._environment.ContentRootPath, "wwwroot/images/slideshows", photo.FileName);
             var stream = new FileStream(path, FileMode.Create);
             photo.CopyToAsync(stream);
             slideShow.Name = photo.FileName;
@@ -78,7 +78,7 @@ namespace eProjectASP.Areas.Admin.Controllers
             var currentSlideShow = _applicationDbContext.SlideShows.Find(id);
             if (photo != null && !string.IsNullOrEmpty(photo.FileName))
             {
-                var path = Path.Combine(this._environment.ContentRootPath, "wwwroot/slideshows", photo.FileName);
+                var path = Path.Combine(this._environment.ContentRootPath, "wwwroot/images/slideshows", photo.FileName);
                 var stream = new FileStream(path, FileMode.Create);
                 photo.CopyToAsync(stream);
                 currentSlideShow.Name = photo.FileName;
