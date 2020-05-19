@@ -36,6 +36,9 @@
     <link href="~/frontend/assets/css/theme.css" rel="stylesheet">
     <link href="~/frontend/assets/css/theme-gray.css" rel="stylesheet" id="theme-config-link">
 
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/backend/plugins/summernote/summernote-bs4.css">
+
     <!-- Head Libs -->
     <script src="~/frontend/assets/plugins/modernizr.custom.js"></script>
 
@@ -89,7 +92,7 @@
                                     <div>
                                         <a href="#" class="btn btn-theme btn-theme-dark" data-dismiss="modal">Close</a>
                                         <!--
-                                    -->
+                                        -->
                                         <a href="shopping-cart.html" class="btn btn-theme btn-theme-transparent btn-call-checkout">Checkout</a>
                                     </div>
                                 </div>
@@ -175,10 +178,13 @@
     <script src="~/frontend/assets/plugins/jquery.easing.min.js"></script>
     <script src="~/frontend/assets/plugins/jquery.smoothscroll.min.js"></script>
     <script src="~/frontend/assets/plugins/smooth-scrollbar.min.js"></script>
-
+    <!-- Summernote -->
+    <script src="~/backend/plugins/summernote/summernote-bs4.min.js"></script>
     <!-- JS Page Level -->
     <script src="~/frontend/assets/js/theme.js"></script>
 
     @await RenderSectionAsync("scripts", required: false)
+
+
 </body>
 </html>
