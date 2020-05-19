@@ -6,7 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace eProject.Models
-{[Table("InvoiceDatail")]
+{
+    [Table("InvoiceDetails")]
     public class InvoiceDetail
 
     {

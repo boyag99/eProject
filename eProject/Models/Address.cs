@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eProject.Models
 {
+    [Table("Addresses")]
     public class Address
     {
         [Key]

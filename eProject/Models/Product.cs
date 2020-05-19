@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eProject.Models
 {
-    [Table("Product")]
+    [Table("Products")]
     public class Product
     {
         public Product()

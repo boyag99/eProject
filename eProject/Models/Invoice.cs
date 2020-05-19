@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace eProject.Models
 {
-    [Table("Invoice")]
+    [Table("Invoices")]
     public class Invoice
     {
         public  Invoice()
@@ -26,6 +26,7 @@ namespace eProject.Models
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
         public virtual User User { get; set; }
+
         public string Role { get; set; }
         public virtual ICollection<InvoiceDetail> InvoiceDetails { get; set; }
 

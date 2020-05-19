@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace eProject.Models
 {
-    [Table("SlideShow")]
+    [Table("SlideShows")]
     public class SlideShow
     {
         public int Id { get; set; }

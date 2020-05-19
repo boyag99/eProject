@@ -29,7 +29,11 @@ namespace eProject.Data
 
             // Override default AspNet Identity table names
             modelBuilder.Entity<User>(entity => { entity.ToTable(name: "Users"); });
-            modelBuilder.Entity<Address>(entity => { entity.ToTable(name: "Address"); });
+            modelBuilder.Entity<Address>(entity => { entity.ToTable(name: "Addresses"); });
+            modelBuilder.Entity<SlideShow>(entity => { entity.ToTable(name: "SlideShows"); });
+            modelBuilder.Entity<Category>(entity => { entity.ToTable(name: "Categories"); });
+            modelBuilder.Entity<About>(entity => { entity.ToTable(name: "Abouts"); });
+            modelBuilder.Entity<Blog>(entity => { entity.ToTable(name: "Blogs"); });
             modelBuilder.Entity<IdentityRole>(entity => { entity.ToTable(name: "Roles"); });
             modelBuilder.Entity<IdentityUserRole<string>>(entity => { entity.ToTable("UserRoles"); });
             modelBuilder.Entity<IdentityUserClaim<string>>(entity => { entity.ToTable("UserClaims"); });
@@ -44,6 +48,8 @@ namespace eProject.Data
                       .HasForeignKey(d => d.CategoryId)
                       .OnDelete(DeleteBehavior.Cascade)
                       .HasConstraintName("FK_Category_Product");
+
+                entity.ToTable("Products");
             });
 
 
@@ -54,14 +60,12 @@ namespace eProject.Data
                       .HasForeignKey(d => d.ProductId)
                       .OnDelete(DeleteBehavior.Cascade)
                       .HasConstraintName("FK_Product_Photo");
+
+                entity.ToTable("Photos");
             });
             modelBuilder.Entity<Invoice>(entity =>
             {
-                entity.HasOne(d => d.User)
-                      .WithMany(p => p.Invoices)
-                      .HasForeignKey(d => d.UserId)
-                      .OnDelete(DeleteBehavior.Cascade)
-                      .HasConstraintName("FK_Category_Product");
+                entity.ToTable("Invoices");
             });
             modelBuilder.Entity<InvoiceDetail>(entity =>
             {
@@ -71,6 +75,8 @@ namespace eProject.Data
                       .HasForeignKey(d => d.InvoiceId)
                       .OnDelete(DeleteBehavior.Cascade)
                       .HasConstraintName("FK_InvoiceDetail_Invoice");
+
+                entity.ToTable("InvoiceDetails");
             });
         }
     }
