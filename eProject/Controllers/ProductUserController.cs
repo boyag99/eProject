@@ -6,6 +6,7 @@ using eProject.Data;
 using eProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using X.PagedList;
 
 namespace eProject.Controllers
 {
@@ -53,9 +54,10 @@ namespace eProject.Controllers
         }
 
         [Route("index")]
-        public IActionResult Index()
+        public IActionResult Index(int? page)
         {
-            var product = _applicationDbContext.Products.Include(p => p.Photos).Where(p => p.Status).ToList();
+            var pageNumber = page ?? 1;
+            var product = _applicationDbContext.Products.Include(p => p.Photos).Where(p => p.Status).ToList().ToPagedList(pageNumber,3);
             ViewBag.Products = product;
 
             List<Product> hotProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.Hot).Take(3).ToList();
@@ -71,17 +73,31 @@ namespace eProject.Controllers
             return View("Index");
         }
         [Route("category/{id}")]
-        public IActionResult Category(int id)
+        public IActionResult Category(int id, int? page)
         {
+
+            var pageNumber = page ?? 1;
+
             ViewBag.Category = _applicationDbContext.Categories.Include(c => c.Products).SingleOrDefault(p => p.CategoryId == id);
 
-            ViewBag.Products = _applicationDbContext.Products
+            var product = _applicationDbContext.Products
                 .Include(p => p.Photos)
-                .Where(p => p.CategoryId == id).ToList();
+                .Where(p => p.CategoryId == id).ToList().ToPagedList(pageNumber, 3);
+
+            ViewBag.Products = product;
 
             ViewBag.CountProducts = _applicationDbContext.Products
                 .Where(p => p.CategoryId == id)
                 .Count(p => p.Status);
+
+            List<Product> hotProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.Hot).Take(3).ToList();
+            ViewBag.Hot = hotProducts;
+
+            List<Product> newProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.Created_At).Take(3).ToList();
+            ViewBag.NewProducts = newProducts;
+
+            List<Product> saleProducts = _applicationDbContext.Products.Include(p => p.Photos).Where(p => p.SalePrice > 0).Take(3).ToList();
+            ViewBag.SaleProducts = saleProducts;
 
             return View("Category");
         }
