@@ -2676,7 +2676,7 @@ input[type=checkbox] {
   text-transform: uppercase;
   line-height: 1;
 }
-.pagination > li > a {
+.pagination > li > a, .pagination > li >span {
   font-weight: 700;
   background-color: transparent;
   color: #232323;

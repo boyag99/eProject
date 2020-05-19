@@ -66,7 +66,7 @@
                                                 var photoName = photo == null ? "no-image.jpg" : photo.Name;
                                                 <div class="media">
                                                     <a class="pull-left media-link" asp-controller="Product" asp-action="details" asp-route-id="@HotProduct.ProductId">
-                                                        <img class="media-object" src="~/images/products/@photoName" alt="">
+                                                        <img class="media-object" src="~/images/products/@photoName" alt="" style="width: 70px; height:90px;">
                                                         <i class="fa fa-plus"></i>
                                                     </a>
                                                     <div class="media-body">
@@ -103,7 +103,7 @@
                                                 var photoName = photo == null ? "no-image.jpg" : photo.Name;
                                                 <div class="media">
                                                     <a class="pull-left media-link" asp-controller="Product" asp-action="details" asp-route-id="@newProducts.ProductId">
-                                                        <img class="media-object" src="~/images/products/@photoName" alt="">
+                                                        <img class="media-object" src="~/images/products/@photoName" alt="" style="width: 70px; height:90px;">
                                                         <i class="fa fa-plus"></i>
                                                     </a>
                                                     <div class="media-body">
@@ -140,7 +140,7 @@
                                                 var photoName = photo == null ? "no-image.jpg" : photo.Name;
                                                 <div class="media">
                                                     <a class="pull-left media-link" asp-controller="Product" asp-action="details" asp-route-id="@saleProducts.ProductId">
-                                                        <img class="media-object" src="~/images/products/@photoName" alt="">
+                                                        <img class="media-object" src="~/images/products/@photoName" alt="" style="width: 70px; height:90px;">
                                                         <i class="fa fa-plus"></i>
                                                     </a>
                                                     <div class="media-body">
@@ -201,8 +201,10 @@
                                     <!-- widget search -->
                                     <div class="widget">
                                         <div class="widget-search">
-                                            <input class="form-control" type="text" placeholder="Search">
-                                            <button><i class="fa fa-search"></i></button>
+                                            <form asp-action="category" method="get">
+                                                <input class="form-control" type="text" name="Search" placeholder="Search">
+                                                <button type="submit"><i class="fa fa-search"></i></button>
+                                            </form>
                                         </div>
                                     </div>
                                     <!-- /widget search -->
@@ -269,9 +271,7 @@
                         <!-- /Products grid -->
                         <!-- Pagination -->
                         <div class="pagination-wrapper">
-                            <div class="pagination-wrapper">
-                                @Html.PagedListPager((IPagedList)ViewBag.Products, page => Url.Action("category", "product", new { page = page }))
-                            </div>
+                                @Html.PagedListPager((IPagedList)ViewBag.Products, page => Url.Action("category", "ProductUser", new { page = page, currentSearch = ViewData["CurrentSearch"] }))
                         </div>
                         <!-- /Pagination -->
 
