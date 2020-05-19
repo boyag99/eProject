@@ -39,6 +39,9 @@
     <link href="~/frontend/assets/css/theme.css" rel="stylesheet">
     <link href="~/frontend/assets/css/theme-gray.css" rel="stylesheet" id="theme-config-link">
 
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/backend/plugins/summernote/summernote-bs4.css">
+
     <!-- Head Libs -->
     <script src="~/frontend/assets/plugins/modernizr.custom.js"></script>
 
@@ -180,9 +183,12 @@
     <script src="~/frontend/assets/plugins/smooth-scrollbar.min.js"></script>
 
     <script src="~/frontend/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+
     <!-- JS Page Level -->
     <script src="~/frontend/assets/js/theme.js"></script>
 
     @await RenderSectionAsync("scripts", required: false)
+
+
 </body>
 </html>
