@@ -17,7 +17,7 @@
                     <li class="breadcrumb-item active">List Categories</li>
                 </ol>
             </div>
-        </div>
+        </div> 
     </div><!-- /.container-fluid -->
 </section>
 
@@ -37,7 +37,6 @@
                                 <th>Id</th>
                                 <th>Name</th>
                                 <th>Status</th>
-                                <th>Parent</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -46,40 +45,28 @@
                             {
                                 <tr>
                                     <td>@category.CategoryId</td>
+                                    <td>@category.CategoryName</td>
                                     <td>
-                                        <b>@category.CategoryName</b>
-                                    </td>
-                                    <td>@(category.Status ? "Show" : "Hide")</td>
-                                    <td>@(category.Parent == null ? "" : @category.Parent.CategoryName)</td>
-                                    <td>
-                                        <a asp-area="Admin" asp-controller="Category" asp-action="Edit" asp-route-id="@category.CategoryId">Edit</a> |
-                                        @if (!(category.InverseParents is null) && category.InverseParents.Count == 0)
+                                        @if (category.Status == true)
                                         {
-                                            <a asp-area="Admin" asp-controller="Category" asp-action="Delete" asp-route-id="@category.CategoryId" onclick="return confirm('Are you sure?')">Delete</a>
-                                            <span>|</span>
+                                            <span style="color:green;font-weight:bold;">Show</span>
                                         }
-                                        <a asp-area="Admin" asp-controller="Category" asp-action="AddSubCategory" asp-route-id="@category.CategoryId">Add Sub Category</a>
+                                        else
+                                        {
+                                            <span style="color:red;">Hide</span>
+                                        }
                                     </td>
-                                </tr>
-
-                                if (!(category.InverseParents is null) && category.InverseParents.Count != 0)
-                                {
-                                    foreach (var subCategory in category.InverseParents)
-                                    {
-                                        <tr>
-                                            <td>@subCategory.CategoryId</td>
-                                            <td>
-                                                &nbsp;&nbsp;&nbsp;&nbsp;@subCategory.CategoryName
-                                            </td>
-                                            <td>@(subCategory.Status ? "Show" : "Hide")</td>
-                                            <td>@subCategory.Parent.CategoryName</td>
-                                            <td>
-                                                <a asp-area="Admin" asp-controller="Category" asp-action="Edit" asp-route-id="@subCategory.CategoryId">Edit</a> |
-                                                <a asp-area="Admin" asp-controller="Category" asp-action="Delete" asp-route-id="@subCategory.CategoryId" onclick="return confirm('Are you sure?')">Delete</a>
-                                            </td>
-                                        </tr>
-                                    }
-                                }
+                                    <td>
+                                        <a asp-area="Admin" asp-controller="Category" asp-action="Edit" asp-route-id="@category.CategoryId" class="btn btn-primary">
+                                            <i class="fa fa-wrench" aria-hidden="true"></i>
+                                            Edit
+                                        </a>
+                                        <a asp-area="Admin" asp-controller="Category" asp-action="Delete" asp-route-id="@category.CategoryId" onclick="return confirm('Are you sure?')" class="btn btn-danger">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                            Delete
+                                        </a>
+                                    </td>
+                                </tr>       
                             }
                         </tbody>
                         <tfoot>
@@ -87,7 +74,6 @@
                                 <th>Id</th>
                                 <th>Name</th>
                                 <th>Status</th>
-                                <th>Parent</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -100,14 +86,3 @@
     </div>
     <!-- /.row -->
 </section>
-
-@section Scripts
-{
-
-    <!-->script>$(function () {
-            $("#example1").DataTable({
-                "responsive": true,
-                "autoWidth": false,
-            });
-        });</!--script-->
-}

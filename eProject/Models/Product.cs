@@ -22,6 +22,12 @@ namespace eProject.Models
 
         public double SalePrice { get; set; }
 
+        public int Quantity { get; set; }
+
+        public int Hot { get; set; }
+
+        public DateTime Created_At { get; set; } = DateTime.Now;
+
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
 
@@ -34,6 +40,8 @@ namespace eProject.Models
         public bool Featured { get; set; }
 
         public virtual Category Category { get; set; }
+
+        public virtual User User { get; set; }
 
         public virtual ICollection<Photo> Photos { get; set; }
  

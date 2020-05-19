@@ -40,7 +40,7 @@
                                 <th>Photo</th>
                                 <th>Price</th>
                                 <th>Sale Price</th>
-                                <th>UserId</th>
+                                <th>Artist Name</th>
                                 <th>Category</th>
                                 <th>Description</th>
                                 <th>Status</th>
@@ -59,8 +59,8 @@
                                 <td><img src="~/products/@(mainPhoto != null ? mainPhoto.Name :"")" width="120" /></td>
                                 <td>@item.Price</td>
                                 <td>@item.SalePrice</td>
-                                <td>@item.UserId</td>
-                                <td>@item.CategoryId</td>
+                                <td><a asp-controller="User" asp-action="Edit" asp-route-id="@item.User.Id">@item.User.FirstName @item.User.LastName</a></td>
+                                <td>@item.Category.CategoryName</td>
                                
                                 <td>@item.Description</td>
 
@@ -111,7 +111,7 @@
                                 <th>Photo</th>
                                 <th>Price</th>
                                 <th>Sale Price</th>
-                                <th>UserId</th>
+                                <th>Artist Name</th>
                                 <th>Category</th>
                                 <th>Description</th>
                                 <th>Status</th>

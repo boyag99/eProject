@@ -189,7 +189,7 @@ body.boxed {
 }
 .row div[class*="col-"],
 .row aside[class*="col-"] {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 .row div[class*="col-"]:after,
 .row aside[class*="col-"]:after {
