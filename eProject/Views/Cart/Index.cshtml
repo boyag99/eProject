@@ -14,8 +14,7 @@
                 <tr>
                     <th>Image</th>
                     <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
+                    <th>Price</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,24 +22,17 @@
                 {
 
 
-                @foreach (var item in ViewBag.cart)
-                {
-                <tr>
-                    <td class="image"><a class="media-link" href="#"><i class="fa fa-plus"><img scr="~/products/@item.Photo" width="60" /></a></td>
-                    <td class="description">
-                        <h4><a href="#">@item.Name</a></h4>
-                    </td>
-                    <td>
-                        <div class="input-append">
-                            <input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text" value="@item.Quantity" />
-                            @*<button class="btn" type="button"><i class="icon-minus"></i></button>
-                <button class="btn" type="button"><i class="icon-plus"></i></button>*@
-                        </div>
-                    </td>
-                    <td class="total">$@(item.Price * item.Quantity)<a asp-controller="cart" asp-action="remove" asp-route-id="@item.ItemId"><i class="fa fa-close"></i></a></td>
-                </tr>
-                }
-                }
+                    @foreach (var item in ViewBag.cart)
+                    {
+                    <tr>
+                        <td class="image"><img src="~/images/products/@item.Photo" width="60" height="60" /></td>
+                        <td class="description">
+                            <h4><a href="#">@item.Name</a></h4>
+                        </td>
+                        <td class="total">@item.Price<a asp-controller="cart" asp-action="remove" asp-route-id="@item.ItemId"><i class="fa fa-close"></i></a></td>
+                    </tr>
+                    }
+                }   
             </tbody>
         </table>
     </div>
@@ -50,7 +42,7 @@
             <table>
                 <tr>
                     <td>Sub-total:</td>
-                    <td>$....</td>
+                    <td>@ViewBag.Total</td>
                 </tr>
                 <tr>
                     <td>Shipping:</td>
@@ -59,7 +51,7 @@
                 <tfoot>
                     <tr>
                         <td>Total:</td>
-                        <td>$......0</td>
+                        <td>$@ViewBag.Total</td>
                     </tr>
                 </tfoot>
             </table>

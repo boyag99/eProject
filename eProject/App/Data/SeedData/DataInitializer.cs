@@ -58,7 +58,7 @@ namespace eProject.App.Data.SeedData
                 {
                     ProductId = 1,
                     Name = "A Constant",
-                    Price = 3.500,
+                    Price = 3500,
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
@@ -73,7 +73,7 @@ namespace eProject.App.Data.SeedData
                 {
                     ProductId = 2,
                     Name = "Foreseeing Nothing",
-                    Price = 12.500,
+                    Price = 12500,
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
@@ -88,7 +88,7 @@ namespace eProject.App.Data.SeedData
                 {
                     ProductId = 3,
                     Name = "Idle Hands",
-                    Price = 12.500,
+                    Price = 12500,
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
@@ -103,7 +103,7 @@ namespace eProject.App.Data.SeedData
                 {
                     ProductId = 4,
                     Name = "If He Wasn't Handsome",
-                    Price = 12.500,
+                    Price = 12500,
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
@@ -118,7 +118,7 @@ namespace eProject.App.Data.SeedData
                 {
                     ProductId = 5,
                     Name = "In Search of What Once Was",
-                    Price = 12.500,
+                    Price = 12500,
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
@@ -133,7 +133,7 @@ namespace eProject.App.Data.SeedData
                 {
                     ProductId = 6,
                     Name = "Badain",
-                    Price = 30.000,
+                    Price = 30000,
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
@@ -148,7 +148,7 @@ namespace eProject.App.Data.SeedData
                 {
                     ProductId = 7,
                     Name = "Bláfellsá",
-                    Price = 30.000,
+                    Price = 30000,
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
@@ -163,7 +163,7 @@ namespace eProject.App.Data.SeedData
                 {
                     ProductId = 8,
                     Name = "Fleswich bay",
-                    Price = 30.000,
+                    Price = 30000,
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
@@ -178,7 +178,7 @@ namespace eProject.App.Data.SeedData
                 {
                     ProductId = 9,
                     Name = "Haifoss",
-                    Price = 30.000,
+                    Price = 30000,
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
@@ -193,7 +193,7 @@ namespace eProject.App.Data.SeedData
                 {
                     ProductId = 10,
                     Name = "K Muffarfjoll",
-                    Price = 30.000,
+                    Price = 30000,
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
@@ -208,7 +208,7 @@ namespace eProject.App.Data.SeedData
                 {
                     ProductId = 11,
                     Name = "Last Call",
-                    Price = 1.800,
+                    Price = 1800,
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
@@ -223,7 +223,7 @@ namespace eProject.App.Data.SeedData
                 {
                     ProductId = 12,
                     Name = "Merry Woodsman",
-                    Price = 1.500,
+                    Price = 1500,
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
@@ -238,7 +238,7 @@ namespace eProject.App.Data.SeedData
                 {
                     ProductId = 13,
                     Name = "Oh Dear",
-                    Price = 1.500,
+                    Price = 1500,
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
@@ -253,7 +253,7 @@ namespace eProject.App.Data.SeedData
                 {
                     ProductId = 14,
                     Name = "Speed Dating",
-                    Price = 1.500,
+                    Price = 1500,
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
@@ -268,7 +268,7 @@ namespace eProject.App.Data.SeedData
                 {
                     ProductId = 15,
                     Name = "We Can Dream",
-                    Price = 1.500,
+                    Price = 1500,
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
