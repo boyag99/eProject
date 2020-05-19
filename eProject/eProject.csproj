@@ -16,23 +16,31 @@
 </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1" />
+    <PackageReference Include="NETCore.MailKit" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="App\" />
     <Folder Include="App\Extensions\" />
+    <Folder Include="App\Helpers\" />
     <Folder Include="App\Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Admin\Views\Shared\Partial\" />
     <Folder Include="Areas\Admin\Views\Dashboard\" />
+    <Folder Include="wwwroot\about\" />
     <Folder Include="wwwroot\backend\" />
     <Folder Include="App\Data\SeedData\" />
     <Folder Include="Areas\Admin\Views\Account\" />
     <Folder Include="Areas\Admin\Views\User\" />
     <Folder Include="App\Validations\" />
     <Folder Include="wwwroot\backend\images\users\" />
-    <Folder Include="wwwroot\frontend\" />
     <Folder Include="Views\Shared\Partial\" />
     <Folder Include="Views\Home\" />
+    <Folder Include="Views\Account\" />
+    <Folder Include="wwwroot\blog\" />
+    <Folder Include="wwwroot\slideshows\" />
+    <Folder Include="Views\Account\Partial\" />
+    <Folder Include="Service\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\frontend\assets\css\inc\pagination.less" />

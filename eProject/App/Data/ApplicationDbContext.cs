@@ -14,12 +14,14 @@ namespace eProject.Data
         }
 
         public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<SlideShow> SlideShows { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Photo> Photos { get; set; }
         public virtual DbSet<About> About { get; set; }
         public virtual DbSet<Invoice>Invoices {get;set;}
         public virtual DbSet<InvoiceDetail>InvoiceDetails { get; set; }
+        public virtual DbSet<Blog> Blog { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

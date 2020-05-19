@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using eProject.App.Extensions;
+using eProject.Service;
 
 namespace eProject
 {
@@ -24,6 +25,9 @@ namespace eProject
             services.ConfigureDbContext(Configuration);
             services.ConfigureIdentity();
             services.ConfigureAuthentication();
+            services.AddScoped<IEmailSender, EmailSender>();
+            services.ConfigureEmail(Configuration);
+            services.ConfigureService();
             services.AddControllersWithViews();
         }
 

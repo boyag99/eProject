@@ -1,0 +1,82 @@
+﻿@model eProject.Models.ViewModels.UpdateUserRequest
+@{
+    ViewData["Title"] = "Account Information";
+}
+
+    <section class="page-section">
+        <div class="wrap container">
+            <div class="row">
+                <!--start main contain of page-->
+                <div class="col-lg-9 col-md-9 col-sm-8">
+                    <div class="information-title">Your Account Information</div>
+                    <div class="details-wrap">
+                        <div class="block-title alt"> <i class="fa fa-angle-down"></i> Change Your Personal Details</div>
+                        <div class="details-box">
+                            <form class="form-delivery" asp-controller="Account" asp-action="Update" method="post">
+                                <input type="hidden" asp-for="Id" />
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group"><input required readonly placeholder="Email" class="form-control" asp-for="Email"></div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group"><input required placeholder="First Name" class="form-control" asp-for="FirstName"></div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group"><input required asp-for="LastName" placeholder="Last Name" class="form-control"></div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group"><input required asp-for="DateOfBirthDay" placeholder="Birtday" class="form-control"></div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group"><input required asp-for="PhoneNumber" placeholder="Phone Number" class="form-control"></div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group selectpicker-wrapper">
+                                            <select class="selectpicker input-price" data-live-search="true" data-width="100%"
+                                                    data-toggle="tooltip" title="Select" asp-for="Gender" asp-items="@Html.GetEnumSelectList<User.GenderType>()">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group"><input required asp-for="PostalCode" placeholder="Postal Code" class="form-control"></div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group"><input required asp-for="StreetAddress" placeholder="Address" class="form-control"></div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group"><input required asp-for="County" placeholder="County" class="form-control"></div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group"><input required asp-for="City" placeholder="City" class="form-control"></div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group"><input required asp-for="State" placeholder="State" class="form-control"></div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12">
+                                        <button class="btn btn-theme btn-theme-dark" type="submit"> Update </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--end main contain of page-->
+                <!--start sidebar-->
+                <div class="col-lg-3 col-md-3 col-sm-4">
+                    <div class="widget account-details">
+                        <h2 class="widget-title">Account</h2>
+                        <ul>
+                            @await Html.PartialAsync("./Partial/_Sidebar")
+                        </ul>
+                    </div>
+                </div>
+                <!--end sidebar-->
+            </div>
+
+        </div>
+    </section>
+
+@section scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

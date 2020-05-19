@@ -1,4 +1,16 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<User> _signInManager
+@inject UserManager<User> _userManager
+
+@{
+    User user = new User();
+    if (_signInManager.IsSignedIn(User))
+    {
+        user = await _userManager.GetUserAsync(User);
+    }
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -22,7 +34,7 @@
 
     <!-- Theme CSS -->
     <link href="~/frontend/assets/css/theme.css" rel="stylesheet">
-    <link href="~/frontend/assets/css/theme-green-1.css" rel="stylesheet" id="theme-config-link">
+    <link href="~/frontend/assets/css/theme-gray.css" rel="stylesheet" id="theme-config-link">
 
     <!-- Head Libs -->
     <script src="~/frontend/assets/plugins/modernizr.custom.js"></script>
@@ -77,7 +89,7 @@
                                     <div>
                                         <a href="#" class="btn btn-theme btn-theme-dark" data-dismiss="modal">Close</a>
                                         <!--
-                                        -->
+                                    -->
                                         <a href="shopping-cart.html" class="btn btn-theme btn-theme-transparent btn-call-checkout">Checkout</a>
                                     </div>
                                 </div>
@@ -90,7 +102,7 @@
         <!-- /Popup: Shopping cart items -->
         <!-- Header top bar -->
 
-        @await Html.PartialAsync("./Partial/_TopBar")
+        @await Html.PartialAsync("./Partial/_TopBar", user)
 
         <!-- /Header top bar -->
         <!-- HEADER -->
@@ -100,7 +112,7 @@
 
                     <!-- Logo -->
                     <div class="logo">
-                        <a href="index.html"><img src="~/frontend/assets/img/logo-bella-shop.png" alt="Bella Shop" /></a>
+                        <a asp-controller="Home" asp-action="index"><img src="~/frontend/assets/img/newlogo1.png" alt="Art gallery Shop" /></a>
                     </div>
                     <!-- /Logo -->
                     <!-- Header search -->
@@ -166,12 +178,6 @@
 
     <!-- JS Page Level -->
     <script src="~/frontend/assets/js/theme.js"></script>
-
-    <!--[if (gte IE 9)|!(IE)]><!-->
-    <script src="~/frontend/assets/plugins/jquery.cookie.js"></script>
-    <script src="~/frontend/assets/js/theme-config.js"></script>
-    <!--<![endif]-->
-
 
     @await RenderSectionAsync("scripts", required: false)
 </body>

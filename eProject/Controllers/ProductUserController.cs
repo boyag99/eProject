@@ -26,7 +26,7 @@ namespace eProject.Controllers
             ViewBag.Product = product;
             ViewBag.FeaturedPhoto = featuredPhoto == null ? "no-image.jpg" : featuredPhoto.Name;
             ViewBag.ProductImages = product.Photos.Where(p => p.Status).ToList();
-            ViewBag.RelatedProduct = _applicationDbContext.Products.Where(p => p.CategoryId == product.CategoryId && p.ProductId != id && p.Status).ToList();
+            ViewBag.RelatedProduct = _applicationDbContext.Products.Include(p => p.Photos).Where(p => p.CategoryId == product.CategoryId && p.ProductId != id && p.Status).ToList();
             return View("Details");
         }
 
