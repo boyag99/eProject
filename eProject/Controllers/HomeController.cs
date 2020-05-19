@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using eProject.Data;
 using Microsoft.EntityFrameworkCore;
 using eProject.Service;
+using System.Collections.Generic;
 
 namespace eProject.Controllers
 {
@@ -40,9 +41,14 @@ namespace eProject.Controllers
         public IActionResult Index()
         {
             ViewBag.isHome = true;
-            var featuredProducts = _applicationDbContext.Products.Include(p=>p.Photos).OrderByDescending(p => p.ProductId).Where(p => p.Status && p.Featured).ToList();
+            var featuredProducts = _applicationDbContext.Products.Include(p=>p.Photos).OrderByDescending(p => p.ProductId).Where(p => p.Status && p.Featured).Take(8).ToList();
             ViewBag.FeaturedProducts = featuredProducts;
             ViewBag.NewestProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.ProductId).Where(p => p.Status).Take(8).ToList();
+
+            ViewBag.Post = _applicationDbContext.Blog.Take(4).ToList();
+            
+            List<Product> saleProducts = _applicationDbContext.Products.Include(p => p.Photos).Where(p => p.SalePrice > 0).ToList();
+            ViewBag.SaleProducts = saleProducts;
             return View();
         }
 
