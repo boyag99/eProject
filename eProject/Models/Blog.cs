@@ -22,14 +22,15 @@ namespace eProject.Models
 
         public DateTime PostedDate { get; set; }
 
-        [Required]
-        public string AuthorName { get; set; }
+        public string UserId { get; set; }
 
         [Required]
         public string Description { get; set; }
 
         [Required]
         public string Content { get; set; }
+
+        public User User { get; set; }
 
 
     }

@@ -37,8 +37,8 @@
                                 <a href=""><img src="@item.Photo" alt=""></a>
                             </div>
                             <div class="post-header">
-                                <h2 class="post-title"><a href="#">@item.Title</a></h2>
-                                <div class="post-meta">By <a href="#">@item.AuthorName</a> / @item.PostedDate </div>
+                                <h2 class="post-title"><a asp-controller="Blog" asp-action="ReadMore" asp-route-id="@item.BlogId">@item.Title</a></h2>
+                                <div class="post-meta">By <a href="#">@item.User.FirstName @item.User.LastName</a> / @item.PostedDate </div>
                             </div>
                             <div class="post-body">
                                 <div class="post-excerpt">

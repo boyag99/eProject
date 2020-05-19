@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using eProject.Data;
 using eProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace eProject.Controllers
 {
@@ -21,14 +22,18 @@ namespace eProject.Controllers
 
         public IActionResult Index()
         {
-            List<Blog> data = _applicationDbContext.Blog.ToList();
+            List<Blog> data = _applicationDbContext.Blog
+                .Include(b => b.User)
+                .ToList();
             return View(data);
         }
 
         [Route("ReadMore")]
         public IActionResult ReadMore(int id)
         {
-            var data = _applicationDbContext.Blog.SingleOrDefault(b => b.BlogId.Equals(id));
+            var data = _applicationDbContext.Blog
+                .Include(b => b.User)
+                .SingleOrDefault(b => b.BlogId.Equals(id));
             
             return View(data);
         }

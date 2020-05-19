@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 
 namespace eProject.Areas.Admin.Controllers
 {
@@ -20,10 +21,12 @@ namespace eProject.Areas.Admin.Controllers
     public class BlogController : Controller
     {
         private readonly ApplicationDbContext _applicationDbContext;
+        private readonly UserManager<User> _userManager;
         //private readonly IHostEnvironment Environment;
-        public BlogController(ApplicationDbContext applicationDbContext)
+        public BlogController(ApplicationDbContext applicationDbContext, UserManager<User> userManager)
         {
             _applicationDbContext = applicationDbContext;
+            _userManager = userManager;
 
         }
 
@@ -31,7 +34,9 @@ namespace eProject.Areas.Admin.Controllers
         [Route("Index")]
         public IActionResult Index()
         {
-            List<Blog> data = _applicationDbContext.Blog.ToList();
+            List<Blog> data = _applicationDbContext.Blog
+                .Include(b => b.User)
+                .ToList();
             return View(data);
         }
 
@@ -46,18 +51,20 @@ namespace eProject.Areas.Admin.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public IActionResult Create(Blog blog, IFormFile photo)
+        public async Task<IActionResult> Create(Blog blog, IFormFile photo)
         {
+            User user = await _userManager.GetUserAsync(User);
+
             if (ModelState.IsValid)
             {
                 if (photo.Length > 0)
                 {
                     var path = Path.Combine("wwwroot/blog", photo.FileName);
                     var stream = new FileStream(path, FileMode.Create);
-                    photo.CopyToAsync(stream);
+                    await photo.CopyToAsync(stream);
 
                     blog.Photo = "/blog/" + photo.FileName;
-
+                    blog.UserId = user.Id;
                     _applicationDbContext.Blog.Add(blog);
                     _applicationDbContext.SaveChanges();
                     return RedirectToAction("Index", "Blog", new { area = "admin" });
@@ -108,7 +115,6 @@ namespace eProject.Areas.Admin.Controllers
             currentBlogContent.Photo = blog.Photo;
             currentBlogContent.Title = blog.Title;
             currentBlogContent.PostedDate = blog.PostedDate;
-            currentBlogContent.AuthorName = blog.AuthorName;
             currentBlogContent.Description = blog.Description;
             currentBlogContent.Content = blog.Content;
 
