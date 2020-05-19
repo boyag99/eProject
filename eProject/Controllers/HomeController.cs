@@ -88,7 +88,7 @@ namespace eProject.Controllers
             else
             {
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                return View("Index", loginRequest);
+                return View(loginRequest);
             }
         }
 
