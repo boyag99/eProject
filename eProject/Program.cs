@@ -28,6 +28,8 @@ namespace eProject
 
                     var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
 
+                    context.Database.EnsureDeleted();
+
                     if (context.Database.EnsureCreated())
                     {
                         var userManager = serviceProvider.GetRequiredService<UserManager<User>>();

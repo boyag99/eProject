@@ -17,6 +17,7 @@ namespace eProject.App.Data.SeedData
             SeedProducts(applicationDbContext, userManager);
             SeedPhotos(applicationDbContext);
             SeedSlideShows(applicationDbContext);
+            SeedBlogs(applicationDbContext, userManager);
         }
 
         private static void SeedCategories(ApplicationDbContext applicationDbContext)
@@ -424,7 +425,7 @@ namespace eProject.App.Data.SeedData
                     Name = "banner1.jpg",
                     Status = true,
                     Title = "Title Slide Show 1",
-                    Description = "Description Slide Show 1"
+                    Description = "Description"
                 },
                 new SlideShow
                 {
@@ -432,7 +433,7 @@ namespace eProject.App.Data.SeedData
                     Name = "banner2.jpg",
                     Status = true,
                     Title = "Title Slide Show 2",
-                    Description = "Description Slide Show 2"
+                    Description = "Description"
                 },
                 new SlideShow
                 {
@@ -440,11 +441,74 @@ namespace eProject.App.Data.SeedData
                     Name = "banner3.jpg",
                     Status = true,
                     Title = "Title Slide Show 3",
-                    Description = "Description Slide Show 3"
+                    Description = "Description"
                 },
             };
 
             applicationDbContext.SlideShows.AddRange(slideShows);
+            applicationDbContext.SaveChanges();
+        }
+
+        private static void SeedBlogs(ApplicationDbContext applicationDbContext, UserManager<User> userManager)
+        {
+            User user = userManager.FindByEmailAsync("admin@gmail.com").Result;
+
+            List<Blog> blogs = new List<Blog>
+            {
+                new Blog
+                {
+                    BlogId = 1,
+                    Title = "DIFFERENCE BETWEEN TEMPERA AND OIL PAINTINGS",
+                    Photo = "blog1.jpg",
+                    PostedDate = DateTime.Now,
+                    UserId = user.Id,
+                    Description = "Tempera is a color bound by a sticky binder or by egg yolk. In the European tradition it is opposed to oil painting, with its lower, dimmed and less shiny...",
+                    Content =  "Tempera is a color bound by a sticky binder or by egg yolk. In the European tradition it is opposed to oil painting, with its lower, dimmed and less shiny...",
+
+                },
+                new Blog
+                {
+                    BlogId = 2,
+                    Title = "USE OF VARNISH IN PAINTINGS",
+                    Photo = "blog2.jpg",
+                    PostedDate = DateTime.Now,
+                    UserId = user.Id,
+                    Description = "Originally, the varnish used for the paintings was a resin dissolved in oil. It was used, above all, as a shielding for gold and as a binder of transparent colors",
+                    Content =  "Tempera is a color bound by a sticky binder or by egg yolk. In the European tradition it is opposed to oil painting, with its lower, dimmed and less shiny...",
+                },
+                new Blog
+                {
+                    BlogId = 3,
+                    Title = "USE OF GOLD IN PAINTING",
+                    Photo = "blog3.jpg",
+                    PostedDate = DateTime.Now,
+                    UserId = user.Id,
+                    Description = "The use of gold in painting is linked to the recognition of the role of art of goldsmithing, that is the art that shapes the most precious metals",
+                    Content =  "Tempera is a color bound by a sticky binder or by egg yolk. In the European tradition it is opposed to oil painting, with its lower, dimmed and less shiny...",
+                },
+                new Blog
+                {
+                    BlogId = 4,
+                    Title = "THE ART OF PAINTING AND DREAMS",
+                    Photo = "blog4.jpg",
+                    PostedDate = DateTime.Now,
+                    UserId = user.Id,
+                    Description = "It is impressive that painting, which is the most sensual of the arts, is also the most metaphysical. For color, of course, but not only for that",
+                    Content = "It is impressive that painting, which is the most sensual of the arts, is also the most metaphysical. For color, of course, but not only for that",
+                },
+                new Blog
+                {
+                    BlogId = 5,
+                    Title = "WHY COPIES, REPRODUCTIONS AND FAKES PAINTINGS?",
+                    Photo = "blog5.jpg",
+                    PostedDate = DateTime.Now,
+                    UserId = user.Id,
+                    Description = "It usually happens that the original paintings produced by the artist could be copied, so they are reproduced in the most faithful way in terms of shape",
+                    Content = "WHY COPIES, REPRODUCTIONS AND FAKES PAINTINGS?",
+                },
+            };
+
+            applicationDbContext.Blog.AddRange(blogs);
             applicationDbContext.SaveChanges();
         }
     }

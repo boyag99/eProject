@@ -45,7 +45,7 @@ namespace eProject.Controllers
             ViewBag.FeaturedProducts = featuredProducts;
             ViewBag.NewestProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.ProductId).Where(p => p.Status).Take(8).ToList();
 
-            ViewBag.Post = _applicationDbContext.Blog.Take(4).ToList();
+            ViewBag.Post = _applicationDbContext.Blog.Include(b => b.User).Take(4).ToList();
             
             List<Product> saleProducts = _applicationDbContext.Products.Include(p => p.Photos).Where(p => p.SalePrice > 0).ToList();
             ViewBag.SaleProducts = saleProducts;

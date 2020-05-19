@@ -59,7 +59,7 @@ namespace eProject.Areas.Admin.Controllers
             {
                 if (photo.Length > 0)
                 {
-                    var path = Path.Combine("wwwroot/blog", photo.FileName);
+                    var path = Path.Combine("wwwroot/images/blogs", photo.FileName);
                     var stream = new FileStream(path, FileMode.Create);
                     await photo.CopyToAsync(stream);
 
@@ -106,7 +106,7 @@ namespace eProject.Areas.Admin.Controllers
             var currentBlogContent = _applicationDbContext.Blog.Find(id);
             if (photo != null && !string.IsNullOrEmpty(photo.FileName))
             {
-                var path = Path.Combine("wwwroot/blog", photo.FileName);
+                var path = Path.Combine("wwwroot/images/blogs", photo.FileName);
                 var stream = new FileStream(path, FileMode.Create);
                 photo.CopyToAsync(stream);
 

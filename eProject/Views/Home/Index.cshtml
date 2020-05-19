@@ -200,18 +200,18 @@
         <a class="btn btn-theme btn-title-more btn-icon-left" asp-controller="Blog" asp-action="index"><i class="fa fa-file-text-o"></i>See All Posts</a>
         <h2 class="block-title"><span>Our Recent posts</span></h2>
         <div class="row">
-            @foreach (var post in ViewBag.Post)
+            @foreach (Blog post in ViewBag.Post)
             {
             <div class="col-md-6">
                 <div class="recent-post">
                     <div class="media">
                         <a class="pull-left media-link" asp-controller="Blog" asp-action="ReadMore" asp-route-id="@post.BlogId">
-                            <img class="media-object" src="@post.Photo" alt="" style="width: 170px; height: 120px;" >
+                            <img class="media-object" src="~/images/blogs/@post.Photo" alt="" style="width: 170px; height: 120px;" >
                             <i class="fa fa-plus"></i>
                         </a>
                         <div class="media-body">
-                            <p class="media-category"><a href="#">Author</a> : <a href="#">@post.AuthorName</a></p>
-                            <h4 class="media-heading"><a href="#">@post.Title</a></h4>
+                            <p class="media-category"><a href="#">Author</a> : <a href="#">@post.User.FirstName @post.User.LastName</a></p>
+                            <h4 class="media-heading"><a asp-controller="Blog" asp-action="ReadMore" asp-route-id="@post.BlogId">@post.Title</a></h4>
                             @post.Description
                         </div>
                         <div class="media-meta">
