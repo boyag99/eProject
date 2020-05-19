@@ -8,12 +8,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eProject.Models
 {
+
     [Table("Blogs")]
     public class Blog
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int BlogId { get; set; }
+ 
+        public string Title { get; set; }
 
         public string Photo { get; set; }
 
@@ -22,7 +25,11 @@ namespace eProject.Models
         [Required]
         public string AuthorName { get; set; }
 
+        [Required]
         public string Description { get; set; }
+
+        [Required]
+        public string Content { get; set; }
 
 
     }

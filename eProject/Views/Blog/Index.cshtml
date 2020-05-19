@@ -1,0 +1,124 @@
+﻿@model IEnumerable<eProject.Models.Blog>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_FrontendLayout.cshtml";
+}
+
+<!-- CONTENT AREA -->
+<div class="content-area">
+
+    <!-- BREADCRUMBS -->
+    <section class="page-section breadcrumbs">
+        <div class="container">
+            <div class="page-header">
+                <h1>Blog Post Page</h1>
+            </div>
+            <ul class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Blog</li>
+            </ul>
+        </div>
+    </section>
+    <!-- /BREADCRUMBS -->
+
+    <!-- PAGE WITH SIDEBAR -->
+    <section class="page-section with-sidebar">
+        <div class="container">
+            
+               
+                <!-- CONTENT -->
+                <div class="content" id="content">
+
+                    @foreach (var item in Model)
+                    {
+                        <!-- Blog posts -->
+                        <article class="post-wrap">
+                            <div class="post-media">
+                                <a href=""><img src="@item.Photo" alt=""></a>
+                            </div>
+                            <div class="post-header">
+                                <h2 class="post-title"><a href="#">@item.Title</a></h2>
+                                <div class="post-meta">By <a href="#">@item.AuthorName</a> / @item.PostedDate </div>
+                            </div>
+                            <div class="post-body">
+                                <div class="post-excerpt">
+                                    <p>@item.Description</p>
+                                </div>
+                            </div>
+                            <div class="post-footer">
+                                <span class="post-read-more"><a asp-controller="Blog" asp-action="ReadMore" asp-route-id="@item.BlogId" class="btn btn-theme btn-theme-transparent btn-icon-left"><i class="fa fa-file-text-o"></i>Read more</a></span>
+                                
+                            </div>
+                        </article>
+                        <!-- / -->
+
+                        <!-- / -->
+
+
+                        <!-- /Blog posts -->
+                    }
+
+                    <!-- Pagination -->
+                    <div class="pagination-wrapper">
+                        <ul class="pagination">
+                            <li class="disabled"><a href="#"><i class="fa fa-angle-double-left"></i> Previous</a></li>
+                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">Next <i class="fa fa-angle-double-right"></i></a></li>
+                        </ul>
+                    </div>
+                    <!-- /Pagination -->
+
+                </div>
+                <!-- /CONTENT -->
+
+            
+        </div>
+    </section>
+    <!-- /PAGE WITH SIDEBAR -->
+    <!-- PAGE -->
+    @*<section class="page-section no-padding-top">
+        <div class="container">
+            <div class="row blocks shop-info-banners">
+                <div class="col-md-4">
+                    <div class="block">
+                        <div class="media">
+                            <div class="pull-right"><i class="fa fa-gift"></i></div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Buy 1 Get 1</h4>
+                                Proin dictum elementum velit. Fusce euismod consequat ante.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="block">
+                        <div class="media">
+                            <div class="pull-right"><i class="fa fa-comments"></i></div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Call to Free</h4>
+                                Proin dictum elementum velit. Fusce euismod consequat ante.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="block">
+                        <div class="media">
+                            <div class="pull-right"><i class="fa fa-trophy"></i></div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Money Back!</h4>
+                                Proin dictum elementum velit. Fusce euismod consequat ante.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>*@
+    <!-- /PAGE -->
+
+</div>
+<!-- /CONTENT AREA -->

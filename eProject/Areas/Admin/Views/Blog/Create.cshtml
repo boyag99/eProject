@@ -1,0 +1,94 @@
+﻿@model eProject.Models.Blog
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_BackendLayout.cshtml";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Categories</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Create new Blog Content</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Blog Information</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form asp-area="Admin" asp-controller="Blog" asp-action="Create" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="exampleInputFile">Photo</label>
+                            <input type="file" name="photo" accept="image/*">
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Title">Title</label>
+                            <textarea class="form-control" asp-for="Title"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="PostedDate">PostedDate</label>
+                            <input class="form-control" asp-for="PostedDate">
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="AuthorName">AuthorName</label>
+                            <textarea class="form-control" asp-for="AuthorName"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Description">Description</label>
+                            <textarea class="form-control" asp-for="Description"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                                <label asp-for="Content">Content</label>
+                                <textarea class="form-control" asp-for="Content"></textarea>
+                            </div>
+                        <!-- Main content -->
+
+                                        <!-- /.card-header -->
+                                        @*<div class="card-body pad form-group">
+                                            <div class="mb-3">
+                                                <textarea class="textarea" placeholder="Place some text here"
+                                                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" asp-for="Content"></textarea>
+                                            </div>
+                                        </div>*@
+                        <!-- /.content -->
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Create New</button>
+                            <button type="reset" class="btn btn-warning">Reset</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(function () {
+        // Summernote
+        $('.textarea').summernote()
+    })
+</script>
+
+
+
+
