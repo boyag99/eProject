@@ -71,7 +71,7 @@
                                             var photoName = photo == null ? "no-image.jpg" : photo.Name;
                                         <div class="media">
                                             <a class="pull-left media-link" asp-controller="Product" asp-action="details" asp-route-id="@HotProduct.ProductId">
-                                                <img class="media-object" src="~/products/@photoName" alt="">
+                                                <img class="media-object" src="~/images/products/@photoName" alt="">
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                             <div class="media-body">
@@ -108,7 +108,7 @@
                                             var photoName = photo == null ? "no-image.jpg" : photo.Name;
                                         <div class="media">
                                             <a class="pull-left media-link" asp-controller="Product" asp-action="details" asp-route-id="@newProducts.ProductId">
-                                                <img class="media-object" src="~/products/@photoName" alt="">
+                                                <img class="media-object" src="~/images/products/@photoName" alt="">
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                             <div class="media-body">
@@ -145,7 +145,7 @@
                                             var photoName = photo == null ? "no-image.jpg" : photo.Name;
                                         <div class="media">
                                             <a class="pull-left media-link" asp-controller="Product" asp-action="details" asp-route-id="@saleProducts.ProductId">
-                                                <img class="media-object" src="~/products/@photoName" alt="">
+                                                <img class="media-object" src="~/images/products/@photoName" alt="">
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                             <div class="media-body">
@@ -462,8 +462,8 @@
                             <div class="col-md-4 col-sm-6">
                                 <div class="thumbnail no-border no-padding">
                                     <div class="media">
-                                        <a class="media-link" data-gal="prettyPhoto" href="~/products/@photoName">
-                                            <img src="~/products/@photoName" alt="" />
+                                        <a class="media-link" data-gal="prettyPhoto" href="~/images/products/@photoName">
+                                            <img src="~/images/products/@photoName" alt="" />
                                             <span class="icon-view">
                                                 <strong><i class="fa fa-eye"></i></strong>
                                             </span>

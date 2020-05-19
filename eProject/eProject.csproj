@@ -33,15 +33,15 @@
     <Folder Include="Areas\Admin\Views\Account\" />
     <Folder Include="Areas\Admin\Views\User\" />
     <Folder Include="App\Validations\" />
-    <Folder Include="wwwroot\backend\images\users\" />
     <Folder Include="Views\Shared\Partial\" />
     <Folder Include="Views\Home\" />
     <Folder Include="Views\Account\" />
     <Folder Include="wwwroot\blog\" />
-    <Folder Include="wwwroot\slideshows\" />
     <Folder Include="Views\Account\Partial\" />
     <Folder Include="Service\" />
     <Folder Include="wwwroot\images\users\" />
+    <Folder Include="wwwroot\images\products\" />
+    <Folder Include="wwwroot\images\slideshows\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\frontend\assets\css\inc\pagination.less" />
