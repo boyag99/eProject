@@ -20,7 +20,7 @@ namespace eProject.Areas.Admin.Controllers
     [Route("Admin/User")]
     public class UserController : Controller
     {
-        private const string USER_PATH = "backend/images/users";
+        private const string USER_PATH = "images/users";
 
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly UserManager<User> _userManager;

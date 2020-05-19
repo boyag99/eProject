@@ -25,6 +25,24 @@
                         </ul>
                     </div>
 
+                    @if (User.IsInRole("Artist"))
+                    {
+                        <div class="block-title alt"> <i class="fa fa-angle-down"></i> Sale Management</div>
+                        <div class="details-box">
+                            <ul>
+                                <li>
+                                    <a href="order-history.html">Add Product Detail</a>
+                                </li>
+                                <li>
+                                    <a href="review-rating.html">View All Products</a>
+                                </li>
+                                <li>
+                                    <a href="return.html">View Orders</a>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+
                     <div class="block-title alt"> <i class="fa fa-angle-down"></i> My Account</div>
                     <div class="details-box">
                         <ul>
@@ -44,7 +62,7 @@
                     <div class="details-box">
                         <ul>
                             <li>
-                                <a asp-controller="Account" asp-action="Artist">Register / Unregister Artist</a>
+                                <a asp-controller="Account" asp-action="Artist">Artist Management</a>
                             </li>
                         </ul>
                     </div>
