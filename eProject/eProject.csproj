@@ -19,9 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="App\" />
     <Folder Include="App\Extensions\" />
-    <Folder Include="App\Helpers\" />
     <Folder Include="App\Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Admin\Views\Shared\Partial\" />
