@@ -26,8 +26,7 @@ namespace eProject.Areas.Admin.Controllers
         [Route("Index")]
         public async Task<IActionResult> Index()
         {
-            List<Category> categories = await _applicationDbContext.Categories
-                                .ToListAsync();
+            List<Category> categories = await _applicationDbContext.Categories.Where(p=>p.Status==true).ToListAsync();
             return View(categories);
         }
 
@@ -46,13 +45,10 @@ namespace eProject.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                category.Parent = null;
                 _applicationDbContext.Categories.Add(category);
                 await _applicationDbContext.SaveChangesAsync();
-
                 return RedirectToAction(nameof(Index));
             }
-
             return View("Create", category);
         }
 
@@ -61,12 +57,10 @@ namespace eProject.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             Category category = await _applicationDbContext.Categories.FirstOrDefaultAsync(c => c.CategoryId == id);
-
             if(category is null)
             {
                 return RedirectToAction(nameof(Index));
             }
-
             return View("Edit", category);
         }
 
@@ -77,15 +71,11 @@ namespace eProject.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 Category categoryToUpdate = await _applicationDbContext.Categories.FirstOrDefaultAsync(c => c.CategoryId == id);
-
                 categoryToUpdate.CategoryName = category.CategoryName;
                 categoryToUpdate.Status = category.Status;
-
                 await _applicationDbContext.SaveChangesAsync();
-
                 return RedirectToAction(nameof(Index));
             }
-
             return View(category);
         }
 
@@ -93,40 +83,10 @@ namespace eProject.Areas.Admin.Controllers
         [Route("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-
             Category category = await _applicationDbContext.Categories.FirstOrDefaultAsync(c => c.CategoryId == id);
-
             _applicationDbContext.Categories.Remove(category);
             await _applicationDbContext.SaveChangesAsync();
-
             return RedirectToAction(nameof(Index));
-        }
-
-        [HttpGet]
-        [Route("AddSubCategory/{id}")]
-        public IActionResult AddSubCategory(int id)
-        {
-            Category subCategory = new Category
-            {
-                ParentId = id
-            };
-
-            return View("AddSubCategory", subCategory);
-        }
-
-        [HttpPost]
-        [Route("AddSubCategory/{id}")]
-        public async Task<IActionResult> AddSubCategory(int id, Category subCategory)
-        {
-            if (ModelState.IsValid)
-            {
-                _applicationDbContext.Categories.Add(subCategory);
-                await _applicationDbContext.SaveChangesAsync();
-
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(subCategory);
         }
     }
 }

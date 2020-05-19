@@ -30,7 +30,13 @@ namespace eProject.Areas.Admin.Controllers
         [Route("Index")]
         public IActionResult Index()
         {
-            ViewBag.Products = _applicationDbContext.Products.Include(p=>p.Photos).ToList();
+            ViewBag.Products = _applicationDbContext.Products
+                .Include(p=>p.Photos)
+                .Include(p => p.Category)
+                .Include(p => p.User)
+                .ToList();
+
+            var data = ViewBag.Products;
             return View();
         }
 
@@ -45,22 +51,13 @@ namespace eProject.Areas.Admin.Controllers
             var categories = _applicationDbContext.Categories.ToList();
             foreach (var category in categories)
             {
-                var group = new SelectListGroup { Name = category.CategoryName };
-                if (category.InverseParents != null && category.InverseParents.Count > 0)
+                var selectListItem = new SelectListItem
                 {
-                    foreach (var subCategory in category.InverseParents)
-                    {
-                        var selectListItem = new SelectListItem
-                        {
-                            Text = subCategory.CategoryName,
-                            Value = subCategory.CategoryId.ToString(),
-                            Group = group
-                        };
-                        productViewModel.Categories.Add(selectListItem);
-                    }
-                }
+                    Text = category.CategoryName,
+                    Value = category.CategoryId.ToString(),
+                };
+               productViewModel.Categories.Add(selectListItem);      
             }
-
             return View("Create", productViewModel);
         }
 
@@ -99,20 +96,12 @@ namespace eProject.Areas.Admin.Controllers
             var categories = _applicationDbContext.Categories.ToList();
             foreach (var category in categories)
             {
-                var group = new SelectListGroup { Name = category.CategoryName };
-                if (category.InverseParents != null && category.InverseParents.Count > 0)
+                var selectListItem = new SelectListItem
                 {
-                    foreach (var subCategory in category.InverseParents)
-                    {
-                        var selectListItem = new SelectListItem
-                        {
-                            Text = subCategory.CategoryName,
-                            Value = subCategory.CategoryId.ToString(),
-                            Group = group
-                        };
-                        productViewModel.Categories.Add(selectListItem);
-                    }
-                }
+                    Text = category.CategoryName,
+                    Value = category.CategoryId.ToString(),
+                };
+                productViewModel.Categories.Add(selectListItem);
             }
             return View("Edit", productViewModel);
         }
@@ -139,7 +128,6 @@ namespace eProject.Areas.Admin.Controllers
                 _applicationDbContext.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-
             return RedirectToAction(nameof(Index));
         }
     }

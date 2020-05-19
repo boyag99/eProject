@@ -36,12 +36,6 @@ namespace eProject.Data
             modelBuilder.Entity<IdentityUserLogin<string>>(entity => { entity.ToTable("UserLogins"); });
             modelBuilder.Entity<IdentityUserToken<string>>(entity => { entity.ToTable("UserTokens"); });
             modelBuilder.Entity<IdentityRoleClaim<string>>(entity => { entity.ToTable("RoleClaims"); });
-            modelBuilder.Entity<Category>(entity => {
-
-                entity.HasOne(d => d.Parent)
-                    .WithMany(p => p.InverseParents)
-                    .HasForeignKey(d => d.ParentId);
-            });
 
             modelBuilder.Entity<Product>(entity =>
             {
