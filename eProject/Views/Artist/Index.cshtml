@@ -13,11 +13,11 @@
                 <div class="col-lg-9 col-md-9 col-sm-8">
                     <div class="information-title">List All Product</div>
                     <div class="details-wrap">
-                        <div class="block-title alt"><a asp-controller="Artist" asp-action="Create"><i class="fa fa-plus"></i>Add new Product</a></div>
+                        <div class="block-title alt" style="margin-bottom:50px;"><a asp-controller="Artist" asp-action="Create"><i class="fa fa-plus"></i>Add new Product</a></div>
                         <div class="details-box">
                             <div class="row">
                                 <div class="col-12">
-                                    <table id="myTable" class="table table-bordered table-striped">
+                                    <table id="example1" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>Name</th>
@@ -126,11 +126,20 @@
 
 @section scripts {
     <script>
-                $(document).ready( function () {
-                    $('#myTable').DataTable({
-                        "responsive": true,
-                        "autoWidth": false,
-                    });
-                } );
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": false,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
     </script>
 }
