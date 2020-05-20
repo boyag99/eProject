@@ -43,15 +43,17 @@
     <link rel="stylesheet" href="~/backend/plugins/summernote/summernote-bs4.css">
 
     <!-- DataTables -->
-    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 
 
-        <!--[if lt IE 9]>
+    <!--[if lt IE 9]>
     <script src="~/frontend/assets/plugins/iesupport/html5shiv.js"></script>
     <script src="~/frontend/assets/plugins/iesupport/respond.min.js"></script>
     <![endif]-->
 
-        @await RenderSectionAsync("head", required: false)
+    @await RenderSectionAsync("head", required: false)
 </head>
 <body id="home" class="wide">
     <!-- PRELOADER -->
@@ -189,7 +191,13 @@
     <script src="~/frontend/assets/js/theme.js"></script>
 
     <!-- DataTables -->
-    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="~/backend/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/backend/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+
+    <!-- DataTables -->
+    
 
     @await RenderSectionAsync("scripts", required: false)
 
