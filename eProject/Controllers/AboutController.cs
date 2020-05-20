@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using eProject.Data;
 using eProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace eProject.Controllers
 {
@@ -19,10 +20,11 @@ namespace eProject.Controllers
 
         }
 
-
-        public IActionResult Index()
+        [Route("")]
+        [Route("Index")]
+        public async Task<IActionResult> Index()
         {
-            List<About> data = _applicationDbContext.About.ToList();
+            List<About> data = await _applicationDbContext.About.ToListAsync();
             return View(data);
         }
     }

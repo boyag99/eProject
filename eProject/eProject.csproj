@@ -44,6 +44,7 @@
     <Folder Include="wwwroot\images\products\" />
     <Folder Include="wwwroot\images\slideshows\" />
     <Folder Include="wwwroot\images\blogs\" />
+    <Folder Include="wwwroot\images\abouts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\frontend\assets\css\inc\pagination.less" />

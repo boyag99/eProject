@@ -18,6 +18,8 @@ namespace eProject.App.Data.SeedData
             SeedPhotos(applicationDbContext);
             SeedSlideShows(applicationDbContext);
             SeedBlogs(applicationDbContext, userManager);
+            SeedContacts(applicationDbContext);
+            SeedAbouts(applicationDbContext);
         }
 
         private static void SeedCategories(ApplicationDbContext applicationDbContext)
@@ -509,6 +511,71 @@ namespace eProject.App.Data.SeedData
             };
 
             applicationDbContext.Blog.AddRange(blogs);
+            applicationDbContext.SaveChanges();
+        }
+
+        private static void SeedContacts(ApplicationDbContext applicationDbContext)
+        {
+            Contact contact = new Contact
+            {
+                Id = 1,
+                Address = "590 CMT8, District 3, HCMC, Vietnam",
+                Telephone = 0909090909,
+                Fax = 0909090909,
+                Email = "admin@gmail.com"
+            };
+
+            applicationDbContext.Contacts.Add(contact);
+            applicationDbContext.SaveChanges();
+        }
+
+        private static void SeedAbouts(ApplicationDbContext applicationDbContext)
+        {
+            List<About> abouts = new List<About>
+            {
+                new About
+                {
+                    AboutId = 1,
+                    Image = "nguyennhathoangha.jpg",
+                    Name = "Nguyen Nhat Hoang Ha",
+                    Description = "Member",
+                    Slogan = "“if it were easy everybody would do it."
+                },
+                new About
+                {
+                    AboutId = 2,
+                    Image = "trinhhaohiep.jpg",
+                    Name = "Trinh Hao Hiep",
+                    Description = "Member",
+                    Slogan = "“I can actually do this!"
+                },
+                new About
+                {
+                    AboutId = 3,
+                    Image = "phankhactrieu.jpg",
+                    Name = "Phan Khac Trieu",
+                    Description = "Member",
+                    Slogan = "“Failure teaches me."
+                },
+                new About
+                {
+                    AboutId = 4,
+                    Image = "tranquangtuyen.jpg",
+                    Name = "Tran Quang Tuyen",
+                    Description = "Member",
+                    Slogan = "“My work matters."
+                },
+                new About
+                {
+                    AboutId = 5,
+                    Image = "todaoviethoang.jpg",
+                    Name = "To Dao Viet Hoang",
+                    Description = "Leader",
+                    Slogan = " “Other people’s success inspires me"
+                },
+            };
+
+            applicationDbContext.About.AddRange(abouts);
             applicationDbContext.SaveChanges();
         }
     }
