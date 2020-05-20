@@ -67,10 +67,13 @@ namespace eProject.Data
 
                 entity.ToTable("Photos");
             });
+
             modelBuilder.Entity<Invoice>(entity =>
             {
+
                 entity.ToTable("Invoices");
             });
+
             modelBuilder.Entity<InvoiceDetail>(entity =>
             {
                 entity.HasKey(e => new { e.InvoiceId, e.ProductId });
