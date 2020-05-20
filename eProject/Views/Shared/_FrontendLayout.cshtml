@@ -42,15 +42,16 @@
     <!-- summernote -->
     <link rel="stylesheet" href="~/backend/plugins/summernote/summernote-bs4.css">
 
-    <!-- Head Libs -->
-    <script src="~/frontend/assets/plugins/modernizr.custom.js"></script>
+    <!-- DataTables -->
+    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
 
-    <!--[if lt IE 9]>
+
+        <!--[if lt IE 9]>
     <script src="~/frontend/assets/plugins/iesupport/html5shiv.js"></script>
     <script src="~/frontend/assets/plugins/iesupport/respond.min.js"></script>
     <![endif]-->
 
-    @await RenderSectionAsync("head", required: false)
+        @await RenderSectionAsync("head", required: false)
 </head>
 <body id="home" class="wide">
     <!-- PRELOADER -->
@@ -186,6 +187,9 @@
 
     <!-- JS Page Level -->
     <script src="~/frontend/assets/js/theme.js"></script>
+
+    <!-- DataTables -->
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
     @await RenderSectionAsync("scripts", required: false)
 

@@ -1,0 +1,130 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_FrontendLayout.cshtml";
+}
+@using eProject.Models;
+<!-- Main content -->
+<!-- CONTENT AREA -->
+<div class="content-area">
+    <section class="page-section">
+        <div class="wrap container">
+            <div class="row">
+                <!--start main contain of page-->
+                <div class="col-lg-9 col-md-9 col-sm-8">
+                    <div class="information-title">Photo of @ViewBag.Product.Name</div>
+                    <div class="details-wrap">
+                        <div class="block-title alt" style="background-color: cyan"><a asp-controller="PhotoProductArtist" asp-action="Add" asp-route-id="@ViewBag.Product.ProductId"><i class="fa fa-plus"></i>Add new Photo</a></div>
+                        <div class="details-box">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <!-- /.card-header -->
+                                        <div class="card-body">
+                                            <table id="myTable" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Id</th>
+                                                        <th>Photo</th>
+                                                        <th>Status</th>
+                                                        <th>Featured</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var photo in ViewBag.Photos)
+                                                    {
+                                                        <tr>
+                                                            <td>@photo.PhotoId</td>
+                                                            <td><img src="~/images/products/@photo.Name" width="100" height="170" /></td>
+                                                            <td>
+                                                                @if (photo.Status == true)
+                                                                {
+                                                                    <span style="color:green;font-weight:bold;">Show</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span style="color:red;">Hide</span>
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                @if (photo.Featured == false)
+                                                                {
+                                                                    <a asp-controller="PhotoProductArtist" asp-action="SetFeatured" asp-route-id="@photo.PhotoId" asp-route-productId="@photo.ProductId">Set Featured</a>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span style="font-weight:bold;">Featured</span>
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                <a asp-controller="PhotoProductArtist"
+                                                                   asp-action="edit" asp-route-id="@photo.PhotoId" asp-route-productId="@photo.ProductId" class="btn btn-primary">
+                                                                    <i class="fa fa-wrench" aria-hidden="true"></i>
+                                                                    Edit
+                                                                </a>
+                                                                @if (!photo.Featured)
+                                                                {
+                                                                    <a asp-controller="PhotoProductArtist"
+                                                                       asp-action="delete" asp-route-id="@photo.PhotoId" asp-route-productId="@photo.ProductId"
+                                                                       onclick="return confirm('Are you sure?')" class="btn btn-danger">
+                                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                                        Delete
+                                                                    </a>
+                                                                }
+
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>Id</th>
+                                                        <th>Photo</th>
+                                                        <th>Status</th>
+                                                        <th>Featured</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+                </div>
+                <!--end main contain of page-->
+                <!--start sidebar-->
+                <div class="col-lg-3 col-md-3 col-sm-4">
+                    <div class="widget account-details">
+                        <h2 class="widget-title">Account</h2>
+                        <ul>
+                            @await Html.PartialAsync("../Account/Partial/_Sidebar")
+                        </ul>
+                    </div>
+                </div>
+                <!--end sidebar-->
+            </div>
+
+        </div>
+    </section>
+</div>
+<!-- /CONTENT AREA -->
+<!-- /.content -->
+
+@section scripts {
+    <script>
+        $(document).ready( function () {
+            $('#myTable').DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+        } );
+
+    </script>
+}
