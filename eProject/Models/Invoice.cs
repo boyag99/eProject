@@ -23,8 +23,12 @@ namespace eProject.Models
         public DateTime Created { get; set; }
         public int Status { get; set; }
         
-        [ForeignKey(nameof(User))]
-        public string UserId { get; set; }
+        [StringLength(255)]
+        public string SellerId { get; set; }
+
+        [StringLength(255)]
+        public string BuyerId { get; set; }
+
         public virtual User User { get; set; }
 
         public string Role { get; set; }

@@ -168,13 +168,14 @@ namespace eProject.Controllers
             else
             {
                 var customer = _applicationDbContext.Users.SingleOrDefault(a => a.UserName.Equals(user.Value));
+
                 //Create new invoice
                 var invoice = new Invoice()
                 {
                     Name = "Invoice Online",
                     Created = DateTime.Now,
                     Status = 1,
-                    UserId = customer.Id
+                    BuyerId = customer.Id
                 };
                 _applicationDbContext.Invoices.Add(invoice);
                 _applicationDbContext.SaveChanges();
@@ -189,6 +190,14 @@ namespace eProject.Controllers
                         Price = item.Price,
                         Quantity = 1
                     };
+
+                    var seller = _applicationDbContext.Products.Include(p => p.User).FirstOrDefault(p => p.ProductId == item.ItemId);
+
+                    var invoiceToUpdate = _applicationDbContext.Invoices.FirstOrDefault(p => p.Id == invoice.Id);
+
+                    invoiceToUpdate.SellerId = seller.User.Id;
+
+                    _applicationDbContext.Invoices.Update(invoiceToUpdate);
                     _applicationDbContext.InvoiceDetails.Add(invoiceDetails);
                     _applicationDbContext.SaveChanges();
                 }
