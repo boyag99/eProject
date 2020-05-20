@@ -107,14 +107,14 @@ namespace eProject.Controllers
                 updateUserRequest.PostalCode = null;
                 updateUserRequest.City = null;
                 updateUserRequest.County = null;
-                updateUserRequest.State = null;
+                updateUserRequest.Country = null;
             } else
             {
                 updateUserRequest.StreetAddress = user.Address.StreetAddress;
                 updateUserRequest.PostalCode = user.Address.PostalCode;
                 updateUserRequest.City = user.Address.City;
                 updateUserRequest.County = user.Address.County;
-                updateUserRequest.State = user.Address.State;
+                updateUserRequest.Country = user.Address.Country;
             }
 
             return View(updateUserRequest);
@@ -137,7 +137,7 @@ namespace eProject.Controllers
                         PostalCode = updateUserRequest.PostalCode,
                         City = updateUserRequest.City,
                         County = updateUserRequest.County,
-                        State = updateUserRequest.State
+                        Country = updateUserRequest.Country
                     };
 
                 }
@@ -147,7 +147,7 @@ namespace eProject.Controllers
                     user.Address.PostalCode = updateUserRequest.PostalCode;
                     user.Address.City = updateUserRequest.City;
                     user.Address.County = updateUserRequest.County;
-                    user.Address.State = updateUserRequest.State;
+                    user.Address.Country = updateUserRequest.Country;
                 }
 
                 _applicationDbContext.Users.Update(user);

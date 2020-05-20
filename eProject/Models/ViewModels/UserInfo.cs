@@ -28,7 +28,7 @@ namespace eProject.Models.ViewModels
         public string StreetAddress { get; set; }
         public string County { get; set; }
         public string City { get; set; }
-        public string State { get; set; }
+        public string Country { get; set; }
         public string PostalCode { get; set; }
 
         public DateTimeOffset? LockoutEnd { get; set; }
@@ -46,7 +46,7 @@ namespace eProject.Models.ViewModels
         {
             get
             {
-                return StreetAddress + ", " + County + ", " + City + ", " + State;
+                return StreetAddress + ", " + County + ", " + City + ", " + Country;
             }
         }
 
