@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using eProject.Data;
 using eProject.Models;
+using eProject.Models.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
@@ -14,21 +16,25 @@ namespace eProject.Controllers
     public class ProductUserController : Controller
     {
         private readonly ApplicationDbContext _applicationDbContext;
+        private readonly UserManager<User> _userManager;
 
-        public ProductUserController(ApplicationDbContext applicationDbContext)
+        public ProductUserController(ApplicationDbContext applicationDbContext, UserManager<User> userManager)
         {
             _applicationDbContext = applicationDbContext;
+            _userManager = userManager;
 
         }
         [Route("details/{id}")]
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
   
             Product product = _applicationDbContext.Products.Include(p=>p.Photos).Include(p => p.Category)
                 .Include(p => p.User)
                 .ThenInclude(u => u.Address)
                 .FirstOrDefault(p=>p.ProductId ==id);
+
             product.Hot += 1;
+            _applicationDbContext.Products.Update(product);
             _applicationDbContext.SaveChanges();
 
             List<Product> products = _applicationDbContext.Products.OrderByDescending(p => p.Hot).Take(1).ToList();
@@ -52,6 +58,8 @@ namespace eProject.Controllers
             ViewBag.FeaturedPhoto = featuredPhoto == null ? "no-image.jpg" : featuredPhoto.Name;
             ViewBag.ProductImages = product.Photos.Where(p => p.Status).ToList();
             ViewBag.RelatedProduct = _applicationDbContext.Products.Include(p => p.Photos).Where(p => p.CategoryId == product.CategoryId && p.ProductId != id && p.Status).ToList();
+
+            ViewBag.Reviews = await _applicationDbContext.Reviews.Include(r => r.User).ToListAsync();
             return View("Details");
         }
 
@@ -130,6 +138,35 @@ namespace eProject.Controllers
             ViewBag.SaleProducts = saleProducts;
 
             return View("Category");
+        }
+
+        [HttpPost]
+        [Route("Review/{id}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Review(int id ,ReviewRequest reviewRequest)
+        {
+            User user = await _userManager.GetUserAsync(User);
+
+            if(user is null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            if (ModelState.IsValid)
+            {
+                Review review = new Review
+                {
+                    Message = reviewRequest.Message,
+                    UserId = user.Id
+                };
+
+                _applicationDbContext.Reviews.Add(review);
+                await _applicationDbContext.SaveChangesAsync();
+
+                return RedirectToAction("Details", "ProductUser", new { id = id });
+            }
+
+            return RedirectToAction("Details", "ProductUser", new { id = id });
         }
     }
 }
