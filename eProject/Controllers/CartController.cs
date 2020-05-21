@@ -13,6 +13,7 @@ using eProject.Models;
 using eProject.App.Helpers;
 using System.Security.Claims;
 using eProject.Service;
+using Microsoft.AspNetCore.Identity;
 
 namespace eProject.Controllers
 {
@@ -21,13 +22,16 @@ namespace eProject.Controllers
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly IEmailSender _emailSender;
+        private readonly UserManager<User> _userManager;
 
-        public CartController(ApplicationDbContext applicationDbContext, IEmailSender emailSender)
+        public CartController(ApplicationDbContext applicationDbContext, IEmailSender emailSender, UserManager<User>userManager)
         {
             _applicationDbContext = applicationDbContext;
             _emailSender = emailSender;
+            _userManager = userManager;
 
         }
+
      
         [Route("Index")]
         public IActionResult Index()
@@ -43,6 +47,7 @@ namespace eProject.Controllers
             {
                 ViewBag.countItems = cart.Count;
                 ViewBag.Total = cart.Sum(it => it.Price);
+                
             }
                 
             return View();
@@ -248,9 +253,12 @@ namespace eProject.Controllers
             return View("Thanks");
         }
         [Route("GetInvoice")]
-        public async Task<IActionResult> GetInvoice()
+        public async Task<IActionResult> GetInvoice(string id)
         {
-            return View("GetInvoice");
+            User users = _applicationDbContext.Users.Include(u => u.Address).FirstOrDefault(u => u.Id == id);
+            ViewBag.Artist = users;
+            return View();
+           
         }
         private int checkexist(int id, List<Item> cart)
         {
