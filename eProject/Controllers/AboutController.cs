@@ -22,10 +22,10 @@ namespace eProject.Controllers
 
         [Route("")]
         [Route("Index")]
-        public async Task<IActionResult> Index()
-        {
-            List<About> data = await _applicationDbContext.About.ToListAsync();
-            return View(data);
+            public async Task<IActionResult> Index()
+            {
+                List<About> data = await _applicationDbContext.About.ToListAsync();
+                return View(data);
+            }
         }
     }
-}
