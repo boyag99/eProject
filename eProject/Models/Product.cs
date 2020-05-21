@@ -11,7 +11,7 @@ namespace eProject.Models
         public Product()
         {
             Photos = new HashSet<Photo>();
-            InvoiceDetails = new HashSet<InvoiceDetail>();
+            InvoiceDetails = new HashSet<OrderDetail>();
         }
             
         public int ProductId { get; set; }
@@ -47,7 +47,7 @@ namespace eProject.Models
         public virtual User User { get; set; }
 
         public virtual ICollection<Photo> Photos { get; set; }
-        public virtual ICollection<InvoiceDetail> InvoiceDetails { get; set; }
+        public virtual ICollection<OrderDetail> InvoiceDetails { get; set; }
 
 
     }

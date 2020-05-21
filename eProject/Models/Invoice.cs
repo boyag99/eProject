@@ -14,7 +14,7 @@ namespace eProject.Models
         public  Invoice()
             {
            
-            InvoiceDetails = new HashSet<InvoiceDetail>();
+            OrderDetails = new HashSet<OrderDetail>();
             }
 
         [Key]
@@ -32,7 +32,7 @@ namespace eProject.Models
         public virtual User User { get; set; }
 
         public string Role { get; set; }
-        public virtual ICollection<InvoiceDetail> InvoiceDetails { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
 
     }
 }

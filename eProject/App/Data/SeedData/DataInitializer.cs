@@ -61,7 +61,7 @@ namespace eProject.App.Data.SeedData
                     ProductId = 1,
                     Name = "A Constant",
                     Price = 3500,
-                    SalePrice = 0,
+                    SalePrice = 100,
                     Quantity = 1,
                     Hot = 0,
                     FromDate = DateTime.Now,
@@ -77,7 +77,7 @@ namespace eProject.App.Data.SeedData
                     ProductId = 2,
                     Name = "Foreseeing Nothing",
                     Price = 12500,
-                    SalePrice = 0,
+                    SalePrice = 100,
                     Quantity = 1,
                     Hot = 0,
                     FromDate = DateTime.Now,
@@ -93,7 +93,7 @@ namespace eProject.App.Data.SeedData
                     ProductId = 3,
                     Name = "Idle Hands",
                     Price = 12500,
-                    SalePrice = 0,
+                    SalePrice = 100,
                     Quantity = 1,
                     Hot = 0,
                     FromDate = DateTime.Now,
@@ -157,7 +157,7 @@ namespace eProject.App.Data.SeedData
                     ProductId = 7,
                     Name = "Bláfellsá",
                     Price = 30000,
-                    SalePrice = 0,
+                    SalePrice = 100,
                     Quantity = 1,
                     Hot = 0,
                     FromDate = DateTime.Now,
@@ -205,7 +205,7 @@ namespace eProject.App.Data.SeedData
                     ProductId = 10,
                     Name = "K Muffarfjoll",
                     Price = 30000,
-                    SalePrice = 0,
+                    SalePrice = 100,
                     Quantity = 1,
                     Hot = 0,
                     FromDate = DateTime.Now,
@@ -237,7 +237,7 @@ namespace eProject.App.Data.SeedData
                     ProductId = 12,
                     Name = "Merry Woodsman",
                     Price = 1500,
-                    SalePrice = 0,
+                    SalePrice = 100,
                     Quantity = 1,
                     Hot = 0,
                     FromDate = DateTime.Now,
@@ -349,7 +349,7 @@ namespace eProject.App.Data.SeedData
                 new Photo
                 {
                     PhotoId = 6,
-                    Name = "Badain",
+                    Name = "Badain.png",
                     ProductId = 6,
                     Status = true,
                     Featured = true
@@ -475,11 +475,11 @@ namespace eProject.App.Data.SeedData
                 new Blog
                 {
                     BlogId = 1,
-                    Title = "DIFFERENCE BETWEEN TEMPERA AND OIL PAINTINGS",
+                    Title = "DIFFERENCE BETWEEN TEMPERA",
                     Photo = "blog1.jpg",
                     PostedDate = DateTime.Now,
                     UserId = user.Id,
-                    Description = "Tempera is a color bound by a sticky binder or by egg yolk. In the European tradition it is opposed to oil painting, with its lower, dimmed and less shiny...",
+                    Description = "Tempera is a color bound by a sticky binder or by egg yolk. In the European tradition...",
                     Content =  "Tempera is a color bound by a sticky binder or by egg yolk. In the European tradition it is opposed to oil painting, with its lower, dimmed and less shiny...",
 
                 },
@@ -490,7 +490,7 @@ namespace eProject.App.Data.SeedData
                     Photo = "blog2.jpg",
                     PostedDate = DateTime.Now,
                     UserId = user.Id,
-                    Description = "Originally, the varnish used for the paintings was a resin dissolved in oil. It was used, above all, as a shielding for gold and as a binder of transparent colors",
+                    Description = "Originally, the varnish used for the paintings was a resin dissolved in oil. It was ...",
                     Content =  "Tempera is a color bound by a sticky binder or by egg yolk. In the European tradition it is opposed to oil painting, with its lower, dimmed and less shiny...",
                 },
                 new Blog
@@ -500,7 +500,7 @@ namespace eProject.App.Data.SeedData
                     Photo = "blog3.jpg",
                     PostedDate = DateTime.Now,
                     UserId = user.Id,
-                    Description = "The use of gold in painting is linked to the recognition of the role of art of goldsmithing, that is the art that shapes the most precious metals",
+                    Description = "The use of gold in painting is linked to the recognition of the role of art of ...",
                     Content =  "Tempera is a color bound by a sticky binder or by egg yolk. In the European tradition it is opposed to oil painting, with its lower, dimmed and less shiny...",
                 },
                 new Blog
@@ -510,7 +510,7 @@ namespace eProject.App.Data.SeedData
                     Photo = "blog4.jpg",
                     PostedDate = DateTime.Now,
                     UserId = user.Id,
-                    Description = "It is impressive that painting, which is the most sensual of the arts, is also the most metaphysical. For color, of course, but not only for that",
+                    Description = "It is impressive that painting, which is the most sensual of the arts, is also...",
                     Content = "It is impressive that painting, which is the most sensual of the arts, is also the most metaphysical. For color, of course, but not only for that",
                 },
                 new Blog
@@ -520,7 +520,7 @@ namespace eProject.App.Data.SeedData
                     Photo = "blog5.jpg",
                     PostedDate = DateTime.Now,
                     UserId = user.Id,
-                    Description = "It usually happens that the original paintings produced by the artist could be copied, so they are reproduced in the most faithful way in terms of shape",
+                    Description = "It usually happens that the original paintings produced by the artist could ...",
                     Content = "WHY COPIES, REPRODUCTIONS AND FAKES PAINTINGS?",
                 },
             };

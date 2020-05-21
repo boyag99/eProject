@@ -1,4 +1,4 @@
-﻿@model eProject.Models.ViewModels.ProductUserVM
+@model eProject.Models.ViewModels.ProductUserVM
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_FrontendLayout.cshtml";
@@ -22,9 +22,9 @@
                     </div>
                     <div class="owl-carousel img-carousel">
                         <div class="item">
-                            <a class="btn btn-theme btn-theme-transparent btn-zoom" href="~/images/products/@ViewBag.FeaturedPhoto" data-gal="prettyPhoto"><i class="fa fa-plus"></i></a>
-                            <a data-gal="prettyPhoto"><img class="img-responsive" src="~/images/products/@ViewBag.FeaturedPhoto" alt="" /></a>
-                        </div>
+                                <a class="btn btn-theme btn-theme-transparent btn-zoom" href="~/images/products/@ViewBag.FeaturedPhoto" data-gal="prettyPhoto"><i class="fa fa-plus"></i></a>
+                                <a data-gal="prettyPhoto"><img class="img-responsive" src="~/images/products/@ViewBag.FeaturedPhoto" alt="" /></a>
+                            </div>
                         @foreach (var productImage in ViewBag.ProductImages)
                         {
                             <div class="item">
@@ -49,16 +49,16 @@
                         <div class="rating">
                             <span class="star"></span>
                             <!--
-            -->
+                            -->
                             <span class="star active"></span>
                             <!--
-            -->
+                            -->
                             <span class="star active"></span>
                             <!--
-            -->
+                            -->
                             <span class="star active"></span>
                             <!--
-            -->
+                            -->
                             <span class="star active"></span>
                         </div>
                         <a class="reviews" href="#">16 reviews</a> | <a class="add-review" href="#">Add Your Review</a>
@@ -92,8 +92,6 @@
                             }
                         }
                     }
-
-
                     <hr class="page-divider" />
 
                     <div class="product-text">
@@ -136,8 +134,8 @@
                             }
 
                         }
-                        <button class="btn btn-theme btn-wish-list"><i class="fa fa-heart"></i></button>
-                        <button class="btn btn-theme btn-compare"><i class="fa fa-exchange"></i></button>
+                        <a class="btn btn-theme btn-wish-list"><i class="fa fa-heart"></i></a>
+                        <a class="btn btn-theme btn-compare" asp-controller="Portfolio" asp-action="Add" asp-route-id="@ViewBag.Product.ProductId"><i class="fa fa-exchange"></i></a>
                     </div>
 
                     <hr class="page-divider small" />
@@ -317,7 +315,7 @@
                                     <a class="btn btn-theme btn-theme-transparent btn-icon-left" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
                                     <!--
                                     -->
-                                    <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
+                                    <a asp-controller="Portfolio" asp-action="Add" asp-route-id="@productInfo.ProductId" asp-route-returnController="@Html.ViewContext.RouteData.Values["controller"].ToString()" asp-route-returnAction="@Html.ViewContext.RouteData.Values["action"].ToString()" class="btn btn-theme btn-theme-transparent btn-compare"><i class="fa fa-exchange"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -354,7 +352,6 @@
 
 </div>
 <!-- /CONTENT AREA -->
-
 @section scripts {
     <script src="~/frontend/assets/plugins/countdown/jquery.plugin.min.js"></script>
     <script src="~/frontend/assets/plugins/countdown/jquery.countdown.min.js"></script>

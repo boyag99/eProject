@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using eProject.App.Extensions;
 using eProject.Service;
+using Newtonsoft.Json;
 
 namespace eProject
 {
@@ -28,7 +29,7 @@ namespace eProject
             services.AddScoped<IEmailSender, EmailSender>();
             services.ConfigureEmail(Configuration);
             services.ConfigureService();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

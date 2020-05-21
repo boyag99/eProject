@@ -18,10 +18,10 @@
                 <div class="col-md-3">
                     <div class="widget">
                         <h4 class="widget-title">News Letter</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <p>Get the latest news in your inbox every week.</p>
                         <form action="#">
                             <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Enter Your Mail and Get $10 Cash" />
+                                <input class="form-control" type="text" placeholder="Enter Your Mail " />
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-theme btn-theme-transparent">Subscribe</button>
@@ -34,10 +34,10 @@
                         <h4 class="widget-title">Information</h4>
                         <ul>
                             <li><a asp-controller="About" asp-action="Index">About Us</a></li>
-                            <li><a href="#">Delivery Information</a></li>
+                            <li><a asp-controller="General" asp-action="Index">Delivery Information</a></li>
                             <li><a asp-controller="Contact" asp-action="Index">Contact Us</a></li>
-                            <li><a href="#">Terms and Conditions</a></li>
-                            <li><a href="#">Private Policy</a></li>
+                            <li><a asp-controller="General" asp-action="IndexCondition">Terms and Conditions</a></li>
+                            <li><a asp-controller="General" asp-action="IndexTerm">FAQ</a></li>
                         </ul>
                     </div>
                 </div>

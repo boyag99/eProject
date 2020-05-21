@@ -24,15 +24,15 @@
 
                     @foreach (var item in ViewBag.cart)
                     {
-                    <tr>
-                        <td class="image"><img src="~/images/products/@item.Photo" width="60" height="60" /></td>
-                        <td class="description">
-                            <h4><a href="#">@item.Name</a></h4>
-                        </td>
-                        <td class="total">@item.Price<a asp-controller="cart" asp-action="remove" asp-route-id="@item.ItemId"><i class="fa fa-close"></i></a></td>
-                    </tr>
+                        <tr>
+                            <td class="image"><img src="~/images/products/@item.Photo" width="60" height="60" /></td>
+                            <td class="description">
+                                <h4><a href="#">@item.Name</a></h4>
+                            </td>
+                            <td class="total">@item.Price<a asp-controller="cart" asp-action="remove" asp-route-id="@item.ItemId"><i class="fa fa-close"></i></a></td>
+                        </tr>
                     }
-                }   
+                }
             </tbody>
         </table>
     </div>
@@ -45,8 +45,8 @@
                     <td>@ViewBag.Total</td>
                 </tr>
                 <tr>
-                    <td>Shipping:</td>
-                    <td>$25</td>
+                    <td>Tax:</td>
+                    <td>$..</td>
                 </tr>
                 <tfoot>
                     <tr>
@@ -55,18 +55,163 @@
                     </tr>
                 </tfoot>
             </table>
-            <div class="form-group">
+            @*<div class="form-group">
                 <textarea class="form-control" placeholder="Send a Message"></textarea>
             </div>
             <div class="form-group">
                 <input class="form-control" type="text" placeholder="Enter your coupon code" />
-            </div>
-            <button class="btn btn-theme btn-theme-dark btn-block">Apply Coupon</button>
+            </div>*@
+            <a class="btn btn-theme btn-theme-dark btn-block" asp-controller="home">Continue Shopping</a>
         </div>
     </div>
 </div>
-<a asp-controller="home" class="btn btn-large"><i class="icon-arrow-left"></i>Continue SHopping</a>
-@if (ViewBag.cart != null && ViewBag.countItems>0)
-{
-    <a asp-controller="cart" asp-action="checkout" class="btn btn-large pull-right">Checkout<i class="icon-arrow-right"></i></a>
-}
+@*<a asp-controller="home" class="btn btn-large"><i class="icon-arrow-left"></i>Continue Shopping</a>*@
+
+    @*@if (ViewBag.cart != null && ViewBag.countItems > 0)
+        {
+            <a asp-controller="cart" asp-action="checkout" class="btn btn-large pull-right">Checkout<i class="icon-arrow-right"></i></a>
+        }*@
+    <section class="page-section color">
+        <div class="container">
+
+            @*<h3 class="block-title alt"><i class="fa fa-angle-down color"></i>1. Account</h3>*@
+
+
+            <h3 class="block-title alt"><i class="fa fa-angle-down"></i>3. Delivery address</h3>
+            <form action="#" class="form-delivery">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group"><input class="form-control" type="text" placeholder="First Name"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group"><input class="form-control" type="text" placeholder="Last Name"></div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group"><input class="form-control" type="text" placeholder="Address"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group selectpicker-wrapper">
+                            <select class="selectpicker input-price" data-live-search="true" data-width="100%"
+                                    data-toggle="tooltip" title="Select">
+                                <option>Country</option>
+                                <option>Country</option>
+                                <option>Country</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group selectpicker-wrapper">
+                            <select class="selectpicker input-price" data-live-search="true" data-width="100%"
+                                    data-toggle="tooltip" title="Select">
+                                <option>City</option>
+                                <option>City</option>
+                                <option>City</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group"><input class="form-control" type="text" placeholder="Postcode/ZIP"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group"><input class="form-control" type="text" placeholder="Email"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group"><input class="form-control" type="text" placeholder="Phone Number"></div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group"><textarea class="form-control" placeholder="Addıtıonal Informatıon" name="name" id="id" cols="30" rows="10"></textarea></div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Ship to  Different address for invoice
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <h3 class="block-title alt"><i class="fa fa-angle-down"></i>4. Payments options</h3>
+            <div class="panel-group payments-options" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel radio panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapseOne">
+                                <span class="dot"></span> Direct Bank Transfer
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
+                        <div class="panel-body">
+                            <div class="alert alert-success" role="alert">
+                                Acc Number : 6789 6789 709||
+                                Name: FPT-College ||
+                                Bank:
+                                TIEN PHONG BANK (TPBANK)||
+                                BRANCH TP.HCM||
+                                Address : 590 CMT8, Hochiminh city
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <h4 class="panel-title">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false" aria-controls="collapseTwo">
+                                <span class="dot"></span> Cash on Delivery
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
+                        <div class="panel-body">
+                            @*Please send your cheque to Store Name, Store Street, Store Town, Store State / County, Store Postcode.*@
+                            You will pay when the products are shipped !
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingThree">
+                        <h4 class="panel-title">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse3" @*href="https://www.visa.com.vn/en_VN/pay-with-visa/find-a-card/credit-cards.html"*@ aria-expanded="false" aria-controls="collapseThree">
+                                <span class="dot"></span> Credit Card
+                            </a>
+                            <span class="overflowed pull-right">
+                                <a href="https://www.mastercard.com/global.html"><img src="~/images/payments/mastercard-2.jpg" alt="" /></a>
+                                <a href="https://www.visa.com/main.html"></a><img src="~/images/payments/visa-2.jpg" alt="" /></a>
+                               <a href="https://www.americanexpress.com/"> <img src="~/images/payments/american-express-2.jpg" alt="" /></a>
+                                <a href="https://www.discover.com/"><img src="~/images/payments/discovery-2.jpg" alt="" /></a>
+                               <a href="https://www.planetpayment.com/en/home/"> <img src="~/images/payments/eheck-2.jpg" alt="" /></a>
+                            </span>
+                        </h4>
+                    </div>
+                    <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3"></div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="heading4">
+                        <h4 class="panel-title">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse4"   aria-expanded="false" aria-controls="collapse4">
+                                <span class="dot"></span> PayPal
+                            </a>
+                            <span class="overflowed pull-right"><a href="https://www.paypal.com/VN/home?gclid=CjwKCAjwqpP2BRBTEiwAfpiD-1txnS_FIwro96QfEZqyhieWSAyyC6-_tMEPJZuAqqFSDoVC7R4OPRoC96YQAvD_BwE&gclsrc=aw.ds"><img src="~/images/payments/paypal-2.jpg" alt="" /></a></span>
+                        </h4>
+                    </div>
+                    <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4"></div>
+                </div>
+            </div>
+            <div class="overflowed">
+                <a class="btn btn-theme btn-theme-dark" asp-controller="Home">Home Page</a>
+                @if (ViewBag.cart != null && ViewBag.countItems > 0)
+                {
+                    <a class="btn btn-theme pull-right" asp-controller="Cart" asp-action="checkout">CHECKOUT</a>
+                }
+            </div>
+
+
+
+        </div>
+    </section>
+
+
+
+

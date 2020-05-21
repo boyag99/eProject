@@ -20,12 +20,15 @@ namespace eProject.Data
         public virtual DbSet<Photo> Photos { get; set; }
         public virtual DbSet<About> About { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
-        public virtual DbSet<InvoiceDetail> InvoiceDetails { get; set; }
+        public virtual DbSet<OrderDetail> InvoiceDetails { get; set; }
         public virtual DbSet<Blog> Blog { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<AuctionHistory> AuctionHistories { get; set; }
+        public virtual DbSet<Porfolio> Porfolios { get; set; }
 
         public virtual DbSet<Contact> Contacts {get;set; }
+
+        //public virtual DbSet<Delivery> Delivery { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -40,6 +43,7 @@ namespace eProject.Data
             modelBuilder.Entity<Blog>(entity => { entity.ToTable(name: "Blogs"); });
             modelBuilder.Entity<Review>(entity => { entity.ToTable(name: "Reviews"); });
             modelBuilder.Entity<AuctionHistory>(entity => { entity.ToTable(name: "AuctionHistories"); });
+            modelBuilder.Entity<Porfolio>(entity => { entity.ToTable(name: "Porfolios"); });
             modelBuilder.Entity<IdentityRole>(entity => { entity.ToTable(name: "Roles"); });
             modelBuilder.Entity<IdentityUserRole<string>>(entity => { entity.ToTable("UserRoles"); });
             modelBuilder.Entity<IdentityUserClaim<string>>(entity => { entity.ToTable("UserClaims"); });
@@ -76,11 +80,11 @@ namespace eProject.Data
                 entity.ToTable("Invoices");
             });
 
-            modelBuilder.Entity<InvoiceDetail>(entity =>
+            modelBuilder.Entity<OrderDetail>(entity =>
             {
                 entity.HasKey(e => new { e.InvoiceId, e.ProductId });
                 entity.HasOne(d => d.Invoice)
-                      .WithMany(p => p.InvoiceDetails)
+                      .WithMany(p => p.OrderDetails)
                       .HasForeignKey(d => d.InvoiceId)
                       .OnDelete(DeleteBehavior.Cascade)
                       .HasConstraintName("FK_InvoiceDetail_Invoice");

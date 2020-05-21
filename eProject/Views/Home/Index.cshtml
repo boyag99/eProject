@@ -64,7 +64,7 @@
                                         <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@featuredProduct.ProductId"><i class="fa fa-shopping-cart" ></i>Add to Cart</a>
                                         <!--
                                         -->
-                                        <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
+                                        <a asp-controller="Portfolio" asp-action="Add" asp-route-id="@featuredProduct.ProductId" asp-route-returnController="@Html.ViewContext.RouteData.Values["controller"].ToString()" asp-route-returnAction="@Html.ViewContext.RouteData.Values["action"].ToString()" class="btn btn-theme btn-theme-transparent btn-compare"><i class="fa fa-exchange"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -154,7 +154,7 @@
                     var photoName = photo == null ? "no-image.jpg" : photo.Name;
                 <div class="thumbnail no-border no-padding">
                     <div class="media">
-                        <a class="media-link" data-gal="prettyPhoto" href="~/products/@photoName">
+                        <a class="media-link" data-gal="prettyPhoto" href="~/images/products/@photoName">
                             <img src="~/images/products/@photoName" alt="" />
                             <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
                         </a>
@@ -231,18 +231,21 @@
         <h2 class="section-title"><span>Artist</span></h2>
         <div class="partners-carousel">
             <div class="owl-carousel" id="partners">
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
+                @foreach(User users in ViewBag.Artists) 
+                {
+                <div><a asp-controller="ArtistPageUser" asp-action="Detail" asp-route-id="@users.Id">
+                    
+                    @if (users.ProfileImage is null)
+                    {
+                        <img src="~/backend/dist/img/user2-160x160.jpg" alt="">
+                    }
+                    else
+                    {
+                     <img src="~/images/users/@users.ProfileImage" alt="" />
+                    }
+                </a></div>
+                }
+                
             </div>
         </div>
     </div>

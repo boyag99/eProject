@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace eProject.Models
 {
-    [Table("InvoiceDetails")]
-    public class InvoiceDetail
+   
+    public class OrderDetail
 
     {
         [Key]

@@ -49,6 +49,19 @@ namespace eProject.Controllers
             
             List<Product> saleProducts = _applicationDbContext.Products.Include(p => p.Photos).Where(p => p.SalePrice > 0).ToList();
             ViewBag.SaleProducts = saleProducts;
+
+            //artist in home
+            List<User> roleUser = new List<User>();
+            List<User> users = _applicationDbContext.Users.ToList();
+            foreach (User user in users)
+            {
+                if (_userManager.IsInRoleAsync(user, "Artist").Result)
+                {
+                    roleUser.Add(user);
+                }
+            }
+            ViewBag.Artists = roleUser;
+            //end
             return View();
         }
 
