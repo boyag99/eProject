@@ -1809,7 +1809,7 @@ input[type=checkbox] {
   }
 }
 .main-slider .caption-title {
-  font-size: 75px;
+  font-size: 50px;
   font-weight: 100;
   line-height: 1;
   color: #232323;
@@ -1820,31 +1820,31 @@ input[type=checkbox] {
 }
 @media (max-width: 1280px) {
   .main-slider .caption-title {
-    font-size: 60px;
+    font-size: 40px;
   }
 }
 @media (max-width: 1199px) {
   .main-slider .caption-title {
-    font-size: 50px;
+    font-size: 30px;
   }
 }
 @media (max-width: 991px) {
   .main-slider .caption-title {
-    font-size: 35px;
+    font-size: 20px;
   }
 }
 @media (max-width: 767px) {
   .main-slider .caption-title {
-    font-size: 20px;
+    font-size: 16px;
   }
 }
 @media (max-width: 639px) {
   .main-slider .caption-title {
-    font-size: 18px;
+    font-size: 14px;
   }
 }
 .main-slider .caption-subtitle {
-  font-size: 200px;
+  font-size: 150px;
   font-weight: 900;
   line-height: 1;
   text-transform: uppercase;
@@ -1853,32 +1853,32 @@ input[type=checkbox] {
 }
 @media (max-width: 1280px) {
   .main-slider .caption-subtitle {
-    font-size: 150px;
+    font-size: 120px;
   }
 }
 @media (max-width: 1199px) {
   .main-slider .caption-subtitle {
-    font-size: 120px;
+    font-size: 90px;
   }
 }
 @media (max-width: 991px) {
   .main-slider .caption-subtitle {
-    font-size: 90px;
+    font-size: 60px;
   }
 }
 @media (max-width: 767px) {
   .main-slider .caption-subtitle {
-    font-size: 50px;
+    font-size: 30px;
   }
 }
 @media (max-width: 639px) {
   .main-slider .caption-subtitle {
-    font-size: 30px;
+    font-size: 20px;
   }
 }
 @media (max-width: 480px) {
   .main-slider .caption-subtitle {
-    font-size: 20px;
+    font-size: 10px;
   }
 }
 .main-slider .caption-text {
