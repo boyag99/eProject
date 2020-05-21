@@ -88,8 +88,8 @@
                                 <button class="btn"><i class="fa fa-plus"></i></button>
                             </div>*@
                         <a class="btn btn-theme btn-cart btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@ViewBag.Product.ProductId"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                        <button class="btn btn-theme btn-wish-list"><i class="fa fa-heart"></i></button>
-                        <button class="btn btn-theme btn-compare"><i class="fa fa-exchange"></i></button>
+                        <a class="btn btn-theme btn-wish-list"><i class="fa fa-heart"></i></a>
+                        <a class="btn btn-theme btn-compare" asp-controller="Portfolio" asp-action="Add" asp-route-id="@ViewBag.Product.ProductId"><i class="fa fa-exchange"></i></a>
                     </div>
 
                     <hr class="page-divider small" />
@@ -105,7 +105,7 @@
                         </tr>
                         <tr>
                             <td class="title">Address:</td>
-                            <td>@ViewBag.Product.User.Address.StreetAddress, @ViewBag.Product.User.Address.County, @ViewBag.Product.User.Address.City, @ViewBag.Product.User.Address.State</td>
+                            <td>@ViewBag.Product.User.Address.StreetAddress, @ViewBag.Product.User.Address.County, @ViewBag.Product.User.Address.City, @ViewBag.Product.User.Address.Country</td>
                         </tr>
                         <tr>
                             <td class="title">Tags:</td>
@@ -232,7 +232,7 @@
                                     <a class="btn btn-theme btn-theme-transparent btn-icon-left" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
                                     <!--
                                     -->
-                                    <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
+                                    <a asp-controller="Portfolio" asp-action="Add" asp-route-id="@productInfo.ProductId" asp-route-returnController="@Html.ViewContext.RouteData.Values["controller"].ToString()" asp-route-returnAction="@Html.ViewContext.RouteData.Values["action"].ToString()" class="btn btn-theme btn-theme-transparent btn-compare"><i class="fa fa-exchange"></i></a>
                                 </div>
                             </div>
                         </div>
