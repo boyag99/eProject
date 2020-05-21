@@ -23,6 +23,7 @@ namespace eProject.Data
         public virtual DbSet<InvoiceDetail> InvoiceDetails { get; set; }
         public virtual DbSet<Blog> Blog { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
+        public virtual DbSet<AuctionHistory> AuctionHistories { get; set; }
 
         public virtual DbSet<Contact> Contacts {get;set; }
 
@@ -38,6 +39,7 @@ namespace eProject.Data
             modelBuilder.Entity<About>(entity => { entity.ToTable(name: "Abouts"); });
             modelBuilder.Entity<Blog>(entity => { entity.ToTable(name: "Blogs"); });
             modelBuilder.Entity<Review>(entity => { entity.ToTable(name: "Reviews"); });
+            modelBuilder.Entity<AuctionHistory>(entity => { entity.ToTable(name: "AuctionHistories"); });
             modelBuilder.Entity<IdentityRole>(entity => { entity.ToTable(name: "Roles"); });
             modelBuilder.Entity<IdentityUserRole<string>>(entity => { entity.ToTable("UserRoles"); });
             modelBuilder.Entity<IdentityUserClaim<string>>(entity => { entity.ToTable("UserClaims"); });

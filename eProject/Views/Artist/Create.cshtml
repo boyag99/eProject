@@ -34,18 +34,21 @@
                                         <div class="form-group">
                                             <label>Price</label>
                                             <input type="number" class="form-control" asp-for="Product.Price" min="0" required>
+                                            <span class="text-danger">*Prices start if the product is auctions.</span>
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-sm-6">
                                         <div class="form-group">
                                             <label>Sale Price</label>
                                             <input type="number" class="form-control" asp-for="Product.SalePrice" min="0" required>
+                                            <span class="text-danger">*Bid price if the product is auctions.</span>
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-sm-6">
                                         <div class="form-group">
-                                            <label>Quantity</label>
-                                            <input type="number" class="form-control" asp-for="Product.Quantity" min="0" required>
+                                            <label>To Date</label>
+                                            <input class="form-control" asp-for="Product.ToDate">
+                                            <span class="text-danger">*If the product is auction</span>
                                         </div>
                                     </div>
                                     <div class="col-md-12 col-sm-12">
@@ -61,15 +64,15 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12 col-sm-12">
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" id="checkbox1" asp-for="Product.Featured">
-                                                <label class="form-check-label" for="checkbox1">Featured</label>
-                                            </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="checkbox1" asp-for="Product.Featured">
+                                            <label class="form-check-label" for="checkbox1">Featured</label>
+                                        </div>
                                     </div>
                                     <div class="col-md-12 col-sm-12">
-                                         <button type="submit" class="btn btn-theme btn-theme-dark"> Create </button>
+                                        <button type="submit" class="btn btn-theme btn-theme-dark"> Create </button>
                                     </div>
-                                 </div>
+                                </div>
                             </form>
                         </div>
                     </div>

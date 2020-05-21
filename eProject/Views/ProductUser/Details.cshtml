@@ -1,4 +1,4 @@
-﻿@model eProject.Models.ViewModels.ReviewRequest
+﻿@model eProject.Models.ViewModels.ProductUserVM
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_FrontendLayout.cshtml";
@@ -22,9 +22,9 @@
                     </div>
                     <div class="owl-carousel img-carousel">
                         <div class="item">
-                                <a class="btn btn-theme btn-theme-transparent btn-zoom" href="~/images/products/@ViewBag.FeaturedPhoto" data-gal="prettyPhoto"><i class="fa fa-plus"></i></a>
-                                <a data-gal="prettyPhoto"><img class="img-responsive" src="~/images/products/@ViewBag.FeaturedPhoto" alt="" /></a>
-                            </div>
+                            <a class="btn btn-theme btn-theme-transparent btn-zoom" href="~/images/products/@ViewBag.FeaturedPhoto" data-gal="prettyPhoto"><i class="fa fa-plus"></i></a>
+                            <a data-gal="prettyPhoto"><img class="img-responsive" src="~/images/products/@ViewBag.FeaturedPhoto" alt="" /></a>
+                        </div>
                         @foreach (var productImage in ViewBag.ProductImages)
                         {
                             <div class="item">
@@ -49,16 +49,16 @@
                         <div class="rating">
                             <span class="star"></span>
                             <!--
-                            -->
+            -->
                             <span class="star active"></span>
                             <!--
-                            -->
+            -->
                             <span class="star active"></span>
                             <!--
-                            -->
+            -->
                             <span class="star active"></span>
                             <!--
-                            -->
+            -->
                             <span class="star active"></span>
                         </div>
                         <a class="reviews" href="#">16 reviews</a> | <a class="add-review" href="#">Add Your Review</a>
@@ -69,11 +69,31 @@
                     }
                     else
                     {
-                <div class="product-availability" style="font-size: 30px;">Availability: <strong style="color:red">Sold out</strong></div>
+                        <div class="product-availability" style="font-size: 30px;">Availability: <strong style="color:red">Sold out</strong></div>
                     }
                     <hr class="page-divider small" />
 
-                    <div class="product-price">@ViewBag.Product.Price $</div>
+                    @{
+                        if (ViewBag.Product.Auction is false)
+                        {
+                            <div class="product-price">@ViewBag.Product.Price $</div>
+                        }
+                        else
+                        {
+                            if (ViewBag.AuctionHistory != null)
+                            {
+                                <h3>The winner of the auction is @ViewBag.AuctionHistory.User.FirstName @ViewBag.AuctionHistory.User.LastName</h3>
+                            }
+                            else
+                            {
+                                <div class="product-price qty"><b>Current bid: </b>@ViewBag.Product.SalePrice $</div>
+
+                                <h3 class="text-danger" id="dealCountdown"></h3>
+                            }
+                        }
+                    }
+
+
                     <hr class="page-divider" />
 
                     <div class="product-text">
@@ -83,11 +103,39 @@
 
                     <div class="buttons">
                         @*<div class="quantity">
-                                <button class="btn"><i class="fa fa-minus"></i></button>
-                                <input class="form-control qty" type="number" step="1" min="1" name="quantity" value="1" title="Qty">
-                                <button class="btn"><i class="fa fa-plus"></i></button>
-                            </div>*@
-                        <a class="btn btn-theme btn-cart btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@ViewBag.Product.ProductId"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+            <button class="btn"><i class="fa fa-minus"></i></button>
+            <input class="form-control qty" type="number" step="1" min="1" name="quantity" value="1" title="Qty">
+            <button class="btn"><i class="fa fa-plus"></i></button>
+        </div>*@
+
+                        @{
+                            if (ViewBag.Message != null)
+                            {
+                                <span class="text-danger">@ViewBag.Message</span>
+                            }
+
+                            if (ViewBag.Product.Auction is false)
+                            {
+                                <a class="btn btn-theme btn-cart btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@ViewBag.Product.ProductId"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                            }
+                            else
+                            {
+                                if (ViewBag.Product.ToDate < DateTime.Now && ViewBag.AuctionHistory != null)
+                                {
+                                    <a class="btn btn-theme btn-cart btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@ViewBag.Product.ProductId"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                }
+                                else
+                                {
+                                    <div class="quantity">
+                                        <form asp-controller="Auction" asp-action="Bid" asp-route-productId="@ViewBag.Product.ProductId" method="post">
+                                            <input class="form-control qty" type="number" min="@ViewBag.Product.SalePrice" asp-for="@Model.Product.SalePrice" value="@ViewBag.Product.SalePrice" title="Qty">
+                                            <button type="submit" class="btn btn-theme btn-cart btn-icon-left"> Bid Now </button>
+                                        </form>
+                                    </div>
+                                }
+                            }
+
+                        }
                         <button class="btn btn-theme btn-wish-list"><i class="fa fa-heart"></i></button>
                         <button class="btn btn-theme btn-compare"><i class="fa fa-exchange"></i></button>
                     </div>
@@ -105,7 +153,7 @@
                         </tr>
                         <tr>
                             <td class="title">Address:</td>
-                            <td>@ViewBag.Product.User.Address.StreetAddress, @ViewBag.Product.User.Address.County, @ViewBag.Product.User.Address.City, @ViewBag.Product.User.Address.State</td>
+                            <td>@ViewBag.Product.User.Address.StreetAddress, @ViewBag.Product.User.Address.County, @ViewBag.Product.User.Address.City, @ViewBag.Product.User.Address.Country</td>
                         </tr>
                         <tr>
                             <td class="title">Tags:</td>
@@ -134,6 +182,10 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#item-description" data-toggle="tab">Item Description</a></li>
                     <li><a href="#reviews" data-toggle="tab">Reviews (2)</a></li>
+                    @if (ViewBag.Product.Auction is true)
+                    {
+                        <li><a href="#auctionhistory" data-toggle="tab">Action History</a></li>
+                    }
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="item-description">
@@ -145,7 +197,7 @@
                         <div class="comments">
                             @if (ViewBag.Reviews.Count == 0)
                             {
-                            <h1>This product has no comments yet.</h1>
+                                <h1>This product has no comments yet.</h1>
                             }
                             else
                             {
@@ -175,12 +227,45 @@
                             <h4 class="block-title">Add a Review</h4>
                             <form method="post" asp-controller="ProductUser" asp-action="Review" asp-route-id="@ViewBag.Product.ProductId" name="comments-form" id="comments-form">
                                 <div asp-validation-summary="All" class="text-danger"></div>
-                                <div class="form-group"><textarea asp-for="Message" placeholder="Your message" class="form-control" title="comments-form-comments" rows="6"></textarea></div>
+                                <div class="form-group"><textarea asp-for="@Model.ReviewRequest.Message" placeholder="Your message" class="form-control" title="comments-form-comments" rows="6"></textarea></div>
                                 <div class="form-group"><button type="submit" class="btn btn-theme btn-theme-transparent btn-icon-left" id="submit"><i class="fa fa-comment"></i> Review</button></div>
                             </form>
                         </div>
                         <!-- // -->
 
+                    </div>
+                    <div class="tab-pane fade" id="auctionhistory">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td>
+                                        Date
+                                    </td>
+                                    <td>
+                                        Bid
+                                    </td>
+                                    <td>
+                                        User
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (AuctionHistory item in ViewBag.AuctionHistories)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.Created_At
+                                        </td>
+                                        <td>
+                                            @item.Bid
+                                        </td>
+                                        <td>
+                                            <a href="#">@item.User.FirstName @item.User.LastName</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -269,3 +354,23 @@
 
 </div>
 <!-- /CONTENT AREA -->
+
+@section scripts {
+    <script src="~/frontend/assets/plugins/countdown/jquery.plugin.min.js"></script>
+    <script src="~/frontend/assets/plugins/countdown/jquery.countdown.min.js"></script>
+
+    <script>
+       @{
+           DateTime toDate = Convert.ToDateTime(ViewBag.Product.ToDate);
+
+       }
+       $(document).ready(function () {
+           var austDay = new Date();
+           austDay = new Date(@toDate.Year, @toDate.Month - 1, @toDate.Day);
+
+           $('#dealCountdown').countdown('@toDate.Year/@toDate.Month/@toDate.Day', function (event) {
+               $(this).html(event.strftime('%D days %H hours %M minutes %S secons'));
+           });
+       });
+    </script>
+} 

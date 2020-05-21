@@ -33,6 +33,23 @@ namespace eProject.Controllers
                 .ThenInclude(u => u.Address)
                 .FirstOrDefault(p=>p.ProductId ==id);
 
+            AuctionHistory auctionHistory = _applicationDbContext.AuctionHistories.Include(ah => ah.User).OrderByDescending(ah => ah.Bid).FirstOrDefault(ah => ah.ProductId == id);
+
+
+
+            if (product is null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            if (auctionHistory is null)
+            {
+                if(product.ToDate < DateTime.Now && product.Auction == true)
+                {
+                    product.ToDate = product.ToDate.AddDays(7);
+                }
+            }
+
             product.Hot += 1;
             _applicationDbContext.Products.Update(product);
             _applicationDbContext.SaveChanges();
@@ -58,8 +75,11 @@ namespace eProject.Controllers
             ViewBag.FeaturedPhoto = featuredPhoto == null ? "no-image.jpg" : featuredPhoto.Name;
             ViewBag.ProductImages = product.Photos.Where(p => p.Status).ToList();
             ViewBag.RelatedProduct = _applicationDbContext.Products.Include(p => p.Photos).Where(p => p.CategoryId == product.CategoryId && p.ProductId != id && p.Status).ToList();
+            ViewBag.Reviews = await _applicationDbContext.Reviews.Include(r => r.User).Where(r => r.ProductId == id).ToListAsync();
+            ViewBag.MaxBid = _applicationDbContext.AuctionHistories.OrderBy(ah => ah.Bid).FirstOrDefault(ah => ah.ProductId == id);
+            ViewBag.AuctionHistories = await _applicationDbContext.AuctionHistories.Include(ah => ah.User).Where(ah => ah.ProductId == id).ToListAsync();
+            ViewBag.AuctionHistory = auctionHistory;
 
-            ViewBag.Reviews = await _applicationDbContext.Reviews.Include(r => r.User).ToListAsync();
             return View("Details");
         }
 
@@ -90,7 +110,7 @@ namespace eProject.Controllers
             List<Product> hotProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.Hot).Take(4).ToList();
             ViewBag.Hot = hotProducts;
 
-            List<Product> newProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.Created_At).Take(4).ToList();
+            List<Product> newProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.FromDate).Take(4).ToList();
             ViewBag.NewProducts = newProducts;
 
             List<Product> saleProducts = _applicationDbContext.Products.Include(p => p.Photos).Where(p=>p.SalePrice>0).Take(4).ToList();
@@ -131,7 +151,7 @@ namespace eProject.Controllers
             List<Product> hotProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.Hot).Take(4).ToList();
             ViewBag.Hot = hotProducts;
 
-            List<Product> newProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.Created_At).Take(4).ToList();
+            List<Product> newProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.FromDate).Take(4).ToList();
             ViewBag.NewProducts = newProducts;
 
             List<Product> saleProducts = _applicationDbContext.Products.Include(p => p.Photos).Where(p => p.SalePrice > 0).Take(4).ToList();
@@ -143,7 +163,7 @@ namespace eProject.Controllers
         [HttpPost]
         [Route("Review/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Review(int id ,ReviewRequest reviewRequest)
+        public async Task<IActionResult> Review(int id , ProductUserVM productUserVM)
         {
             User user = await _userManager.GetUserAsync(User);
 
@@ -156,7 +176,7 @@ namespace eProject.Controllers
             {
                 Review review = new Review
                 {
-                    Message = reviewRequest.Message,
+                    Message = productUserVM.ReviewRequest.Message,
                     UserId = user.Id
                 };
 

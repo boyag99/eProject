@@ -64,12 +64,13 @@ namespace eProject.App.Data.SeedData
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
-                    Created_At = DateTime.Now,
+                    FromDate = DateTime.Now,
                     UserId = user.Id,
                     CategoryId = 1,
                     Description = "Newly created, consigned directly from the artist. Condition report and certificate of authenticity available upon request.",
                     Status = true,
-                    Featured = true
+                    Featured = true,
+                    Auction = false,
                 },
                 new Product
                 {
@@ -79,12 +80,13 @@ namespace eProject.App.Data.SeedData
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
-                    Created_At = DateTime.Now,
+                    FromDate = DateTime.Now,
                     UserId = user.Id,
                     CategoryId = 1,
                     Description = "Newly created, consigned directly from the artist. Condition report and certificate of authenticity available upon request.",
                     Status = true,
-                    Featured = true
+                    Featured = true,
+                    Auction = false,
                 },
                 new Product
                 {
@@ -94,12 +96,13 @@ namespace eProject.App.Data.SeedData
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
-                    Created_At = DateTime.Now,
+                    FromDate = DateTime.Now,
                     UserId = user.Id,
                     CategoryId = 1,
                     Description = "Newly created, consigned directly from the artist. Condition report and certificate of authenticity available upon request.",
                     Status = true,
-                    Featured = true
+                    Featured = true,
+                    Auction = false,
                 },
                 new Product
                 {
@@ -109,12 +112,13 @@ namespace eProject.App.Data.SeedData
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
-                    Created_At = DateTime.Now,
+                    FromDate = DateTime.Now,
                     UserId = user.Id,
                     CategoryId = 1,
                     Description = "Newly created, consigned directly from the artist. Condition report and certificate of authenticity available upon request.",
                     Status = true,
-                    Featured = true
+                    Featured = true,
+                    Auction = false,
                 },
                 new Product
                 {
@@ -124,12 +128,13 @@ namespace eProject.App.Data.SeedData
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
-                    Created_At = DateTime.Now,
+                    FromDate = DateTime.Now,
                     UserId = user.Id,
                     CategoryId = 1,
                     Description = "Newly created, consigned directly from the artist. Condition report and certificate of authenticity available upon request.",
                     Status = true,
-                    Featured = true
+                    Featured = true,
+                    Auction = false,
                 },
                 new Product
                 {
@@ -139,12 +144,13 @@ namespace eProject.App.Data.SeedData
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
-                    Created_At = DateTime.Now,
+                    FromDate = DateTime.Now,
                     UserId = user.Id,
                     CategoryId = 2,
                     Description = "American photographer Aaron Young won first place in the Landscape Photographer of the Year category for four photos taken in the Badain Jaran desert in Iceland.",
                     Status = true,
-                    Featured = true
+                    Featured = true,
+                    Auction = false,
                 },
                 new Product
                 {
@@ -154,12 +160,13 @@ namespace eProject.App.Data.SeedData
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
-                    Created_At = DateTime.Now,
+                    FromDate = DateTime.Now,
                     UserId = user.Id,
                     CategoryId = 2,
                     Description = "The International Landscape Photographer of the Year contest has just announced its 2019 winners, and their pics are the perfect reminders of just how diverse and beautiful our Mother Earth really is.",
                     Status = true,
-                    Featured = true
+                    Featured = true,
+                    Auction = true,
                 },
                 new Product
                 {
@@ -169,12 +176,13 @@ namespace eProject.App.Data.SeedData
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
-                    Created_At = DateTime.Now,
+                    FromDate = DateTime.Now,
                     UserId = user.Id,
                     CategoryId = 2,
                     Description = "The International Landscape Photographer of the Year contest has just announced its 2019 winners, and their pics are the perfect reminders of just how diverse and beautiful our Mother Earth really is.",
                     Status = true,
-                    Featured = true
+                    Featured = true,
+                    Auction = true,
                 },
                 new Product
                 {
@@ -184,12 +192,13 @@ namespace eProject.App.Data.SeedData
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
-                    Created_At = DateTime.Now,
+                    FromDate = DateTime.Now,
                     UserId = user.Id,
                     CategoryId = 2,
                     Description = "Ershov believes that a picture is beautiful when hung on a wall, so he focuses on creating special photographs like large-sized wall paintings.",
                     Status = true,
-                    Featured = true
+                    Featured = true,
+                    Auction = true,
                 },
                 new Product
                 {
@@ -199,12 +208,13 @@ namespace eProject.App.Data.SeedData
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
-                    Created_At = DateTime.Now,
+                    FromDate = DateTime.Now,
                     UserId = user.Id,
                     CategoryId = 2,
                     Description = "This Russia. He has been to Iceland 15 times and took 10 years to complete the first book of his career.",
                     Status = true,
-                    Featured = true
+                    Featured = true,
+                    Auction = true,
                 },
                 new Product
                 {
@@ -214,12 +224,13 @@ namespace eProject.App.Data.SeedData
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
-                    Created_At = DateTime.Now,
+                    FromDate = DateTime.Now,
                     UserId = user.Id,
                     CategoryId = 3,
                     Description = "Assorted plastics, acrylic paint",
                     Status = true,
-                    Featured = true
+                    Featured = true,
+                    Auction = true,
                 },
                 new Product
                 {
@@ -229,12 +240,13 @@ namespace eProject.App.Data.SeedData
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
-                    Created_At = DateTime.Now,
+                    FromDate = DateTime.Now,
                     UserId = user.Id,
                     CategoryId = 3,
                     Description = "Assorted plastics, acrylic paint",
                     Status = true,
-                    Featured = true
+                    Featured = true,
+                    Auction = true,
                 },
                 new Product
                 {
@@ -244,12 +256,13 @@ namespace eProject.App.Data.SeedData
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
-                    Created_At = DateTime.Now,
+                    FromDate = DateTime.Now,
                     UserId = user.Id,
                     CategoryId = 3,
                     Description = "Assorted plastics, acrylic paint",
                     Status = true,
-                    Featured = true
+                    Featured = true,
+                    Auction = true,
                 },
                 new Product
                 {
@@ -259,12 +272,13 @@ namespace eProject.App.Data.SeedData
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
-                    Created_At = DateTime.Now,
+                    FromDate = DateTime.Now,
                     UserId = user.Id,
                     CategoryId = 3,
                     Description = "Assorted plastics, acrylic paint",
                     Status = true,
-                    Featured = true
+                    Featured = true,
+                    Auction = true,
                 },
                 new Product
                 {
@@ -274,12 +288,13 @@ namespace eProject.App.Data.SeedData
                     SalePrice = 0,
                     Quantity = 1,
                     Hot = 0,
-                    Created_At = DateTime.Now,
+                    FromDate = DateTime.Now,
                     UserId = user.Id,
                     CategoryId = 3,
                     Description = "Assorted plastics, acrylic paint",
                     Status = true,
-                    Featured = true
+                    Featured = true,
+                    Auction = true,
                 },
             };
 

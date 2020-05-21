@@ -13,6 +13,7 @@ using eProject.Models;
 using eProject.App.Helpers;
 using System.Security.Claims;
 using eProject.Service;
+using Microsoft.AspNetCore.Authorization;
 
 namespace eProject.Controllers
 {
@@ -157,6 +158,8 @@ namespace eProject.Controllers
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart",cart);
             return RedirectToAction("Index", "cart");
         }
+
+        [Authorize]
         [Route("checkout")]
         public async Task<IActionResult> Checkout()
         {

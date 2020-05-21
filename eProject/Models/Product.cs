@@ -21,11 +21,13 @@ namespace eProject.Models
 
         public double SalePrice { get; set; }
 
-        public int Quantity { get; set; }
+        public int Quantity { get; set; } = 1;
 
         public int Hot { get; set; }
 
-        public DateTime Created_At { get; set; } = DateTime.Now;
+        public DateTime FromDate { get; set; } = DateTime.Now;
+
+        public DateTime ToDate { get; set; } = DateTime.Now;
 
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
@@ -37,6 +39,8 @@ namespace eProject.Models
         public bool Status { get; set; }
 
         public bool Featured { get; set; }
+
+        public bool Auction { get; set; } = false;
 
         public virtual Category Category { get; set; }
 

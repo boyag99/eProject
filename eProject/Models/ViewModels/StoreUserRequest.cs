@@ -57,6 +57,8 @@ namespace eProject.Models.ViewModels
 
         public string Role { get; set; }
 
+        public string ReturnUrl { get; set; }
+
         [Display(Name = "Profile Picture")]
         [ValidationImage]
         public IFormFile ProfileImage { get; set; }
