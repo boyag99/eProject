@@ -19,6 +19,7 @@ namespace eProject.App.Data.SeedData
             SeedSlideShows(applicationDbContext);
             SeedBlogs(applicationDbContext, userManager);
             SeedContacts(applicationDbContext);
+            SeedWareHouseAddress(applicationDbContext);
             SeedAbouts(applicationDbContext);
         }
 
@@ -526,6 +527,22 @@ namespace eProject.App.Data.SeedData
             };
 
             applicationDbContext.Contacts.Add(contact);
+            applicationDbContext.SaveChanges();
+        }
+
+        private static void SeedWareHouseAddress(ApplicationDbContext applicationDbContext)
+        {
+            WareHouseAddress ware = new WareHouseAddress()
+            {
+                WareHouseId = 1,
+                CompanyName = "Heaven Art",
+                StreetAddress = "590 CMT8, District 3, HCMC, Vietnam",
+                PostalCode = "70000",
+                PhoneNumber = "0909123456",
+                Email = "admin@gmail.com"
+            };
+
+            applicationDbContext.WareHouseAddresses.Add(ware);
             applicationDbContext.SaveChanges();
         }
 
