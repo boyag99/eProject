@@ -86,7 +86,13 @@ namespace eProjectASP.Areas.Admin.Controllers
                 fileUpload.CopyToAsync(stream);
                 currentPhoto.Name = fileUpload.FileName;
             }
-            currentPhoto.Status = photo.Status;
+            if(photo.Status == true)
+            {
+                currentPhoto.Status = true;
+            } else
+            {
+                currentPhoto.Status = false;
+            }
             _applicationDbContext.SaveChanges();
             return RedirectToAction("index", "PhotoProductArtist", new {id = productId });
         }

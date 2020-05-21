@@ -58,7 +58,7 @@ namespace eProject.Areas.Admin.Controllers
                     StreetAddress = user.Address.StreetAddress,
                     County = user.Address.County,
                     City = user.Address.City,
-                    State = user.Address.State,
+                    Country = user.Address.Country,
                     PostalCode = user.Address.PostalCode
                 });
             }
@@ -98,7 +98,7 @@ namespace eProject.Areas.Admin.Controllers
                     City = storeUserRequest.City,
                     County = storeUserRequest.County,
                     PostalCode = storeUserRequest.PostalCode,
-                    State = storeUserRequest.State
+                    Country = storeUserRequest.Country
                 },
                 ProfileImage = uniqueFileName
             };
@@ -149,7 +149,7 @@ namespace eProject.Areas.Admin.Controllers
                 StreetAddress = user.Address.StreetAddress,
                 County = user.Address.County,
                 City = user.Address.City,
-                State = user.Address.State
+                Country = user.Address.Country
 
             };
 
@@ -188,7 +188,7 @@ namespace eProject.Areas.Admin.Controllers
             user.Address.PostalCode = updateUserRequest.PostalCode;
             user.Address.City = updateUserRequest.City;
             user.Address.County = updateUserRequest.County;
-            user.Address.State = updateUserRequest.State;
+            user.Address.Country = updateUserRequest.Country;
             user.ProfileImage = uniqueImageName ?? userImage;
 
             _applicationDbContext.Users.Update(user);

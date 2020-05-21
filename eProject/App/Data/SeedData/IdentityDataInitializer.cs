@@ -44,7 +44,7 @@ namespace eProject.App.Data.SeedData
                             PostalCode = "80000",
                             City = "Ho Chi Minh",
                             County = "Binh Chanh",
-                            State = "Viet Nam"
+                            Country = "Vietnam"
                         },
                         EmailConfirmed = true
                     },
@@ -63,7 +63,7 @@ namespace eProject.App.Data.SeedData
                             PostalCode = "80000",
                             City = "Ho Chi Minh",
                             County = "Binh Chanh",
-                            State = "Viet Nam"
+                            Country = "Vietnam"
                         },
                         EmailConfirmed = true
                     },
@@ -82,7 +82,7 @@ namespace eProject.App.Data.SeedData
                             PostalCode = "80000",
                             City = "Ho Chi Minh",
                             County = "Binh Chanh",
-                            State = "Viet Nam"
+                            Country = "Vietnam"
                         },
                         EmailConfirmed = true
                     }

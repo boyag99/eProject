@@ -127,7 +127,7 @@ namespace eProject.Controllers
                         City = null,
                         County = null,
                         PostalCode = null,
-                        State = null
+                        Country = null
                     },
                     ProfileImage = null,
                 };

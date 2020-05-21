@@ -24,6 +24,6 @@ namespace eProject.Models
         public string County { get; set; }
 
         [StringLength(256)]
-        public string State { get; set; }
+        public string Country { get; set; }
     }
 }
