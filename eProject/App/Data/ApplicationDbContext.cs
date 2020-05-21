@@ -26,6 +26,8 @@ namespace eProject.Data
 
         public virtual DbSet<Contact> Contacts {get;set; }
 
+        //public virtual DbSet<Delivery> Delivery { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

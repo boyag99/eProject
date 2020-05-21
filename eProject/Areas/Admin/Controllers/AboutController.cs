@@ -20,7 +20,6 @@ namespace eProject.Areas.Admin.Controllers
     public class AboutController : Controller
     {
         private readonly ApplicationDbContext _applicationDbContext;
-        //private readonly IHostEnvironment Environment;
         public AboutController(ApplicationDbContext applicationDbContext)
         {
             _applicationDbContext = applicationDbContext;
