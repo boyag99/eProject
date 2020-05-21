@@ -4,14 +4,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eProject.Models
 {
-    [Table("Reviews")]
-    public class Review
+    [Table("AuctionHistories")]
+    public class AuctionHistory
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int ReviewId { get; set; }
+		public int AuctionHistoryId { get; set; }
 
-        public string Message { get; set; }
+        public double Bid { get; set; }
 
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
@@ -21,7 +21,6 @@ namespace eProject.Models
         public int ProductId { get; set; }
         public Product Product { get; set; }
 
-        [DataType(DataType.Date)]
         public DateTime Created_At { get; set; } = DateTime.Now;
 
     }

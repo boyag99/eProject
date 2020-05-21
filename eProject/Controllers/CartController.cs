@@ -13,6 +13,7 @@ using eProject.Models;
 using eProject.App.Helpers;
 using System.Security.Claims;
 using eProject.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
 namespace eProject.Controllers
@@ -106,7 +107,7 @@ namespace eProject.Controllers
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart",cart);
             return RedirectToAction("Index", "cart");
         }
-        
+
         private int checkexist(int id, List<Item> cart)
         {
             for (int i = 0; i < cart.Count; i++)

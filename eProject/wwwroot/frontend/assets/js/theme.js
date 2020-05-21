@@ -284,15 +284,6 @@ jQuery(document).ready(function () {
             });
         }
     }
-    // countdown
-    // ---------------------------------------------------------------------------------------
-    if ($().countdown) {
-        var austDay = new Date();
-        austDay = new Date(austDay.getFullYear() + 1, 1 - 1, 26);
-        $('#dealCountdown1').countdown({until: austDay});
-        $('#dealCountdown2').countdown({until: austDay});
-        $('#dealCountdown3').countdown({until: austDay});
-    }
     // Google map
     // ---------------------------------------------------------------------------------------
     if (typeof google === 'object' && typeof google.maps === 'object') {

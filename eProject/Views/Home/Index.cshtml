@@ -64,7 +64,7 @@
                                         <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@featuredProduct.ProductId"><i class="fa fa-shopping-cart" ></i>Add to Cart</a>
                                         <!--
                                         -->
-                                        <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
+                                        <a asp-controller="Portfolio" asp-action="Add" asp-route-id="@featuredProduct.ProductId" asp-route-returnController="@Html.ViewContext.RouteData.Values["controller"].ToString()" asp-route-returnAction="@Html.ViewContext.RouteData.Values["action"].ToString()" class="btn btn-theme btn-theme-transparent btn-compare"><i class="fa fa-exchange"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -233,7 +233,17 @@
             <div class="owl-carousel" id="partners">
                 @foreach(User users in ViewBag.Artists) 
                 {
-                <div><a asp-controller="ArtistPageUser" asp-action="Detail" asp-route-id="@users.Id"><img src="~/images/users/@users.ProfileImage" alt="" /></a></div>
+                <div><a asp-controller="ArtistPageUser" asp-action="Detail" asp-route-id="@users.Id">
+                    
+                    @if (users.ProfileImage is null)
+                    {
+                        <img src="~/backend/dist/img/user2-160x160.jpg" alt="">
+                    }
+                    else
+                    {
+                     <img src="~/images/users/@users.ProfileImage" alt="" />
+                    }
+                </a></div>
                 }
                 
             </div>
