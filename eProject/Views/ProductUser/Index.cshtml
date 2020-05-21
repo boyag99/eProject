@@ -3,8 +3,8 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_FrontendLayout.cshtml";
 }
-
 @using eProject.Models;
+@using eProject.Models.ViewModels;
 @using X.PagedList;
 @using X.PagedList.Mvc.Core;
 <!-- CONTENT AREA -->
@@ -40,7 +40,7 @@
                         <div class="widget-content">
                             <div id="slider-range"></div>
                             <input type="text" id="amount" readonly />
-                            <button class="btn btn-theme">Filter</button>
+                            <button type="button" onclick="Filter()" class="btn btn-theme">Filter</button>
                         </div>
                     </div>
                     <!-- /widget price filter -->
@@ -214,57 +214,57 @@
                     </div>
                     <!-- /shop-sorting -->
                     <!-- Products grid -->
-                    <div class="row products grid">
-                        @foreach (var product in ViewBag.Products)
-                        {
-                            Product productInfo = (Product)product;
-                            Photo photo = productInfo.Photos.SingleOrDefault(ph => ph.Status && ph.Featured);
-                            var photoName = photo == null ? "no-image.jpg" : photo.Name;
-                            <div class="col-md-4 col-sm-6">
-                                <div class="thumbnail no-border no-padding">
-                                    <div class="media">
-                                        <a class="media-link" data-gal="prettyPhoto" href="~/images/products/@photoName">
-                                            <img src="~/images/products/@photoName" alt="" />
-                                            <span class="icon-view">
-                                                <strong><i class="fa fa-eye"></i></strong>
-                                            </span>
-                                        </a>
-                                    </div>
-                                    <div class="caption text-center">
-                                        <h4 class="caption-title"><a asp-controller="Product" asp-action="details" asp-route-id="@product.ProductId">@productInfo.Name</a></h4>
-                                        <div class="rating">
-                                            <span class="star"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
+                    <div class="row products grid" id="products">
+                            @foreach (var product in ViewBag.Products)
+                            {
+                                Product productInfo = (Product)product;
+                                Photo photo = productInfo.Photos.SingleOrDefault(ph => ph.Status && ph.Featured);
+                                var photoName = photo == null ? "no-image.jpg" : photo.Name;
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="thumbnail no-border no-padding">
+                                        <div class="media">
+                                            <a class="media-link" data-gal="prettyPhoto" href="~/images/products/@photoName">
+                                                <img src="~/images/products/@photoName" alt="" />
+                                                <span class="icon-view">
+                                                    <strong><i class="fa fa-eye"></i></strong>
+                                                </span>
+                                            </a>
                                         </div>
-                                        <div class="price"><ins>@productInfo.Price</ins> <del>@productInfo.SalePrice</del></div>
-                                        <div class="buttons">
-                                            <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>
-                                            <!--
-                                            -->
-                                            <a class="btn btn-theme btn-theme-transparent btn-icon-left" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                            <!--
-                                            -->
-                                            <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
+                                        <div class="caption text-center">
+                                            <h4 class="caption-title"><a asp-controller="Product" asp-action="details" asp-route-id="@product.ProductId">@productInfo.Name</a></h4>
+                                            <div class="rating">
+                                                <span class="star"></span>
+
+
+                                                <span class="star active"></span>
+
+
+                                                <span class="star active"></span>
+
+
+                                                <span class="star active"></span>
+
+
+                                                <span class="star active"></span>
+                                            </div>
+                                            <div class="price"><ins>@productInfo.Price</ins> <del>@productInfo.SalePrice</del></div>
+                                            <div class="buttons">
+                                                <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>
+
+
+                                                <a class="btn btn-theme btn-theme-transparent btn-icon-left" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+
+
+                                                <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        }
-                    </div>
+                            }
+                        </div>
                     <!-- /Products grid -->
                     <!-- Pagination -->
-                    <div class="pagination-wrapper">
+                    <div class="pagination-wrapper" id="pagination">
                         @Html.PagedListPager((IPagedList)ViewBag.Products, page => Url.Action("index", "ProductUser", new { page = page, currentSearch = ViewData["CurrentSearch"] }))
                     </div>
                     <!-- /Pagination -->
@@ -320,3 +320,78 @@
 
 </div>
 <!-- /CONTENT AREA -->
+
+@section scripts {
+    <script>
+        var priceSliderRange = $('#slider-range');
+        jQuery(document).ready(function () {
+            if ($.ui) {
+                if ($(priceSliderRange).length) {
+                    $(priceSliderRange).slider({
+                        range: true,
+                        min: @ViewBag.MinPrice,
+                        max: @ViewBag.MaxPrice,
+                        values: [@ViewBag.MinPrice, @ViewBag.MaxPrice],
+                        slide: function (event, ui) {
+                            $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                        }
+                    });
+                    $("#amount").val(
+                        "$" + $("#slider-range").slider("values", 0) +
+                        " - $" + $("#slider-range").slider("values", 1)
+                    );
+
+                }
+            }
+        });
+
+        function Filter() {
+            var minPrice = $("#slider-range").slider("values", 0);
+            var maxPrice = $("#slider-range").slider("values", 1)
+
+            $.ajax({
+                  url: 'filterPrice/' + minPrice + "/" + maxPrice,
+                  type: 'GET',
+                success: function (response) {
+                    console.log(response)
+                    $("#products").html('');
+                    $("#pagination").html('');
+
+                    for (var i in response) {
+                        var listProducts = '<div class="col-md-4 col-sm-6">\
+                                    <div class="thumbnail no-border no-padding">\
+                                        <div class="media">\
+                                            <a class="media-link" data-gal="prettyPhoto" href="#">\
+                                                <img src="../images/products/' + response[i].photos[0].name + '" alt="" />\
+                                                <span class="icon-view">\
+                                                    <strong><i class="fa fa-eye"></i></strong>\
+                                                </span>\
+                                            </a>\
+                                        </div>\
+                                        <div class="caption text-center">\
+                                            <h4 class="caption-title"><a asp-controller="Product" asp-action="details" asp-route-id="' + response[i].productId + '"> ' + response[i].name + ' </a></h4>\
+                                            <div class="rating">\
+                                                <span class="star"></span>\
+                                                <span class="star active"></span>\
+                                                <span class="star active"></span>\
+                                                <span class="star active"></span>\
+                                                <span class="star active"></span>\
+                                            </div>\
+                                            <div class="price"><ins>' + response[i].price + '</ins> <del>' + response[i].salePrice + '</del></div>\
+                                            <div class="buttons">\
+                                                <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>\
+                                                <a class="btn btn-theme btn-theme-transparent btn-icon-left" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>\
+                                                <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                </div>';
+                        $("#products").append(listProducts);
+                    }
+
+                    var objectResponse = JSON.parse(response);
+                }
+            });
+        }
+    </script>
+}
