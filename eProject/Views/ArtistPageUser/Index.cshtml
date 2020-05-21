@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_FrontendLayout.cshtml";
+}
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+<!-- CONTENT AREA -->
+<div class="content-area">
+
+    <!-- BREADCRUMBS -->
+    <section class="page-section breadcrumbs">
+        <div class="container">
+            <div class="page-header">
+                <h1>Artist</h1>
+            </div>
+            <ul class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Pages</a></li>
+                <li class="active">Artist</li>
+            </ul>
+        </div>
+    </section>
+    <!-- /BREADCRUMBS -->
+    <!-- PAGE -->
+    <section class="page-section">
+        <div class="container">
+
+            <div class="clearfix text-center">
+                <ul id="filtrable" class="filtrable clearfix">
+                    <li class="all current"><a href="#" data-filter="*">All</a></li>
+                    <li class="dress"><a href="#" data-filter=".dress">Dresses and Suits</a></li>
+                    <li class="accessories"><a href="#" data-filter=".accessories">Accessories</a></li>
+                    <li class="miscellaneous"><a href="#" data-filter=".miscellaneous">Miscellaneous</a></li>
+                </ul>
+            </div>
+
+            <div class="row thumbnails portfolio isotope isotope-items">
+                @foreach (User artist in ViewBag.Artists)
+                {
+                    <div class="col-md-3 col-sm-6 isotope-item">
+                        <div class="thumbnail no-border no-padding">
+                            <div class="media">
+                                <img src="~/images/users/@artist.ProfileImage" alt="">
+                                <div class="caption hovered">
+                                    <div class="caption-wrapper div-table">
+                                        <div class="caption-inner div-cell">
+                                            <h3 class="caption-title"><a asp-controller="ArtistPageUser" asp-action="Detail" asp-route-id="@artist.Id">@artist.FirstName @artist.LastName</a></h3>
+                                            <p class="caption-buttons">
+                                                <a href="~/images/users/@artist.ProfileImage" class="btn caption-zoom" data-gal="prettyPhoto"><i class="fa fa-search"></i></a>
+                                                <a asp-controller="ArtistPageUser" asp-action="Detail" asp-route-id="@artist.Id" class="btn caption-link"><i class="fa fa-link"></i></a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination-wrapper">
+                @Html.PagedListPager((IPagedList)ViewBag.Artists, page => Url.Action("index", "ArtistPageUser", new { page = page}))
+            </div>
+            <!-- /Pagination -->
+
+        </div>
+    </section>
+    <!-- /PAGE -->
+
+</div>
+<!-- /CONTENT AREA -->

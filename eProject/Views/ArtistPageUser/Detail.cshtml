@@ -1,0 +1,115 @@
+﻿
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_FrontendLayout.cshtml";
+}
+
+<!-- CONTENT AREA -->
+    <div class="content-area">
+
+        <!-- BREADCRUMBS -->
+        <section class="page-section breadcrumbs">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Artist Information</h1>
+                </div>
+                <ul class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Pages</a></li>
+                    <li class="active">Artist Information</li>
+                </ul>
+            </div>
+        </section>
+        <!-- /BREADCRUMBS -->
+        <!-- PAGE -->
+        <section class="page-section">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-lg-8 col-md-7 col-sm-12 project-media">
+                        <div class="img-carousel">
+                            <div><img src="~/images/users/@ViewBag.Artist.ProfileImage" alt="" /></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-5 col-sm-7">
+                        <div class="project-overview">
+                            <h3 class="block-title"><span>Biography</span></h3>
+                            <p>@ViewBag.Artist.Biography</p>
+                        </div>
+
+                        <div class="project-details">
+                            <h3 class="block-title"><span>Information Details</span></h3>
+                            <dl class="dl-horizontal">
+                                <dt>Full Name:</dt>
+                                <dd>@ViewBag.Artist.FirstName @ViewBag.Artist.LastName</dd>
+                                <dt>Date Of Birth:</dt>
+                                <dd>@ViewBag.Artist.DateOfBirthDay</dd>
+                                <dt>Address</dt>
+                                <dd>@ViewBag.Artist.Address.StreetAddress, @ViewBag.Artist.Address.County, @ViewBag.Artist.Address.City, @ViewBag.Artist.Address.Country</dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                </div>
+
+                <hr class="page-divider half" />
+            </div>
+        </section>
+        <!-- /PAGE -->
+        <!-- PAGE -->
+        <section class="page-section">
+            <div class="container">
+                <h2 class="section-title"><span>Artworks</span></h2>
+                <div class="top-products-carousel">
+                    <div class="owl-carousel" id="top-products-carousel">
+                        @foreach (Product products in ViewBag.Products)
+                        {
+                            Product productInfo = (Product)products;
+                            Photo photo = productInfo.Photos.SingleOrDefault(ph => ph.Status && ph.Featured);
+                            var photoName = photo == null ? "no-image.jpg" : photo.Name;
+                            <div class="thumbnail no-border no-padding">
+                                <div class="media">
+                                    <a class="media-link" data-gal="prettyPhoto" href="~/images/products/@photoName">
+                                        <img src="~/images/products/@photoName" alt="" />
+                                        <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
+                                    </a>
+                                </div>
+                                <div class="caption text-center">
+                                    <h4 class="caption-title"><a asp-controller="Product" asp-action="details" asp-route-id="@products.ProductId">@products.Name</a></h4>
+                                    <div class="rating">
+                                        <span class="star"></span>
+                                        <!--
+                                    -->
+                                        <span class="star active"></span>
+                                        <!--
+                                    -->
+                                        <span class="star active"></span>
+                                        <!--
+                                    -->
+                                        <span class="star active"></span>
+                                        <!--
+                                    -->
+                                        <span class="star active"></span>
+                                    </div>
+                                    <div class="price"><ins>$ @products.Price</ins> <del>@products.SalePrice</del></div>
+                                    <div class="buttons">
+                                        <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>
+                                        <!--
+                                    -->
+                                        <a class="btn btn-theme btn-theme-transparent" href="#">Add to Cart</a>
+                                        <!--
+                                    -->
+                                        <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /PAGE -->
+
+    </div>
+<!-- /CONTENT AREA -->

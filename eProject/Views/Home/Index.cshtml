@@ -231,18 +231,11 @@
         <h2 class="section-title"><span>Artist</span></h2>
         <div class="partners-carousel">
             <div class="owl-carousel" id="partners">
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
-                <div><a href="#"><img src="~/frontend/assets/img/preview/partners/brand-logo.jpg" alt="" /></a></div>
+                @foreach(User users in ViewBag.Artists) 
+                {
+                <div><a asp-controller="ArtistPageUser" asp-action="Detail" asp-route-id="@users.Id"><img src="~/images/users/@users.ProfileImage" alt="" /></a></div>
+                }
+                
             </div>
         </div>
     </div>
