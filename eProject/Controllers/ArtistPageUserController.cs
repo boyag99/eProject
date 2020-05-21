@@ -36,8 +36,13 @@ namespace eProject.Controllers
                     roleUser.Add(user);
                 }
             }
-            ViewBag.Artists = roleUser.ToPagedList(pageNumber, 12);
-            return View();
+
+            ArtistPageUserVM artistPageUserVM = new ArtistPageUserVM
+            {
+                Users = roleUser.ToPagedList(pageNumber, 12)
+            };
+
+            return View(artistPageUserVM);
         }
 
         [Route("Detail/{id}")]
@@ -56,15 +61,15 @@ namespace eProject.Controllers
         }
 
         [Route("Search")]
-        public IActionResult Search(int? page, SearchArtistRequest searchArtistRequest)
+        public IActionResult Search(int? page, ArtistPageUserVM artistPageUserVM)
         {
             var pageNumber = page ?? 1;
             List<User> roleUser = new List<User>();
-            List<User> users = _applicationDbContext.Users.Include(u => u.Address).Where(u => u.Gender == searchArtistRequest.Gender).ToList();
+            List<User> users = _applicationDbContext.Users.Include(u => u.Address).Where(u => u.Gender == artistPageUserVM.SearchArtistRequest.Gender).ToList();
 
-            if(searchArtistRequest.Country != null)
+            if(artistPageUserVM.SearchArtistRequest.Country != null)
             {
-                users = users.Where(u => u.Address.Country.Equals(searchArtistRequest.Country)).ToList();
+                users = users.Where(u => u.Address.Country.Equals(artistPageUserVM.SearchArtistRequest.Country)).ToList();
             }
 
             foreach (User user in users)
@@ -74,8 +79,11 @@ namespace eProject.Controllers
                     roleUser.Add(user);
                 }
             }
-            ViewBag.Artists = roleUser.ToPagedList(pageNumber, 12);
-            return RedirectToAction(nameof(Index));
+            ArtistPageUserVM artistPageUser = new ArtistPageUserVM
+            {
+                Users = roleUser.ToPagedList(pageNumber, 12)
+            };
+            return View("Index", artistPageUser);
         }
     }
 }
