@@ -170,7 +170,7 @@ namespace eProject.Controllers
                 var customer = _applicationDbContext.Users.SingleOrDefault(a => a.UserName.Equals(user.Value));
 
                 //Create new invoice
-                var invoice = new Invoice()
+                var invoice = new  Invoice()
                 {
                     Name = "Invoice Online",
                     Created = DateTime.Now,
@@ -183,7 +183,7 @@ namespace eProject.Controllers
                 List<Item> cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
                 foreach (var item in cart)
                 {
-                    var invoiceDetails = new InvoiceDetail
+                    var invoiceDetails = new OrderDetail
                     {
                         InvoiceId = invoice.Id,
                         ProductId = item.ItemId,
@@ -206,15 +206,51 @@ namespace eProject.Controllers
                 var message = new EmailMessage(new string[] { customer.Email }, "Locked out account information", content, null);
                 await _emailSender.SendEmailAsync(message);
                 //Remove items in cart
-                HttpContext.Session.Remove("cart");
-                return RedirectToAction("Thanks", "Cart");
+                //HttpContext.Session.Remove("cart");
+                return RedirectToAction("GetInvoice", "Cart");
             }
             
+        }
+        [HttpPost]
+        public async Task<IActionResult> Checkout(string fName, string lName, string address,
+            string country, string city, string postCode, string email, string phoneNumber, string note)
+        {
+            var user = User.FindFirst(ClaimTypes.Name);
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else
+            {
+                var customer = _applicationDbContext.Users.SingleOrDefault(a => a.UserName.Equals(user.Value));
+
+                //Create new invoice
+                var shippingAddress = new ShippingAddress
+                {
+                    FName = fName,
+                    LName=lName,
+                    Address=address,
+                    Country=country,
+                    City=city,
+                    PostCode=postCode,
+                    Email=email,
+                    PhoneNumber=phoneNumber,
+                    Note=note
+                };
+
+
+                return RedirectToAction("GetInvoice", "Cart");
+            }
         }
         [Route("thanks")]
         public IActionResult Thanks()
         {
             return View("Thanks");
+        }
+        [Route("GetInvoice")]
+        public async Task<IActionResult> GetInvoice()
+        {
+            return View("GetInvoice");
         }
         private int checkexist(int id, List<Item> cart)
         {

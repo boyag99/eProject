@@ -20,7 +20,7 @@ namespace eProject.Data
         public virtual DbSet<Photo> Photos { get; set; }
         public virtual DbSet<About> About { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
-        public virtual DbSet<InvoiceDetail> InvoiceDetails { get; set; }
+        public virtual DbSet<OrderDetail> InvoiceDetails { get; set; }
         public virtual DbSet<Blog> Blog { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
 
@@ -76,11 +76,11 @@ namespace eProject.Data
                 entity.ToTable("Invoices");
             });
 
-            modelBuilder.Entity<InvoiceDetail>(entity =>
+            modelBuilder.Entity<OrderDetail>(entity =>
             {
                 entity.HasKey(e => new { e.InvoiceId, e.ProductId });
                 entity.HasOne(d => d.Invoice)
-                      .WithMany(p => p.InvoiceDetails)
+                      .WithMany(p => p.OrderDetails)
                       .HasForeignKey(d => d.InvoiceId)
                       .OnDelete(DeleteBehavior.Cascade)
                       .HasConstraintName("FK_InvoiceDetail_Invoice");
