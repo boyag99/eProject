@@ -64,7 +64,7 @@ namespace eProject.Controllers
         }
 
         [Route("index")]
-        public IActionResult Index(int? page, string currentSearch, string search = null)
+        public IActionResult Index(int? page, string currentSearch = null, string search = null)
         {
             var pageNumber = page ?? 1;
 
@@ -96,9 +96,20 @@ namespace eProject.Controllers
             List<Product> saleProducts = _applicationDbContext.Products.Include(p => p.Photos).Where(p=>p.SalePrice>0).Take(4).ToList();
             ViewBag.SaleProducts = saleProducts;
 
+            ViewBag.MinPrice = _applicationDbContext.Products.Min(p => p.Price);
+            ViewBag.MaxPrice = _applicationDbContext.Products.Max(p => p.Price);
 
             return View("Index");
         }
+
+        [HttpGet]
+        [Route("filterPrice/{min}/{max}")]
+        public IActionResult FilterPrice(double min, double max)
+        {
+            var products = _applicationDbContext.Products.Include(p => p.Photos).Where(p=>p.Price>=min && p.Price<=max).ToList();
+            return Json(products);
+        }
+
         [Route("category/{id}")]
         public IActionResult Category(int id, int? page, string currentSearch, string search = null)
         {
@@ -136,6 +147,9 @@ namespace eProject.Controllers
 
             List<Product> saleProducts = _applicationDbContext.Products.Include(p => p.Photos).Where(p => p.SalePrice > 0).Take(4).ToList();
             ViewBag.SaleProducts = saleProducts;
+
+            ViewBag.MinPrice = _applicationDbContext.Products.Min(p => p.Price);
+            ViewBag.MaxPrice = _applicationDbContext.Products.Max(p => p.Price);
 
             return View("Category");
         }
