@@ -233,7 +233,17 @@
             <div class="owl-carousel" id="partners">
                 @foreach(User users in ViewBag.Artists) 
                 {
-                <div><a asp-controller="ArtistPageUser" asp-action="Detail" asp-route-id="@users.Id"><img src="~/images/users/@users.ProfileImage" alt="" /></a></div>
+                <div><a asp-controller="ArtistPageUser" asp-action="Detail" asp-route-id="@users.Id">
+                    
+                    @if (users.ProfileImage is null)
+                    {
+                        <img src="~/backend/dist/img/user2-160x160.jpg" alt="">
+                    }
+                    else
+                    {
+                     <img src="~/images/users/@users.ProfileImage" alt="" />
+                    }
+                </a></div>
                 }
                 
             </div>
