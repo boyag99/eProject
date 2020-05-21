@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using eProject.Data;
 using eProject.Models;
+using eProject.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,7 @@ using X.PagedList;
 
 namespace eProject.Controllers
 {
-    [Route("ArtistPage")]
+    [Route("ArtistPageUser")]
     public class ArtistPageUserController : Controller
     {
         private readonly ApplicationDbContext _applicationDbContext;
@@ -52,6 +53,29 @@ namespace eProject.Controllers
                 .Where(p => p.User.Id.Equals(users.Id))
                 .ToList();
             return View();
+        }
+
+        [Route("Search")]
+        public IActionResult Search(int? page, SearchArtistRequest searchArtistRequest)
+        {
+            var pageNumber = page ?? 1;
+            List<User> roleUser = new List<User>();
+            List<User> users = _applicationDbContext.Users.Include(u => u.Address).Where(u => u.Gender == searchArtistRequest.Gender).ToList();
+
+            if(searchArtistRequest.Country != null)
+            {
+                users = users.Where(u => u.Address.Country.Equals(searchArtistRequest.Country)).ToList();
+            }
+
+            foreach (User user in users)
+            {
+                if (_userManager.IsInRoleAsync(user, "Artist").Result)
+                {
+                    roleUser.Add(user);
+                }
+            }
+            ViewBag.Artists = roleUser.ToPagedList(pageNumber, 12);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
