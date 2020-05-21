@@ -27,6 +27,7 @@ namespace eProject.Data
         public virtual DbSet<Porfolio> Porfolios { get; set; }
 
         public virtual DbSet<Contact> Contacts {get;set; }
+        public virtual DbSet<WareHouseAddress> WareHouseAddresses { get; set; }
 
         //public virtual DbSet<Delivery> Delivery { get; set; }
 
