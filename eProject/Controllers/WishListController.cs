@@ -8,18 +8,18 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using X.PagedList;
 
 namespace eProject.Controllers
 {
+
     [Authorize]
-    [Route("Portfolio")]
-    public class PortfolioController : Controller
+    [Route("WishList")]
+    public class WishListController : Controller
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly UserManager<User> _userManager;
 
-        public PortfolioController(ApplicationDbContext applicationDbContext, UserManager<User> userManager)
+        public WishListController(ApplicationDbContext applicationDbContext, UserManager<User> userManager)
         {
             _applicationDbContext = applicationDbContext;
             _userManager = userManager;
@@ -28,12 +28,12 @@ namespace eProject.Controllers
         [HttpGet]
         [Route("")]
         [Route("Index")]
-        public async Task<IActionResult> Index(int? page)
+
+        public async Task<IActionResult> Index()
         {
-            var pageNumber = page ?? 1;
             User user = await _userManager.GetUserAsync(User);
 
-            List<Porfolio> porfolios = await _applicationDbContext.Porfolios
+            List<WishList> wishList = await _applicationDbContext.WishLists
                                                 .Include(p => p.User)
                                                 .Include(p => p.Product)
                                                     .ThenInclude(p => p.Photos)
@@ -41,19 +41,20 @@ namespace eProject.Controllers
                                                     .ThenInclude(p => p.Category)
                                                 .Where(p => p.UserId.Equals(user.Id))
                                                 .ToListAsync();
-            ViewBag.page = porfolios.ToPagedList(pageNumber, 12);
-            return View(porfolios);
+
+            return View(wishList);
+            
         }
 
         [HttpGet]
         [Route("Add")]
         public async Task<IActionResult> Add(int id, string returnController, string returnAction)
         {
-            Porfolio currentPorfolio = await _applicationDbContext.Porfolios.FirstOrDefaultAsync(p => p.ProductId == id);
+            WishList currentWishList = await _applicationDbContext.WishLists.FirstOrDefaultAsync(w => w.ProductId == id);
             Product product = await _applicationDbContext.Products.FirstOrDefaultAsync(p => p.ProductId == id);
             User user = await _userManager.GetUserAsync(User);
 
-            if (currentPorfolio != null)
+            if (currentWishList != null)
             {
                 return RedirectToAction(returnAction, returnController);
             }
@@ -64,16 +65,28 @@ namespace eProject.Controllers
             }
 
 
-            Porfolio porfolio = new Porfolio
+            WishList wishList = new WishList
             {
                 ProductId = product.ProductId,
                 UserId = user.Id
             };
 
-            _applicationDbContext.Porfolios.Add(porfolio);
+            _applicationDbContext.WishLists.Add(wishList);
             await _applicationDbContext.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }
+
+        [Route("remove/{id}")]
+        public IActionResult Remove(int id)
+        {
+            WishList wishList = _applicationDbContext.WishLists.SingleOrDefault(w => w.WishListId == id);
+
+            _applicationDbContext.WishLists.Remove(wishList);
+            _applicationDbContext.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

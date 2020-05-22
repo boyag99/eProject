@@ -108,7 +108,7 @@ namespace eProject.App.Data.SeedData
                 new Product
                 {
                     ProductId = 4,
-                    Name = "If He Wasn't Handsome",
+                    Name = "If He Wasn't",
                     Price = 12500,
                     SalePrice = 0,
                     Quantity = 1,
@@ -124,7 +124,7 @@ namespace eProject.App.Data.SeedData
                 new Product
                 {
                     ProductId = 5,
-                    Name = "In Search of What Once Was",
+                    Name = "What Once Was",
                     Price = 12500,
                     SalePrice = 0,
                     Quantity = 1,
@@ -158,7 +158,7 @@ namespace eProject.App.Data.SeedData
                     ProductId = 7,
                     Name = "Bláfellsá",
                     Price = 30000,
-                    SalePrice = 100,
+                    SalePrice = 30000,
                     Quantity = 1,
                     Hot = 0,
                     FromDate = DateTime.Now,
@@ -174,7 +174,7 @@ namespace eProject.App.Data.SeedData
                     ProductId = 8,
                     Name = "Fleswich bay",
                     Price = 30000,
-                    SalePrice = 0,
+                    SalePrice = 30000,
                     Quantity = 1,
                     Hot = 0,
                     FromDate = DateTime.Now,
@@ -190,7 +190,7 @@ namespace eProject.App.Data.SeedData
                     ProductId = 9,
                     Name = "Haifoss",
                     Price = 30000,
-                    SalePrice = 0,
+                    SalePrice = 30000,
                     Quantity = 1,
                     Hot = 0,
                     FromDate = DateTime.Now,
@@ -206,7 +206,7 @@ namespace eProject.App.Data.SeedData
                     ProductId = 10,
                     Name = "K Muffarfjoll",
                     Price = 30000,
-                    SalePrice = 100,
+                    SalePrice = 30000,
                     Quantity = 1,
                     Hot = 0,
                     FromDate = DateTime.Now,
@@ -222,7 +222,7 @@ namespace eProject.App.Data.SeedData
                     ProductId = 11,
                     Name = "Last Call",
                     Price = 1800,
-                    SalePrice = 0,
+                    SalePrice = 1800,
                     Quantity = 1,
                     Hot = 0,
                     FromDate = DateTime.Now,
@@ -238,7 +238,7 @@ namespace eProject.App.Data.SeedData
                     ProductId = 12,
                     Name = "Merry Woodsman",
                     Price = 1500,
-                    SalePrice = 100,
+                    SalePrice = 1500,
                     Quantity = 1,
                     Hot = 0,
                     FromDate = DateTime.Now,
@@ -254,7 +254,7 @@ namespace eProject.App.Data.SeedData
                     ProductId = 13,
                     Name = "Oh Dear",
                     Price = 1500,
-                    SalePrice = 0,
+                    SalePrice = 1500,
                     Quantity = 1,
                     Hot = 0,
                     FromDate = DateTime.Now,
@@ -262,7 +262,7 @@ namespace eProject.App.Data.SeedData
                     CategoryId = 3,
                     Description = "Assorted plastics, acrylic paint",
                     Status = true,
-                    Featured = true,
+                    Featured = false,
                     Auction = true,
                 },
                 new Product
@@ -270,7 +270,7 @@ namespace eProject.App.Data.SeedData
                     ProductId = 14,
                     Name = "Speed Dating",
                     Price = 1500,
-                    SalePrice = 0,
+                    SalePrice = 1500,
                     Quantity = 1,
                     Hot = 0,
                     FromDate = DateTime.Now,
@@ -278,7 +278,7 @@ namespace eProject.App.Data.SeedData
                     CategoryId = 3,
                     Description = "Assorted plastics, acrylic paint",
                     Status = true,
-                    Featured = true,
+                    Featured = false,
                     Auction = true,
                 },
                 new Product
@@ -286,7 +286,7 @@ namespace eProject.App.Data.SeedData
                     ProductId = 15,
                     Name = "We Can Dream",
                     Price = 1500,
-                    SalePrice = 0,
+                    SalePrice = 1500,
                     Quantity = 1,
                     Hot = 0,
                     FromDate = DateTime.Now,
@@ -294,7 +294,7 @@ namespace eProject.App.Data.SeedData
                     CategoryId = 3,
                     Description = "Assorted plastics, acrylic paint",
                     Status = true,
-                    Featured = true,
+                    Featured = false,
                     Auction = true,
                 },
             };
@@ -442,24 +442,24 @@ namespace eProject.App.Data.SeedData
                     Id = 1,
                     Name = "banner1.jpg",
                     Status = true,
-                    Title = "Title Slide Show 1",
-                    Description = "Description"
+                    Title = "Title SlideShow",
+                    Description = "50%"
                 },
                 new SlideShow
                 {
                     Id = 2,
                     Name = "banner2.jpg",
                     Status = true,
-                    Title = "Title Slide Show 2",
-                    Description = "Description"
+                    Title = "Title SlideShow",
+                    Description = "10%"
                 },
                 new SlideShow
                 {
                     Id = 3,
                     Name = "banner3.jpg",
                     Status = true,
-                    Title = "Title Slide Show 3",
-                    Description = "Description"
+                    Title = "Title SlideShow",
+                    Description = "20%"
                 },
             };
 

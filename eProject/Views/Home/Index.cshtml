@@ -58,7 +58,7 @@
                                     </div>
                                     <div class="price"><ins>$ @featuredProduct.Price</ins> <del>@featuredProduct.SalePrice</del></div>
                                     <div class="buttons">
-                                        <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>
+                                        <a class="btn btn-theme btn-theme-transparent btn-wish-list" asp-controller="WishList" asp-action="Add" asp-route-id="@featuredProduct.ProductId" asp-route-returnController="@Html.ViewContext.RouteData.Values["controller"].ToString()" asp-route-returnAction="@Html.ViewContext.RouteData.Values["action"].ToString()"><i class="fa fa-heart"></i></a>
                                         <!--
                                         -->
                                         <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@featuredProduct.ProductId"><i class="fa fa-shopping-cart" ></i>Add to Cart</a>
