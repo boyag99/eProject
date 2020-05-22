@@ -11,12 +11,12 @@
     <section class="page-section breadcrumbs">
         <div class="container">
             <div class="page-header">
-                <h1>Shopping Cart</h1>
+                <h1>Checkout</h1>
             </div>
             <ul class="breadcrumb">
                 <li><a href="#">Home</a></li>
                 <li><a href="#">Shop</a></li>
-                <li class="active">Shopping Cart</li>
+                <li class="active">Checkout</li>
             </ul>
         </div>
     </section>
@@ -26,21 +26,17 @@
         <div class="container">
             @if (!_signInManager.IsSignedIn(User))
             {
-                <h3 class="block-title alt"><i class="fa fa-angle-down color"></i>1. Account</h3>
+                <h3 class="block-title alt"><i class="fa fa-angle-down color"></i>Account</h3>
                 <form asp-controller="Home" asp-action="Login" method="post" asp-route-ReturnUrl="/checkout" class="form-sign-in">
-                    <div class="row ">
-                        <div class="col-md-6">
-                            <a class="btn btn-theme btn-block btn-icon-left facebook" href="#"><i class="fa fa-facebook"></i>Sign in with Facebook</a>
-                        </div>
-                        <div class="col-md-6">
-                            <a class="btn btn-theme btn-block btn-icon-left twitter" href="#"><i class="fa fa-twitter"></i>Sign in with Twitter</a>
-                        </div>
-                        <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="form-group"><input class="form-control" asp-for="LoginRequest.Email" placeholder="Your email"></div>
                         </div>
-                        <div class="col-md-6">
+
+                        <div class="col-md-12">
                             <div class="form-group"><input class="form-control" asp-for="LoginRequest.Password" placeholder="Your password"></div>
                         </div>
+                   
                         <div class="col-md-6">
                             <div class="checkbox">
                                 <label>
@@ -59,7 +55,7 @@
             }
 
 
-            <h3 class="block-title alt"><i class="fa fa-angle-down"></i>2. Delivery address</h3>
+            <h3 class="block-title alt"><i class="fa fa-angle-down"></i>Delivery address</h3>
             <form asp-controller="Checkout" asp-action="Checkout" method="post">
                 <div class="row">
                     <div class="col-md-6">
@@ -353,7 +349,7 @@
                     }
                 </div>
 
-                <h3 class="block-title alt"><i class="fa fa-angle-down"></i>3. Payments options</h3>
+                <h3 class="block-title alt"><i class="fa fa-angle-down"></i>Payments options</h3>
                 <div class="panel-group payments-options" id="accordion" role="tablist" aria-multiselectable="true">
                     <div class="panel radio panel-default">
                         <div class="panel-heading" role="tab" id="headingOne">

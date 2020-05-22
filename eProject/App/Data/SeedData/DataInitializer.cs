@@ -297,6 +297,86 @@ namespace eProject.App.Data.SeedData
                     Featured = false,
                     Auction = true,
                 },
+                new Product
+                {
+                    ProductId = 16,
+                    Name = "Beauty and beast",
+                    Price = 1500,
+                    SalePrice = 200,
+                    Quantity = 1,
+                    Hot = 0,
+                    FromDate = DateTime.Now,
+                    UserId = user.Id,
+                    CategoryId = 3,
+                    Description = "Assorted plastics, acrylic paint",
+                    Status = true,
+                    Featured = false,
+                    Auction = false,
+                },
+                new Product
+                {
+                    ProductId = 17,
+                    Name = "Lion King",
+                    Price = 1500,
+                    SalePrice = 200,
+                    Quantity = 1,
+                    Hot = 0,
+                    FromDate = DateTime.Now,
+                    UserId = user.Id,
+                    CategoryId = 1,
+                    Description = "Assorted plastics, acrylic paint",
+                    Status = true,
+                    Featured = false,
+                    Auction = false,
+                },
+                new Product
+                {
+                    ProductId = 18,
+                    Name = "Private",
+                    Price = 1500,
+                    SalePrice = 200,
+                    Quantity = 1,
+                    Hot = 0,
+                    FromDate = DateTime.Now,
+                    UserId = user.Id,
+                    CategoryId = 2,
+                    Description = "Assorted plastics, acrylic paint",
+                    Status = true,
+                    Featured = false,
+                    Auction = false,
+                },
+                new Product
+                {
+                    ProductId = 19,
+                    Name = "One and many",
+                    Price = 1500,
+                    SalePrice = 200,
+                    Quantity = 1,
+                    Hot = 0,
+                    FromDate = DateTime.Now,
+                    UserId = user.Id,
+                    CategoryId = 1,
+                    Description = "Assorted plastics, acrylic paint",
+                    Status = true,
+                    Featured = true,
+                    Auction = false,
+                },
+                new Product
+                {
+                    ProductId = 20,
+                    Name = "Alpha",
+                    Price = 1500,
+                    SalePrice = 200,
+                    Quantity = 1,
+                    Hot = 0,
+                    FromDate = DateTime.Now,
+                    UserId = user.Id,
+                    CategoryId = 2,
+                    Description = "Assorted plastics, acrylic paint",
+                    Status = true,
+                    Featured = true,
+                    Auction = false,
+                },
             };
 
             applicationDbContext.Products.AddRange(products);
@@ -424,6 +504,46 @@ namespace eProject.App.Data.SeedData
                     PhotoId = 15,
                     Name = "WeCanDream.png",
                     ProductId = 15,
+                    Status = true,
+                    Featured = true
+                },
+                new Photo
+                {
+                    PhotoId = 16,
+                    Name = "painting4.png",
+                    ProductId = 16,
+                    Status = true,
+                    Featured = true
+                },
+                new Photo
+                {
+                    PhotoId = 17,
+                    Name = "painting14.png",
+                    ProductId = 17,
+                    Status = true,
+                    Featured = true
+                },
+                new Photo
+                {
+                    PhotoId = 18,
+                    Name = "KMuffarfjoll.png",
+                    ProductId = 18,
+                    Status = true,
+                    Featured = true
+                },
+                new Photo
+                {
+                    PhotoId = 19,
+                    Name = "painting4.png",
+                    ProductId = 19,
+                    Status = true,
+                    Featured = true
+                },
+                new Photo
+                {
+                    PhotoId = 20,
+                    Name = "Fleswichbay.png",
+                    ProductId = 20,
                     Status = true,
                     Featured = true
                 },

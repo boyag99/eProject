@@ -16,15 +16,16 @@
 
         <div class="tabs">
             <ul id="tabs" class="nav nav-justified-off">
-                <li class="active"><a href="#tab-1" data-toggle="tab">Featured</a></li>
-                <li class=""><a href="#tab-2" data-toggle="tab">Newest</a></li>
+                <li class=""><a href="#tab-1" data-toggle="tab">Featured</a></li>
+                <li class="active"><a href="#tab-2" data-toggle="tab">Auction</a></li>
+                <li class=""><a href="#tab-3" data-toggle="tab">Newest</a></li>
             </ul>
         </div>
 
         <div class="tab-content">
 
             <!-- tab 1 -->
-            <div class="tab-pane fade active in" id="tab-1">
+            <div class="tab-pane fade" id="tab-1">
                 <div class="row">
                     @foreach (var featuredProduct in ViewBag.FeaturedProducts)
                     {
@@ -43,38 +44,18 @@
                                     <h4 class="caption-title"><a asp-controller="Product" asp-action="details" asp-route-id="@featuredProduct.ProductId">@featuredProduct.Name</a></h4>
                                     <div class="rating">
                                         <span class="star"></span>
-                                        <!--
-                                        -->
                                         <span class="star active"></span>
-                                        <!--
-                                        -->
                                         <span class="star active"></span>
-                                        <!--
-                                        -->
                                         <span class="star active"></span>
-                                        <!--
-                                        -->
                                         <span class="star active"></span>
                                     </div>
                                     <div class="price"><ins>$ @featuredProduct.Price</ins> <del>@featuredProduct.SalePrice</del></div>
                                     <div class="buttons">
                                         <a class="btn btn-theme btn-theme-transparent btn-wish-list" asp-controller="WishList" asp-action="Add" asp-route-id="@featuredProduct.ProductId" asp-route-returnController="@Html.ViewContext.RouteData.Values["controller"].ToString()" asp-route-returnAction="@Html.ViewContext.RouteData.Values["action"].ToString()"><i class="fa fa-heart"></i></a>
-                                        <!--
-    -->
-                                        @{
-                                            if (featuredProduct.Auction == true)
-                                            {
-                                                <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="ProductUser" asp-action="Details" asp-route-id="@featuredProduct.ProductId"><i class="fa fa-shopping-cart"></i>Bid Now</a>
-                                            }
-                                            else
-                                            {
-                                                <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@featuredProduct.ProductId"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                            }
 
-                                        }
-                                        <!--
-    -->
-                                        <a asp-controller="Portfolio" asp-action="Add" asp-route-id="@featuredProduct.ProductId" asp-route-returnController="@Html.ViewContext.RouteData.Values["controller"].ToString()" asp-route-returnAction="@Html.ViewContext.RouteData.Values["action"].ToString()" class="btn btn-theme btn-theme-transparent btn-compare"><i class="fa fa-exchange"></i></a>
+                                        <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@featuredProduct.ProductId"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+
+                                        <a asp-controller="Portfolio" asp-action="Add" asp-route-id="@featuredProduct.ProductId" asp-route-returnController="@Html.ViewContext.RouteData.Values["controller"].ToString()" asp-route-returnAction="@Html.ViewContext.RouteData.Values["action"].ToString()" class="btn btn-theme btn-theme-transparent btn-compare"><i class="fa fa-list-ul" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +65,48 @@
             </div>
 
             <!-- tab 2 -->
-            <div class="tab-pane fade" id="tab-2">
+            <div class="tab-pane fade active in" id="tab-2">
+                <div class="row">
+                    @foreach (var auctionProducts in ViewBag.AuctionProducts)
+                    {
+                        Product product = (Product)auctionProducts;
+                        Photo photo = product.Photos.SingleOrDefault(ph => ph.Status && ph.Featured);
+                        var photoName = photo == null ? "no-image.jpg" : photo.Name;
+                        <div class="col-md-3 col-sm-6">
+                            <div class="thumbnail no-border no-padding">
+                                <div class="media">
+                                    <a class="media-link" data-gal="prettyPhoto" href="~/images/products/@photoName">
+                                        <img src="~/images/products/@photoName" alt="" />
+                                        <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
+                                    </a>
+                                </div>
+                                <div class="caption text-center">
+                                    <h4 class="caption-title"><a asp-controller="Product" asp-action="details" asp-route-id="@auctionProducts.ProductId">@auctionProducts.Name</a></h4>
+                                    <div class="rating">
+                                        <span class="star"></span>
+                                        <span class="star active"></span>
+                                        <span class="star active"></span>
+                                        <span class="star active"></span>
+                                        <span class="star active"></span>
+                                    </div>
+                                    <div class="price"><span>Current Price: </span><ins>$ @auctionProducts.Price</ins> </div>
+                                    <div class="price"><span>Staring price: </span><del>$ @auctionProducts.SalePrice</del></div>
+                                    <div class="buttons">
+                                        <a class="btn btn-theme btn-theme-transparent btn-wish-list" asp-controller="WishList" asp-action="Add" asp-route-id="@auctionProducts.ProductId" asp-route-returnController="@Html.ViewContext.RouteData.Values["controller"].ToString()" asp-route-returnAction="@Html.ViewContext.RouteData.Values["action"].ToString()"><i class="fa fa-heart"></i></a>
+
+                                        <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="ProductUser" asp-action="Details" asp-route-id="@auctionProducts.ProductId"><i class="fa fa-shopping-cart"></i>Bid Now</a>
+
+                                        <a asp-controller="Portfolio" asp-action="Add" asp-route-id="@auctionProducts.ProductId" asp-route-returnController="@Html.ViewContext.RouteData.Values["controller"].ToString()" asp-route-returnAction="@Html.ViewContext.RouteData.Values["action"].ToString()" class="btn btn-theme btn-theme-transparent btn-compare"><i class="fa fa-list-ul" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- tab 3 -->
+            <div class="tab-pane fade" id="tab-3">
                 <div class="row">
                     @foreach (var newestProduct in ViewBag.NewestProducts)
                     {
@@ -103,47 +125,26 @@
                                     <h4 class="caption-title"><a asp-controller="Product" asp-action="details" asp-route-id="@newestProduct.ProductId">@newestProduct.Name</a></h4>
                                     <div class="rating">
                                         <span class="star"></span>
-                                        <!--
-                        -->
                                         <span class="star active"></span>
-                                        <!--
-                        -->
                                         <span class="star active"></span>
-                                        <!--
-                        -->
                                         <span class="star active"></span>
-                                        <!--
-                        -->
                                         <span class="star active"></span>
                                     </div>
                                     <div class="price"><ins>$ @newestProduct.Price</ins> <del>@newestProduct.SalePrice</del></div>
                                     <div class="buttons">
-                                        <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>
-                                        <!--
-    -->
-                                        @{
-                                            if (newestProduct.Auction == true)
-                                            {
-                                                <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="ProductUser" asp-action="Details" asp-route-id="@newestProduct.ProductId"><i class="fa fa-shopping-cart"></i>Bid Now</a>
-                                            }
-                                            else
-                                            {
-                                                <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@newestProduct.ProductId"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                            }
+                                        <a class="btn btn-theme btn-theme-transparent btn-wish-list" asp-controller="WishList" asp-action="Add" asp-route-id="@newestProduct.ProductId" asp-route-returnController="@Html.ViewContext.RouteData.Values["controller"].ToString()" asp-route-returnAction="@Html.ViewContext.RouteData.Values["action"].ToString()"><i class="fa fa-heart"></i></a>
 
-                                        }
-                                        <!--
-    -->
-                                        <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
+                                        <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@newestProduct.ProductId"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+
+                                        <a asp-controller="Portfolio" asp-action="Add" asp-route-id="@newestProduct.ProductId" asp-route-returnController="@Html.ViewContext.RouteData.Values["controller"].ToString()" asp-route-returnAction="@Html.ViewContext.RouteData.Values["action"].ToString()" class="btn btn-theme btn-theme-transparent btn-compare"><i class="fa fa-list-ul" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     }
-                    </div>
-                   
-            </div>
+                </div>
 
+            </div>
 
         </div>
 
@@ -172,52 +173,40 @@
                     Product productInfo = (Product)saleProducts;
                     Photo photo = productInfo.Photos.SingleOrDefault(ph => ph.Status && ph.Featured);
                     var photoName = photo == null ? "no-image.jpg" : photo.Name;
-                <div class="thumbnail no-border no-padding">
-                    <div class="media">
-                        <a class="media-link" data-gal="prettyPhoto" href="~/images/products/@photoName">
-                            <img src="~/images/products/@photoName" alt="" />
-                            <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
-                        </a>
-                    </div>
-                    <div class="caption text-center">
-                        <h4 class="caption-title"><a asp-controller="Product" asp-action="details" asp-route-id="@saleProducts.ProductId">@saleProducts.Name</a></h4>
-                        <div class="rating">
-                            <span class="star"></span>
-                            <!--
-                            -->
-                            <span class="star active"></span>
-                            <!--
-                            -->
-                            <span class="star active"></span>
-                            <!--
-                            -->
-                            <span class="star active"></span>
-                            <!--
-                            -->
-                            <span class="star active"></span>
+                    <div class="thumbnail no-border no-padding">
+                        <div class="media">
+                            <a class="media-link" data-gal="prettyPhoto" href="~/images/products/@photoName">
+                                <img src="~/images/products/@photoName" alt="" />
+                                <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
+                            </a>
                         </div>
-                        <div class="price"><ins>$ @saleProducts.Price</ins> <del>@saleProducts.SalePrice</del></div>
-                        <div class="buttons">
-                            <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>
-                            <!--
-    -->
-                            @{
-                                if (saleProducts.Auction == true)
-                                {
-                                    <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="ProductUser" asp-action="Details" asp-route-id="@saleProducts.ProductId"><i class="fa fa-shopping-cart"></i>Bid Now</a>
-                                }
-                                else
-                                {
-                                    <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@saleProducts.ProductId"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                }
+                        <div class="caption text-center">
+                            <h4 class="caption-title"><a asp-controller="Product" asp-action="details" asp-route-id="@saleProducts.ProductId">@saleProducts.Name</a></h4>
+                            <div class="rating">
+                                <span class="star"></span>
+                                <!--
+                                -->
+                                <span class="star active"></span>
+                                <!--
+                                -->
+                                <span class="star active"></span>
+                                <!--
+                                -->
+                                <span class="star active"></span>
+                                <!--
+                                -->
+                                <span class="star active"></span>
+                            </div>
+                            <div class="price"><ins>$ @saleProducts.Price</ins> <del>@saleProducts.SalePrice</del></div>
+                            <div class="buttons">
+                                <a class="btn btn-theme btn-theme-transparent btn-wish-list" asp-controller="WishList" asp-action="Add" asp-route-id="@saleProducts.ProductId" asp-route-returnController="@Html.ViewContext.RouteData.Values["controller"].ToString()" asp-route-returnAction="@Html.ViewContext.RouteData.Values["action"].ToString()"><i class="fa fa-heart"></i></a>
 
-                            }
-                            <!--
-    -->
-                            <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
+                                <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@saleProducts.ProductId"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+
+                                <a asp-controller="Portfolio" asp-action="Add" asp-route-id="@saleProducts.ProductId" asp-route-returnController="@Html.ViewContext.RouteData.Values["controller"].ToString()" asp-route-returnAction="@Html.ViewContext.RouteData.Values["action"].ToString()" class="btn btn-theme btn-theme-transparent btn-compare"><i class="fa fa-list-ul" aria-hidden="true"></i></a>
+                            </div>
                         </div>
                     </div>
-                </div>
                 }
             </div>
         </div>
@@ -232,24 +221,24 @@
         <div class="row">
             @foreach (Blog post in ViewBag.Post)
             {
-            <div class="col-md-6">
-                <div class="recent-post">
-                    <div class="media">
-                        <a class="pull-left media-link" asp-controller="Blog" asp-action="ReadMore" asp-route-id="@post.BlogId">
-                            <img class="media-object" src="~/images/blogs/@post.Photo" alt="" style="width: 170px; height: 120px;" >
-                            <i class="fa fa-plus"></i>
-                        </a>
-                        <div class="media-body">
-                            <p class="media-category"><a href="#">Author</a> : <a href="#">@post.User.FirstName @post.User.LastName</a></p>
-                            <h4 class="media-heading"><a asp-controller="Blog" asp-action="ReadMore" asp-route-id="@post.BlogId">@post.Title</a></h4>
-                            @post.Description
-                        </div>
-                        <div class="media-meta">
-                            @post.PostedDate
+                <div class="col-md-6">
+                    <div class="recent-post">
+                        <div class="media">
+                            <a class="pull-left media-link" asp-controller="Blog" asp-action="ReadMore" asp-route-id="@post.BlogId">
+                                <img class="media-object" src="~/images/blogs/@post.Photo" alt="" style="width: 170px; height: 120px;">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <div class="media-body">
+                                <p class="media-category"><a href="#">Author</a> : <a href="#">@post.User.FirstName @post.User.LastName</a></p>
+                                <h4 class="media-heading"><a asp-controller="Blog" asp-action="ReadMore" asp-route-id="@post.BlogId">@post.Title</a></h4>
+                                @post.Description
+                            </div>
+                            <div class="media-meta">
+                                @post.PostedDate
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             }
         </div>
     </div>
@@ -261,21 +250,23 @@
         <h2 class="section-title"><span>Artist</span></h2>
         <div class="partners-carousel">
             <div class="owl-carousel" id="partners">
-                @foreach(User users in ViewBag.Artists) 
+                @foreach (User users in ViewBag.Artists)
                 {
-                <div><a asp-controller="ArtistPageUser" asp-action="Detail" asp-route-id="@users.Id">
-                    
-                    @if (users.ProfileImage is null)
-                    {
-                        <img src="~/backend/dist/img/user2-160x160.jpg" alt="">
-                    }
-                    else
-                    {
-                     <img src="~/images/users/@users.ProfileImage" alt="" />
-                    }
-                </a></div>
+                    <div>
+                        <a asp-controller="ArtistPageUser" asp-action="Detail" asp-route-id="@users.Id">
+
+                            @if (users.ProfileImage is null)
+                            {
+                                <img src="~/backend/dist/img/user2-160x160.jpg" alt="">
+                            }
+                            else
+                            {
+                                <img src="~/images/users/@users.ProfileImage" alt="" />
+                            }
+                        </a>
+                    </div>
                 }
-                
+
             </div>
         </div>
     </div>
