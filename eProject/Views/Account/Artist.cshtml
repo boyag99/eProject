@@ -36,10 +36,16 @@
                                 <form class="form-delivery" asp-controller="Account" asp-action="RegisterArtist" method="post" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-6">
-                                            <div class="form-group"><input required placeholder="Biography" class="form-control" asp-for="Biography"></div>
+                                            <div class="form-group">
+                                                <label>Biography</label>
+                                                <textarea required class="form-control" asp-for="Biography"></textarea>
+                                            </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6">
-                                            <div class="form-group"><input required placeholder="Exhibition" class="form-control" asp-for="Exhibition"></div>
+                                            <div class="form-group">
+                                                <label>Exhibition</label>
+                                                <textarea required class="form-control" asp-for="Exhibition"></textarea>
+                                            </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group"><input placeholder="Profile Image" class="form-control" asp-for="ProfileImage"></div>
