@@ -81,7 +81,7 @@
                         }
                         else
                         {
-                            if (ViewBag.AuctionHistory != null)
+                            if (ViewBag.AuctionHistory != null && ViewBag.Product.ToDate < DateTime.Now)
                             {
                                 <h3>The winner of the auction is @ViewBag.AuctionHistory.User.FirstName @ViewBag.AuctionHistory.User.LastName</h3>
                             }
@@ -104,10 +104,10 @@
 
                     <div class="buttons">
                         @*<div class="quantity">
-                <button class="btn"><i class="fa fa-minus"></i></button>
-                <input class="form-control qty" type="number" step="1" min="1" name="quantity" value="1" title="Qty">
-                <button class="btn"><i class="fa fa-plus"></i></button>
-            </div>*@
+            <button class="btn"><i class="fa fa-minus"></i></button>
+            <input class="form-control qty" type="number" step="1" min="1" name="quantity" value="1" title="Qty">
+            <button class="btn"><i class="fa fa-plus"></i></button>
+        </div>*@
                         @{
                             if (ViewBag.Message != null)
                             {
@@ -122,7 +122,10 @@
                             {
                                 if (ViewBag.Product.ToDate < DateTime.Now && ViewBag.AuctionHistory != null)
                                 {
-                                    <a class="btn btn-theme btn-cart btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@ViewBag.Product.ProductId"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                    if (ViewBag.MaxBid.UserId.Equals(ViewBag.User.Id))
+                                    {
+                                        <a class="btn btn-theme btn-cart btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@ViewBag.Product.ProductId"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                    }
                                 }
                                 else
                                 {

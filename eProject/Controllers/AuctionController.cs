@@ -55,7 +55,7 @@ namespace eProject.Controllers
                 return RedirectToAction("Details", "ProductUser", new { id = productId });
             }
 
-            if (ModelState.IsValid)
+            if(product.ToDate > DateTime.Now)
             {
                 product.SalePrice = productUserVM.Product.SalePrice;
 
@@ -78,7 +78,7 @@ namespace eProject.Controllers
                 }
 
                 var content = string.Format("Product ID is <a asp-controller='ProductUser' asp-action='Details' asp-route-id='{0}'>#{0}</a> you have a bid higher. Currently bid {1}.", productId, productUserVM.Product.SalePrice);
-                if(emailUser.Count > 0)
+                if (emailUser.Count > 0)
                 {
                     var message = new EmailMessage(emailUser.Distinct(), "Bid Information", content, null);
                     await _emailSender.SendEmailAsync(message);

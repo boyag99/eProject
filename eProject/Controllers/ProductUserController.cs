@@ -27,7 +27,13 @@ namespace eProject.Controllers
         [Route("details/{id}")]
         public async Task<IActionResult> Details(int id)
         {
-  
+            User user = await _userManager.GetUserAsync(User);
+
+            if(user is null)
+            {
+                user = new User();
+            }
+
             Product product = _applicationDbContext.Products.Include(p=>p.Photos).Include(p => p.Category)
                 .Include(p => p.User)
                 .ThenInclude(u => u.Address)
@@ -79,6 +85,8 @@ namespace eProject.Controllers
             ViewBag.MaxBid = _applicationDbContext.AuctionHistories.OrderBy(ah => ah.Bid).FirstOrDefault(ah => ah.ProductId == id);
             ViewBag.AuctionHistories = await _applicationDbContext.AuctionHistories.Include(ah => ah.User).Where(ah => ah.ProductId == id).ToListAsync();
             ViewBag.AuctionHistory = auctionHistory;
+
+            ViewBag.User = user;
 
             return View("Details");
         }
