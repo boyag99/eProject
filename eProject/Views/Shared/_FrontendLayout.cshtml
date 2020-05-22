@@ -79,30 +79,8 @@
                 <div class="container">
                     <div class="cart-items">
                         <div class="cart-items-inner">
-                            <div class="media">
-                                <a class="pull-left" asp-controller="Cart" asp-action="Index"><img class="media-object item-image" src="~/frontend/assets/img/preview/shop/order-1s.jpg" alt=""></a>
-                                <p class="pull-right item-price">$@ViewBag.Total</p>
-                                <div class="media-body">
-                                    <h4 class="media-heading item-title"><a asp-controller="Cart" asp-action="Index">@ViewBag.CountItems Standard Product</a></h4>
-                                    <p class="item-desc">Lorem ipsum dolor</p>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <p class="pull-right item-price">$@ViewBag.Total</p>
-                                <div class="media-body">
-                                    <h4 class="media-heading item-title summary">Subtotal</h4>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="media-body">
-                                    <div>
-                                        <a href="#" class="btn btn-theme btn-theme-dark" data-dismiss="modal">Close</a>
-                                        <!--
-                                        -->
-                                        <a href="shopping-cart.html" class="btn btn-theme btn-theme-transparent btn-call-checkout">Checkout</a>
-                                    </div>
-                                </div>
-                            </div>
+                            @await Component.InvokeAsync("HeaderCart")
+                            
                         </div>
                     </div>
                 </div>
@@ -133,9 +111,11 @@
                     <!-- Header shopping cart -->
                     <div class="header-cart">
                         <div class="cart-wrapper">
-                           
+
                             <a asp-controller="WishList" asp-action="Index" class="btn btn-theme-transparent hidden-xs hidden-sm"><i class="fa fa-heart"></i></a>
-                            <a asp-controller="Cart" asp-action="Index" class="btn btn-theme-transparent" data-toggle="modal" data-target="#popup-cart"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs"> @ViewBag.CountItems item(s) - $@ViewBag.Total </span> <i class="fa fa-angle-down"></i></a>
+
+                            @await Component.InvokeAsync("PopupCart")
+
                             <!-- Mobile menu toggle button -->
                             <a href="#" class="menu-toggle btn btn-theme-transparent"><i class="fa fa-bars"></i></a>
                             <!-- /Mobile menu toggle button -->
