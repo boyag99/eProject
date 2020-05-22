@@ -1,12 +1,14 @@
-﻿<nav class="navigation closed clearfix">
+﻿@using eProject.App.Helpers
+
+<nav class="navigation closed clearfix">
     <a href="#" class="menu-toggle-close btn"><i class="fa fa-times"></i></a>
     <ul class="nav sf-menu">
-        <li><a asp-controller="Home" asp-action="index">Home</a></li>
-        <li><a asp-controller="ProductUser" asp-action="index">Artworks</a></li>
-        <li><a asp-controller="ArtistPageUser" asp-action="index">Artists</a></li>
-        <li><a asp-controller="Blog" asp-action="Index">Blog</a></li>
+        <li class="@Html.ActiveMenuLink(actions: "Index", controllers: "Home")"><a asp-controller="Home" asp-action="index">Home</a></li>
+        <li class="@Html.ActiveMenuLink(actions: "Index", controllers: "ProductUser")"><a asp-controller="ProductUser" asp-action="index">Artworks</a></li>
+        <li class="@Html.ActiveMenuLink(actions: "Index", controllers: "ArtistPageUser")"><a asp-controller="ArtistPageUser" asp-action="index">Artists</a></li>
+        <li class="@Html.ActiveMenuLink(actions: "Index", controllers: "Blog")"><a asp-controller="Blog" asp-action="Index">Blog</a></li>
         <li><a href="#">Exhibition</a></li>
-        <li><a asp-controller="About" asp-action="Index">About us</a></li>
-        <li><a asp-controller="Contact" asp-action="Index">Contact</a></li>
+        <li class="@Html.ActiveMenuLink(actions: "Index", controllers: "About")"><a asp-controller="About" asp-action="Index">About us</a></li>
+        <li class="@Html.ActiveMenuLink(actions: "Index", controllers: "Contact")"><a asp-controller="Contact" asp-action="Index">Contact</a></li>
     </ul>
 </nav>
