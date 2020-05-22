@@ -9,6 +9,7 @@ using eProject.Models;
 using eProject.Models.ViewModels;
 using eProject.Service;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -349,6 +350,9 @@ namespace eProject.Controllers
                 ViewBag.Invoice = invoices.ShippingAddress;
                 var test = ViewBag.Invoice;
             }
+
+            HttpContext.Session.Remove("cart");
+            HttpContext.Session.Remove("invoices");
 
             return View();
 
