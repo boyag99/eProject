@@ -7,30 +7,15 @@
         <ul>
             @foreach (var category in Model)
             {
-                <li>
-                    <span class="arrow"><i class="fa fa-angle-down"></i></span>
-                    <a href="#">@category.CategoryName</a>
-                    @if (category.InverseParents != null && category.InverseParents.Count > 0)
-                    {
-                        <ul class="children">
-                            @foreach (var subCategory in category.InverseParents)
-                            {
-                                @if (subCategory.Status)
-                                {
-                                    <li>
-                                        <a asp-controller="ProductUser" asp-action="category" asp-route-id="@subCategory.CategoryId">
-                                            @subCategory.CategoryName
-                                        </a>
-                                    </li>
-
-                                }
-                            }
-                        </ul>
-                    }
-
-                </li>
+                @if (category.Status)
+                {
+                    <li>
+                        @*<span class="arrow"><i class="fa fa-angle-down"></i></span>*@
+                        <a asp-controller="ProductUser" asp-action="category" asp-route-id="@category.CategoryId">@category.CategoryName</a>
+                    </li>
+                }
             }
-        </ul>
+            </ul>
     </div>
 </div>
 <!-- /widget shop categories -->

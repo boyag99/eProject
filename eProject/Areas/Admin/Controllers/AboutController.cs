@@ -20,7 +20,6 @@ namespace eProject.Areas.Admin.Controllers
     public class AboutController : Controller
     {
         private readonly ApplicationDbContext _applicationDbContext;
-        //private readonly IHostEnvironment Environment;
         public AboutController(ApplicationDbContext applicationDbContext)
         {
             _applicationDbContext = applicationDbContext;
@@ -57,7 +56,7 @@ namespace eProject.Areas.Admin.Controllers
                     var stream = new FileStream(path, FileMode.Create);
                     photo.CopyToAsync(stream);
 
-                    about.Image = "about/"+photo.FileName;
+                    about.Image = "/about/"+photo.FileName;
 
                     _applicationDbContext.About.Add(about);
                     _applicationDbContext.SaveChanges();
@@ -107,7 +106,7 @@ namespace eProject.Areas.Admin.Controllers
                 var stream = new FileStream(path, FileMode.Create);
                 photo.CopyToAsync(stream);
 
-                about.Image = "about/" + photo.FileName;
+                about.Image = "/about/" + photo.FileName;
             }
             currentAboutContent.Image = about.Image;
             currentAboutContent.Name = about.Name;

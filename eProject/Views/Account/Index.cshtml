@@ -1,0 +1,86 @@
+﻿@{
+    ViewData["Title"] = "My Account";
+}
+
+
+<section class="page-section">
+    <div class="wrap container">
+        <div class="row">
+            <!--start main contain of page-->
+            <div class="col-lg-9 col-md-9 col-sm-8">
+                <div class="information-title">My Account</div>
+                <div class="details-wrap">
+                    <div class="block-title alt"> <i class="fa fa-angle-down"></i> My Account</div>
+                    <div class="details-box">
+                        <ul>
+                            <li>
+                                <a asp-controller="Account" asp-action="AccountInformation">Edit your account information</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Account" asp-action="ChangePassword">Change your password</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Account" asp-action="AddressBook">Modify your address book entries</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    @if (User.IsInRole("Artist"))
+                    {
+                        <div class="block-title alt"> <i class="fa fa-angle-down"></i> Sale Management</div>
+                        <div class="details-box">
+                            <ul>
+                                <li>
+                                    <a asp-controller="Artist" asp-action="Create">Add Product Detail</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Artist" asp-action="Index">View All Products</a>
+                                </li>
+                                <li>
+                                    <a href="return.html">View Orders</a>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+
+                    <div class="block-title alt"> <i class="fa fa-angle-down"></i> My Account</div>
+                    <div class="details-box">
+                        <ul>
+                            <li>
+                                <a href="order-history.html">View your order history</a>
+                            </li>
+                            <li>
+                                <a href="review-rating.html">Your reviews and ratings</a>
+                            </li>
+                            <li>
+                                <a href="return.html">View your retun requests</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="block-title alt"> <i class="fa fa-angle-down"></i> Artist </div>
+                    <div class="details-box">
+                        <ul>
+                            <li>
+                                <a asp-controller="Account" asp-action="Artist">Artist Management</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <!--end main contain of page-->
+            <!--start sidebar-->
+            <div class="col-lg-3 col-md-3 col-sm-4">
+                <div class="widget account-details">
+                    <h2 class="widget-title">Account</h2>
+                    <ul>
+                        @await Html.PartialAsync("./Partial/_Sidebar")
+                    </ul>
+                </div>
+            </div>
+            <!--end sidebar-->
+        </div>
+
+    </div>
+</section>

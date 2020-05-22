@@ -48,8 +48,17 @@
                             {
                                 <tr>
                                     <td>@photo.PhotoId</td>
-                                    <td><img src="~/products/@photo.Name" width="120" /></td>
-                                    <td>@(photo.Status ? "Show" : "Hide")</td>
+                                    <td><img src="~/images/products/@photo.Name" width="120" /></td>
+                                    <td>
+                                        @if (photo.Status == true)
+                                        {
+                                            <span style="color:green;font-weight:bold;">Show</span>
+                                        }
+                                        else
+                                        {
+                                            <span style="color:red;">Hide</span>
+                                        }
+                                    </td>
                                     <td>
                                         @if (photo.Featured == false)
                                         {
@@ -57,20 +66,23 @@
                                         }
                                         else
                                         {
-                                            <span>Featured</span>
+                                            <span style="font-weight:bold;">Featured</span>
                                         }
                                     </td>
                                     <td>
                                         <a asp-area="admin" asp-controller="Photo"
-                                           asp-action="edit" asp-route-id="@photo.PhotoId" asp-route-productId="@photo.ProductId">
+                                           asp-action="edit" asp-route-id="@photo.PhotoId" asp-route-productId="@photo.ProductId" class="btn btn-primary">
+                                            <i class="fa fa-wrench" aria-hidden="true"></i>
                                             Edit
                                         </a>
                                         @if (!photo.Featured)
                                         {
-                                            <span>|</span>
                                             <a asp-area="admin" asp-controller="Photo"
                                                asp-action="delete" asp-route-id="@photo.PhotoId" asp-route-productId="@photo.ProductId"
-                                               onclick="return confirm('Are you sure?')">Delete</a>
+                                               onclick="return confirm('Are you sure?')" class="btn btn-danger">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                Delete
+                                            </a>
                                         }
 
                                     </td>

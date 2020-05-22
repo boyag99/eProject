@@ -56,7 +56,7 @@ namespace eProject.Models.ViewModels
 
         public string County { get; set; }
 
-        public string State { get; set; }
+        public string Country { get; set; }
 
         public IList<string> Role { get; set; }
 

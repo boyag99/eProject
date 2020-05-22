@@ -12,6 +12,9 @@ using Microsoft.AspNetCore.Razor.Language;
 using eProject.Models;
 using eProject.App.Helpers;
 using System.Security.Claims;
+using eProject.Service;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace eProject.Controllers
 {
@@ -19,12 +22,17 @@ namespace eProject.Controllers
     public class CartController : Controller
     {
         private readonly ApplicationDbContext _applicationDbContext;
+        private readonly IEmailSender _emailSender;
+        private readonly UserManager<User> _userManager;
 
-        public CartController(ApplicationDbContext applicationDbContext)
+        public CartController(ApplicationDbContext applicationDbContext, IEmailSender emailSender, UserManager<User>userManager)
         {
             _applicationDbContext = applicationDbContext;
+            _emailSender = emailSender;
+            _userManager = userManager;
 
         }
+
      
         [Route("Index")]
         public IActionResult Index()
@@ -39,17 +47,22 @@ namespace eProject.Controllers
             else
             {
                 ViewBag.countItems = cart.Count;
-                ViewBag.Toatal = cart.Sum(it => it.Price * it.Quantity);
+                ViewBag.Total = cart.Sum(it => it.Price);
+                
             }
                 
             return View();
         }
-       [HttpGet]
+
+        [HttpGet]
         [Route("Buy/{id}")]
         public IActionResult Buy(int id)
         {
-            var product = _applicationDbContext.Products.Find(id);
-            var photo = product.Photos.SingleOrDefault(p => p.Status && p.Featured);
+            var product = _applicationDbContext.Products
+                .Include(p => p.Photos)
+                .FirstOrDefault(p => p.ProductId == id);
+
+            var photo = product.Photos.SingleOrDefault(p => p.Status == true && p.Featured == true);
             var photoName = photo == null ? "no-image.jpg" : photo.Name;
             if (SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart") == null)
             {
@@ -60,8 +73,7 @@ namespace eProject.Controllers
                     Name = product.Name,
                     Price = product.Price,
                     Photo = photoName,
-                    Quantity = 1
-                }); ;
+                });
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             }
             else
@@ -76,70 +88,14 @@ namespace eProject.Controllers
                        Name = product.Name,
                        Price = product.Price,
                        Photo = photoName,
-                        Quantity = 1
-                });
-                   
+                    });
                 }
-                else
-                {
-                    cart[index].Quantity++;
-                }
-            }
-            return RedirectToAction("Index", "Cart");
-        }
-        [HttpPost]
-        [Route("Buy/{id}")]
-        public IActionResult Buy(int id, int quantity)
-        {
-            var product = _applicationDbContext.Products.Find(id);
-            var photo = product.Photos.SingleOrDefault(p => p.Status && p.Featured);
-            var photoName = photo == null ? "no-image.jpg" : photo.Name;
-            if (SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart") == null)
-            {
-                var cart = new List<Item>();
-                cart.Add(new Item
-                {
-                    ItemId = product.ProductId,
-                    Name = product.Name,
-                    Price = product.Price,
-                    Photo = photoName,
-                    Quantity = quantity
-                }); ;
+
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             }
-            else
-            {
-                List<Item> cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
-                int index = checkexist(id, cart);
-                if (index == -1)
-                {
-                    cart.Add(new Item
-                    {
-                        ItemId = product.ProductId,
-                        Name = product.Name,
-                        Price = product.Price,
-                        Photo = photoName,
-                        Quantity = quantity
-                    });
 
-                }
-                else
-                {
-                    cart[index].Quantity += quantity;
-                }
-            }
-            return RedirectToAction("Index", "Cart");
-        }
-        [HttpPost]
-        [Route("Update")]
-        public IActionResult Update(int[] quantity)
-        {
-            List<Item> cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
-            for (int i = 0; i < cart.Count; i++)
-            {
-                cart[i].Quantity = quantity[i];
-            }
-            SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+
+
             return RedirectToAction("Index", "Cart");
         }
         [Route("remove/{id}")]
@@ -151,52 +107,7 @@ namespace eProject.Controllers
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart",cart);
             return RedirectToAction("Index", "cart");
         }
-        [Route("checkout")]
-        public IActionResult Checkout()
-        {
-            var user = User.FindFirst(ClaimTypes.Name);
-            if (user == null)
-            {
-                return RedirectToAction("Home", "Login");
-            }
-            else
-            {
-                var customer = _applicationDbContext.Users.SingleOrDefault(a => a.UserName.Equals(user.Value));
-                //Create new invoice
-                var invoice = new Invoice()
-                {
-                    Name = "Invoice Online",
-                    Created = DateTime.Now,
-                    Status = 1,
-                    UserId = customer.Id
-                };
-                _applicationDbContext.Invoices.Add(invoice);
-                _applicationDbContext.SaveChanges();
-                //Create invoice details
-                List<Item> cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
-                foreach (var item in cart)
-                {
-                    var invoiceDetails = new InvoiceDetail
-                    {
-                        InvoiceId = invoice.Id,
-                        ProductId = item.ItemId,
-                        Price = item.Price,
-                        Quantity = item.Quantity
-                    };
-                    _applicationDbContext.InvoiceDetails.Add(invoiceDetails);
-                    _applicationDbContext.SaveChanges();
-                }
-                //Remove items in cart
-                HttpContext.Session.Remove("cart");
-                return RedirectToAction("Thanks", "Cart");
-            }
-            
-        }
-        [Route("thanks")]
-        public IActionResult Thanks()
-        {
-            return View("Thanks");
-        }
+
         private int checkexist(int id, List<Item> cart)
         {
             for (int i = 0; i < cart.Count; i++)

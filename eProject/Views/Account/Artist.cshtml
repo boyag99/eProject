@@ -1,0 +1,98 @@
+﻿@model eProject.Models.ViewModels.ArtistRegisterRequest
+
+@{
+    ViewData["Title"] = "Artist Management";
+}
+
+    <section class="page-section">
+        <div class="wrap container">
+            <div class="row">
+                <!--start main contain of page-->
+                <div class="col-lg-9 col-md-9 col-sm-8">
+                    <div class="information-title">Artist</div>
+                    @if (User.IsInRole("Customer"))
+                    {
+                        <div class="details-wrap">
+                            <div class="block-title alt">
+                                <i class="fa fa-angle-down"></i>Sell Your Art on GalleryToday.com
+                            </div>
+                            <div class="details-box">
+                                <p><strong>About GalleryToday</strong><br> GalleryToday is leading website in US specializing in selling original paintings signed by talented artists from around the world. We offer our artists a platform to sell their original artworks online to the public including payment processing and credit card facilities. We have been promoting great artists since 2002 and we feel proud that we are one of the US’s most visited website for art lovers and collectors.</p>
+                                <p><strong>Which are the advantages offered by GalleryToday?</strong><br> World Wide Exposure! We mainly focus on proviting a better <strong>exposure</strong> for artist and a <strong>professional presentation</strong> of their original paintinngs. &nbsp;GalleryToday puts your artworks before thousands of new potential customers, collectors and art lovers every day. Our objective is to help talented artists getting a better exposure of their artworks on top of the most popular search engines like Google, Yahoo or Bing.</p>
+                                <p><strong><span class="style32"><span class="style2"><strong>You are invited to register below</strong></span></span>? Just make sure you agree to the following terms before joining:</strong></p>
+                                <ul>
+                                    <li>Your artworks must be 100% original, signed and hand painted;</li>
+                                    <li>Selling of reproductions, prints, art collages, digital art or anything computer generated is not allowed;</li>
+                                    <li>You must pack your artwork carefully and dispatch it readily when an order is placed;</li>
+                                    <li>Delivery time to client should not exceed 20 days from the moment the painting was dispatched;</li>
+                                    <li>GalleryToday charge 40% commission from sales (artist receives 60% from the painting price). Please note that the final prices of your artworks listed on GalleryToday must NOT be higher than those mentioned on other online galleries or your personal website;</li>
+                                    <li>You, as an artist and a seller, should understand that to fully satisfy your customer we offer 10 days money back guarantee which means that the customers has the right to return your artworks if they are not fully satisfied within 10 days. However this cases are very rare. Usually a customer would like to return a painting just in case it arrives damaged or the painting received is not the one ordered.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="details-wrap">
+                            <div class="block-title alt"> <i class="fa fa-angle-down"></i>How do I join?</div>
+                            <div class="details-box">
+                                <form class="form-delivery" asp-controller="Account" asp-action="RegisterArtist" method="post" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="form-group"><input required placeholder="Biography" class="form-control" asp-for="Biography"></div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="form-group"><input required placeholder="Exhibition" class="form-control" asp-for="Exhibition"></div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="form-group"><input placeholder="Profile Image" class="form-control" asp-for="ProfileImage"></div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="form-group">
+                                                <label> Accept terms: </label>
+                                                <label class="radio-inline"> <input asp-for="Accept">Yes </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 col-sm-12">
+                                            <button class="btn btn-theme btn-theme-dark" type="submit"> Submit </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="details-wrap">
+                            <div class="block-title alt">
+                                <i class="fa fa-angle-down"></i>Sell Your Art on GalleryToday.com
+                            </div>
+                            <div class="details-box">
+                                <p><strong>About GalleryToday</strong><br> GalleryToday is leading website in US specializing in selling original paintings signed by talented artists from around the world. We offer our artists a platform to sell their original artworks online to the public including payment processing and credit card facilities. We have been promoting great artists since 2002 and we feel proud that we are one of the US’s most visited website for art lovers and collectors.</p>
+                                <p><strong>Which are the advantages offered by GalleryToday?</strong><br> World Wide Exposure! We mainly focus on proviting a better <strong>exposure</strong> for artist and a <strong>professional presentation</strong> of their original paintinngs. &nbsp;GalleryToday puts your artworks before thousands of new potential customers, collectors and art lovers every day. Our objective is to help talented artists getting a better exposure of their artworks on top of the most popular search engines like Google, Yahoo or Bing.</p>
+                                <p><strong><span class="style32"><span class="style2"><strong>You are invited to register below</strong></span></span>? Just make sure you agree to the following terms before joining:</strong></p>
+                                <ul>
+                                    <li>Your artworks must be 100% original, signed and hand painted;</li>
+                                    <li>Selling of reproductions, prints, art collages, digital art or anything computer generated is not allowed;</li>
+                                    <li>You must pack your artwork carefully and dispatch it readily when an order is placed;</li>
+                                    <li>Delivery time to client should not exceed 20 days from the moment the painting was dispatched;</li>
+                                    <li>GalleryToday charge 40% commission from sales (artist receives 60% from the painting price). Please note that the final prices of your artworks listed on GalleryToday must NOT be higher than those mentioned on other online galleries or your personal website;</li>
+                                    <li>You, as an artist and a seller, should understand that to fully satisfy your customer we offer 10 days money back guarantee which means that the customers has the right to return your artworks if they are not fully satisfied within 10 days. However this cases are very rare. Usually a customer would like to return a painting just in case it arrives damaged or the painting received is not the one ordered.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <!--end main contain of page-->
+                <!--start sidebar-->
+                <div class="col-lg-3 col-md-3 col-sm-4">
+                    <div class="widget account-details">
+                        <h2 class="widget-title">Account</h2>
+                        <ul>
+                            @await Html.PartialAsync("./Partial/_Sidebar")
+                        </ul>
+                    </div>
+                </div>
+                <!--end sidebar-->
+            </div>
+
+        </div>
+    </section>

@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace eProject.Models
 {
-    [Table("Invoice")]
+    [Table("Invoices")]
     public class Invoice
     {
         public  Invoice()
             {
            
-            InvoiceDetails = new HashSet<InvoiceDetail>();
+            OrderDetails = new HashSet<OrderDetail>();
             }
 
         [Key]
@@ -23,11 +23,19 @@ namespace eProject.Models
         public DateTime Created { get; set; }
         public int Status { get; set; }
         
-        [ForeignKey(nameof(User))]
-        public string UserId { get; set; }
+        [StringLength(255)]
+        public string SellerId { get; set; }
+
+        [StringLength(255)]
+        public string BuyerId { get; set; }
+
+        [ForeignKey(nameof(ShippingAddress))]
+        public int? ShippingAddressId { get; set; }
+
+        public virtual ShippingAddress ShippingAddress { get; set; }
         public virtual User User { get; set; }
-        public string Role { get; set; }
-        public virtual ICollection<InvoiceDetail> InvoiceDetails { get; set; }
+
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
 
     }
 }

@@ -1,11 +1,8 @@
-﻿@using eProject.Models
+@model eProject.Models.ViewModels.ProductUserVM
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_FrontendLayout.cshtml";
 }
-
-
-
 
 <!-- CONTENT AREA -->
 <div class="content-area">
@@ -17,19 +14,22 @@
             <div class="row product-single">
                 <div class="col-md-6">
                     <div class="badges">
-                        <div class="hot">hot</div>
+                        @if (ViewBag.Hot is true)
+                        {
+                            <div class="hot">hot</div>
+                        }
                         <div class="new">new</div>
                     </div>
                     <div class="owl-carousel img-carousel">
                         <div class="item">
-                                <a class="btn btn-theme btn-theme-transparent btn-zoom" href="~/products/@ViewBag.FeaturedPhoto" data-gal="prettyPhoto"><i class="fa fa-plus"></i></a>
-                                <a data-gal="prettyPhoto"><img class="img-responsive" src="~/products/@ViewBag.FeaturedPhoto" alt="" /></a>
+                                <a class="btn btn-theme btn-theme-transparent btn-zoom" href="~/images/products/@ViewBag.FeaturedPhoto" data-gal="prettyPhoto"><i class="fa fa-plus"></i></a>
+                                <a data-gal="prettyPhoto"><img class="img-responsive" src="~/images/products/@ViewBag.FeaturedPhoto" alt="" /></a>
                             </div>
                         @foreach (var productImage in ViewBag.ProductImages)
                         {
                             <div class="item">
-                                <a class="btn btn-theme btn-theme-transparent btn-zoom" href="~/products/@productImage.Name" data-gal="prettyPhoto"><i class="fa fa-plus"></i></a>
-                                <a href="~/products/@productImage.Name" data-gal="prettyPhoto"><img class="img-responsive" src="~/products/@productImage.Name" alt="" /></a>
+                                <a class="btn btn-theme btn-theme-transparent btn-zoom" href="~/images/products/@productImage.Name" data-gal="prettyPhoto"><i class="fa fa-plus"></i></a>
+                                <a href="~/images/products/@productImage.Name" data-gal="prettyPhoto"><img class="img-responsive" src="~/images/products/@productImage.Name" alt="" /></a>
                             </div>
                         }
                     </div>
@@ -42,13 +42,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="back-to-category">
-                        <span class="link"><i class="fa fa-angle-left"></i> Back to <a href="category.html">Category</a></span>
-                        <div class="pull-right">
-                            <a class="btn btn-theme btn-theme-transparent btn-previous" href="#"><i class="fa fa-angle-left"></i></a>
-                            <!--
-                            -->
-                            <a class="btn btn-theme btn-theme-transparent btn-next" href="#"><i class="fa fa-angle-right"></i></a>
-                        </div>
+                        <span class="link"><i class="fa fa-angle-left"></i> <a asp-controller="ProductUser" asp-action="index">Back to Category</a></span>
                     </div>
                     <h2 class="product-title">@ViewBag.Product.Name</h2>
                     <div class="product-rating clearfix">
@@ -69,60 +63,79 @@
                         </div>
                         <a class="reviews" href="#">16 reviews</a> | <a class="add-review" href="#">Add Your Review</a>
                     </div>
-                    <div class="product-availability">Availability: <strong>In stock</strong> 21 Item(s)</div>
+                    @if (ViewBag.Product.Quantity > 0)
+                    {
+                        <div class="product-availability">Availability: <strong style="color:green">In stock</strong></div>
+                    }
+                    else
+                    {
+                        <div class="product-availability" style="font-size: 30px;">Availability: <strong style="color:red">Sold out</strong></div>
+                    }
                     <hr class="page-divider small" />
 
-                    <div class="product-price">@ViewBag.Product.Price</div>
+                    @{
+                        if (ViewBag.Product.Auction is false)
+                        {
+                            <div class="product-price">@ViewBag.Product.Price $</div>
+                        }
+                        else
+                        {
+                            if (ViewBag.AuctionHistory != null)
+                            {
+                                <h3>The winner of the auction is @ViewBag.AuctionHistory.User.FirstName @ViewBag.AuctionHistory.User.LastName</h3>
+                            }
+                            else
+                            {
+                                <div class="product-price qty"><b>Current bid: </b>@ViewBag.Product.SalePrice $</div>
+
+                                <h3 class="text-danger" id="dealCountdown"></h3>
+                            }
+                        }
+                    }
                     <hr class="page-divider" />
 
                     <div class="product-text">
-                        <p>Etiam eu justo ut nisi sollicitudin bibendum. Fusce sed dui ac turpis vulputate tincidunt vel sed magna. Pellentesque <strong>pretium</strong> mollis metus vel feugiat. Cum sociis natoque penatibus <strong>et magnis</strong> dis parturient montes, nascetur ridiculus mus. <strong>Vestibulum</strong> commodo mauris eget sapien posuere, id <a href="#">efficitur mi tristique</a>.</p>
-                        <ul>
-                            <li>- Cras tristique neque a mauris volutpat, eget sodales neque elementum.</li>
-                            <li>- Vestibulum iaculis velit sed dolor suscipit pretium.</li>
-                            <li>- Etiam mattis risus id leo imperdiet tincidunt.</li>
-                        </ul>
+                        @ViewBag.Product.Description
                     </div>
                     <hr class="page-divider" />
 
-                    @*<form action="#" class="row variable">
-                            <div class="col-sm-6">
-                                <div class="form-group selectpicker-wrapper">
-                                    <label for="exampleSelect1">Size</label>
-                                    <select id="exampleSelect1"
-                                            class="selectpicker input-price" data-live-search="true" data-width="100%"
-                                            data-toggle="tooltip" title="Select">
-                                        <option>Select Your Size</option>
-                                        <option>Size 1</option>
-                                        <option>Size 2</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group selectpicker-wrapper">
-                                    <label for="exampleSelect2">Color</label>
-                                    <select id="exampleSelect2"
-                                            class="selectpicker input-price" data-live-search="true" data-width="100%"
-                                            data-toggle="tooltip" title="Select">
-                                        <option>Select Your Color</option>
-                                        <option>Color 1</option>
-                                        <option>Color 2</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </form>*@
-                    <hr class="page-divider small" />
-
-
                     <div class="buttons">
                         @*<div class="quantity">
-                                <button class="btn"><i class="fa fa-minus"></i></button>
-                                <input class="form-control qty" type="number" step="1" min="1" name="quantity" value="1" title="Qty">
-                                <button class="btn"><i class="fa fa-plus"></i></button>
-                            </div>*@
-                        <a class="btn btn-theme btn-cart btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@ViewBag.Product.ProductId"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                        <button class="btn btn-theme btn-wish-list"><i class="fa fa-heart"></i></button>
-                        <button class="btn btn-theme btn-compare"><i class="fa fa-exchange"></i></button>
+            <button class="btn"><i class="fa fa-minus"></i></button>
+            <input class="form-control qty" type="number" step="1" min="1" name="quantity" value="1" title="Qty">
+            <button class="btn"><i class="fa fa-plus"></i></button>
+        </div>*@
+
+                        @{
+                            if (ViewBag.Message != null)
+                            {
+                                <span class="text-danger">@ViewBag.Message</span>
+                            }
+
+                            if (ViewBag.Product.Auction is false)
+                            {
+                                <a class="btn btn-theme btn-cart btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@ViewBag.Product.ProductId"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                            }
+                            else
+                            {
+                                if (ViewBag.Product.ToDate < DateTime.Now && ViewBag.AuctionHistory != null)
+                                {
+                                    <a class="btn btn-theme btn-cart btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@ViewBag.Product.ProductId"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                }
+                                else
+                                {
+                                    <div class="quantity">
+                                        <form asp-controller="Auction" asp-action="Bid" asp-route-productId="@ViewBag.Product.ProductId" method="post">
+                                            <input class="form-control qty" type="number" min="@ViewBag.Product.SalePrice" asp-for="@Model.Product.SalePrice" value="@ViewBag.Product.SalePrice" title="Qty">
+                                            <button type="submit" class="btn btn-theme btn-cart btn-icon-left"> Bid Now </button>
+                                        </form>
+                                    </div>
+                                }
+                            }
+
+                        }
+                        <a class="btn btn-theme btn-wish-list"><i class="fa fa-heart"></i></a>
+                        <a class="btn btn-theme btn-compare" asp-controller="Portfolio" asp-action="Add" asp-route-id="@ViewBag.Product.ProductId"><i class="fa fa-exchange"></i></a>
                     </div>
 
                     <hr class="page-divider small" />
@@ -130,11 +143,15 @@
                     <table>
                         <tr>
                             <td class="title">Category:</td>
-                            <td>Men Dress</td>
+                            <td>@ViewBag.Product.Category.CategoryName</td>
                         </tr>
                         <tr>
-                            <td class="title">Product Code:</td>
-                            <td>PS08</td>
+                            <td class="title">Artist:</td>
+                            <td>@ViewBag.Product.User.FirstName @ViewBag.Product.User.LastName</td>
+                        </tr>
+                        <tr>
+                            <td class="title">Address:</td>
+                            <td>@ViewBag.Product.User.Address.StreetAddress, @ViewBag.Product.User.Address.County, @ViewBag.Product.User.Address.City, @ViewBag.Product.User.Address.Country</td>
                         </tr>
                         <tr>
                             <td class="title">Tags:</td>
@@ -157,53 +174,16 @@
     </section>
     <!-- /PAGE -->
     <!-- PAGE -->
-    <section class="page-section md-padding">
-        <div class="container">
-            <div class="row blocks shop-info-banners">
-                <div class="col-md-4">
-                    <div class="block">
-                        <div class="media">
-                            <div class="pull-right"><i class="fa fa-gift"></i></div>
-                            <div class="media-body">
-                                <h4 class="media-heading">Buy 1 Get 1</h4>
-                                Proin dictum elementum velit. Fusce euismod consequat ante.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="block">
-                        <div class="media">
-                            <div class="pull-right"><i class="fa fa-comments"></i></div>
-                            <div class="media-body">
-                                <h4 class="media-heading">Call to Free</h4>
-                                Proin dictum elementum velit. Fusce euismod consequat ante.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="block">
-                        <div class="media">
-                            <div class="pull-right"><i class="fa fa-trophy"></i></div>
-                            <div class="media-body">
-                                <h4 class="media-heading">Money Back!</h4>
-                                Proin dictum elementum velit. Fusce euismod consequat ante.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- /PAGE -->
-    <!-- PAGE -->
     <section class="page-section">
         <div class="container">
             <div class="tabs-wrapper content-tabs">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#item-description" data-toggle="tab">Item Description</a></li>
                     <li><a href="#reviews" data-toggle="tab">Reviews (2)</a></li>
+                    @if (ViewBag.Product.Auction is true)
+                    {
+                        <li><a href="#auctionhistory" data-toggle="tab">Action History</a></li>
+                    }
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="item-description">
@@ -213,36 +193,77 @@
                     <div class="tab-pane fade" id="reviews">
 
                         <div class="comments">
-                            <div class="media comment">
-                                <a href="#" class="pull-left comment-avatar">
-                                    <img alt="" src="assets/img/preview/avatars/avatar-1.jpg" class="media-object">
-                                </a>
-                                <div class="media-body">
-                                    <p class="comment-meta"><span class="comment-author"><a href="#">User Name Here</a> <span class="comment-date"> 26 days ago <i class="fa fa-flag"></i></span></span></p>
-                                    <p class="comment-text">Donec ullamcorper nulla non metus auctor fringilla. Etiam porta sem malesuada magna mollis euismd. Curabitur blandit tempus porttitor. Integer posuere erat a ante venenatis dapibus posuere.</p>
-                                </div>
-                            </div>
-                            <div class="media comment">
-                                <a href="#" class="pull-left comment-avatar">
-                                    <img alt="" src="assets/img/preview/avatars/avatar-3.jpg" class="media-object">
-                                </a>
-                                <div class="media-body">
-                                    <p class="comment-meta"><span class="comment-author"><a href="#">User Name Here</a> <span class="comment-date"> 26 days ago <i class="fa fa-flag"></i></span></span></p>
-                                    <p class="comment-text">Donec ullamcorper nulla non metus auctor fringilla. Etiam porta sem malesuada magna mollis euismd. Curabitur blandit tempus porttitor. Integer posuere erat a ante venenatis dapibus posuere.</p>
-                                </div>
-                            </div>
+                            @if (ViewBag.Reviews.Count == 0)
+                            {
+                                <h1>This product has no comments yet.</h1>
+                            }
+                            else
+                            {
+                                @foreach (Review review in ViewBag.Reviews)
+                                {
+                                    <div class="media comment">
+                                        <a href="#" class="pull-left comment-avatar">
+                                            @if (review.User.ProfileImage is null)
+                                            {
+                                                <img alt="" src="~/backend/dist/img/user2-160x160.jpg" class="media-object">
+                                            }
+                                            else
+                                            {
+                                                <img alt="" src="~/images/users/@review.User.ProfileImage" class="media-object">
+                                            }
+                                        </a>
+                                        <div class="media-body">
+                                            <p class="comment-meta"><span class="comment-author"><a href="#">@review.User.FirstName @review.User.LastName</a> <span class="pull-right comment-date"> @review.Created_At.Day <i class="pull-right fa fa-flag"></i></span></span></p>
+                                            <p class="comment-text">@review.Message</p>
+                                        </div>
+                                    </div>
+                                }
+                            }
+
                         </div>
                         <div class="comments-form">
                             <h4 class="block-title">Add a Review</h4>
-                            <form method="post" action="#" name="comments-form" id="comments-form">
-                                <div class="form-group"><input type="text" placeholder="Your name and surname" class="form-control" title="comments-form-name" name="comments-form-name"></div>
-                                <div class="form-group"><input type="text" placeholder="Your email adress" class="form-control" title="comments-form-email" name="comments-formemail"></div>
-                                <div class="form-group"><textarea placeholder="Your message" class="form-control" title="comments-form-comments" name="comments-form-comments" rows="6"></textarea></div>
+                            <form method="post" asp-controller="ProductUser" asp-action="Review" asp-route-id="@ViewBag.Product.ProductId" name="comments-form" id="comments-form">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class="form-group"><textarea asp-for="@Model.ReviewRequest.Message" placeholder="Your message" class="form-control" title="comments-form-comments" rows="6"></textarea></div>
                                 <div class="form-group"><button type="submit" class="btn btn-theme btn-theme-transparent btn-icon-left" id="submit"><i class="fa fa-comment"></i> Review</button></div>
                             </form>
                         </div>
                         <!-- // -->
 
+                    </div>
+                    <div class="tab-pane fade" id="auctionhistory">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td>
+                                        Date
+                                    </td>
+                                    <td>
+                                        Bid
+                                    </td>
+                                    <td>
+                                        User
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (AuctionHistory item in ViewBag.AuctionHistories)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.Created_At
+                                        </td>
+                                        <td>
+                                            @item.Bid
+                                        </td>
+                                        <td>
+                                            <a href="#">@item.User.FirstName @item.User.LastName</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -263,14 +284,14 @@
                         <div class="thumbnail no-border no-padding">
                             <div class="media">
                                 <a class="media-link" href="#">
-                                    <img src="~/products/@photoName" alt="" />
+                                    <img src="~/images/products/@photoName" alt="" />
                                     <span class="icon-view">
                                         <strong><i class="fa fa-eye"></i></strong>
                                     </span>
                                 </a>
                             </div>
                             <div class="caption text-center">
-                                <h4 class="caption-title">@productInfo.Name</h4>
+                                <h4 class="caption-title"><a asp-controller="Product" asp-action="details" asp-route-id="@relatedProduct.ProductId">@productInfo.Name</a></h4>
                                 <div class="rating">
                                     <span class="star"></span>
                                     <!--
@@ -294,7 +315,7 @@
                                     <a class="btn btn-theme btn-theme-transparent btn-icon-left" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
                                     <!--
                                     -->
-                                    <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
+                                    <a asp-controller="Portfolio" asp-action="Add" asp-route-id="@productInfo.ProductId" asp-route-returnController="@Html.ViewContext.RouteData.Values["controller"].ToString()" asp-route-returnAction="@Html.ViewContext.RouteData.Values["action"].ToString()" class="btn btn-theme btn-theme-transparent btn-compare"><i class="fa fa-exchange"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -302,7 +323,6 @@
                 </div>
             </div>
             <hr class="page-divider half" />
-            <a class="btn btn-theme btn-view-more-block" href="#" style="max-width: 100%;">View More</a>
         </div>
     </section>
     <!-- /PAGE -->
@@ -332,3 +352,22 @@
 
 </div>
 <!-- /CONTENT AREA -->
+@section scripts {
+    <script src="~/frontend/assets/plugins/countdown/jquery.plugin.min.js"></script>
+    <script src="~/frontend/assets/plugins/countdown/jquery.countdown.min.js"></script>
+
+    <script>
+       @{
+           DateTime toDate = Convert.ToDateTime(ViewBag.Product.ToDate);
+
+       }
+       $(document).ready(function () {
+           var austDay = new Date();
+           austDay = new Date(@toDate.Year, @toDate.Month - 1, @toDate.Day);
+
+           $('#dealCountdown').countdown('@toDate.Year/@toDate.Month/@toDate.Day', function (event) {
+               $(this).html(event.strftime('%D days %H hours %M minutes %S secons'));
+           });
+       });
+    </script>
+} 

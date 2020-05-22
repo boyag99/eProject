@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eProject.Models
 {
+    [Table("Addresses")]
     public class Address
     {
         [Key]
@@ -23,6 +24,6 @@ namespace eProject.Models
         public string County { get; set; }
 
         [StringLength(256)]
-        public string State { get; set; }
+        public string Country { get; set; }
     }
 }

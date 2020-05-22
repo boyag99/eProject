@@ -3,10 +3,10 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_FrontendLayout.cshtml";
 }
-
 @using eProject.Models;
-
-
+@using eProject.Models.ViewModels;
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
 <!-- CONTENT AREA -->
 <div class="content-area">
 
@@ -29,17 +29,9 @@
             <div class="row">
                 <!-- SIDEBAR -->
                 <aside class="col-md-3 sidebar" id="sidebar">
-                    <!-- widget search -->
-                    <div class="widget">
-                        <div class="widget-search">
-                            <input class="form-control" type="text" placeholder="Search">
-                            <button><i class="fa fa-search"></i></button>
-                        </div>
-                    </div>
-                    <!-- /widget search -->
                     <!-- widget shop categories -->
 
-                    @await Component.InvokeAsync("Category");
+                    @await Component.InvokeAsync("Category")
 
                     <!-- /widget shop categories -->
                     <!-- widget price filter -->
@@ -48,7 +40,7 @@
                         <div class="widget-content">
                             <div id="slider-range"></div>
                             <input type="text" id="amount" readonly />
-                            <button class="btn btn-theme">Filter</button>
+                            <button type="button" onclick="Filter()" class="btn btn-theme">Filter</button>
                         </div>
                     </div>
                     <!-- /widget price filter -->
@@ -56,255 +48,123 @@
                     <div class="widget widget-tabs">
                         <div class="widget-content">
                             <ul id="tabs" class="nav nav-justified">
-                                <li><a href="#tab-s1" data-toggle="tab">Top</a></li>
-                                <li class="active"><a href="#tab-s2" data-toggle="tab">Sale Off</a></li>
-                                <li><a href="#tab-s3" data-toggle="tab">Deals</a></li>
+                                <li><a href="#tab-s1" data-toggle="tab">Hot</a></li>
+                                <li class="active"><a href="#tab-s2" data-toggle="tab">New</a></li>
+                                <li><a href="#tab-s3" data-toggle="tab">Sale</a></li>
                             </ul>
                             <div class="tab-content">
                                 <!-- tab 1 -->
                                 <div class="tab-pane fade" id="tab-s1">
                                     <div class="product-list">
-                                        <div class="media">
-                                            <a class="pull-left media-link" href="#">
-                                                <img class="media-object" src="assets/img/preview/shop/top-sellers-1.jpg" alt="">
-                                                <i class="fa fa-plus"></i>
-                                            </a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading"><a href="#">Standard Product Header</a></h4>
-                                                <div class="rating">
-                                                    <span class="star"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
+                                        @foreach (var HotProduct in ViewBag.Hot)
+                                        {
+                                            Product productInfo = (Product)HotProduct;
+                                            Photo photo = productInfo.Photos.SingleOrDefault(ph => ph.Status && ph.Featured);
+                                            var photoName = photo == null ? "no-image.jpg" : photo.Name;
+                                            <div class="media">
+                                                <a class="pull-left media-link" asp-controller="Product" asp-action="details" asp-route-id="@HotProduct.ProductId">
+                                                    <img class="media-object" src="~/images/products/@photoName" alt="" style="width: 70px; height:90px;">
+                                                    <i class="fa fa-plus"></i>
+                                                </a>
+                                                <div class="media-body">
+                                                    <h4 class="media-heading"><a asp-controller="Product" asp-action="details" asp-route-id="@HotProduct.ProductId">@HotProduct.Name</a></h4>
+                                                    <div class="rating">
+                                                        <span class="star"></span>
+                                                        <!--
+                                                        -->
+                                                        <span class="star active"></span>
+                                                        <!--
+                                                        -->
+                                                        <span class="star active"></span>
+                                                        <!--
+                                                        -->
+                                                        <span class="star active"></span>
+                                                        <!--
+                                                        -->
+                                                        <span class="star active"></span>
+                                                    </div>
+                                                    <div class="price"><ins>$ @HotProduct.Price</ins> <del>$ @HotProduct.SalePrice</del></div>
                                                 </div>
-                                                <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
                                             </div>
-                                        </div>
-                                        <div class="media">
-                                            <a class="pull-left media-link" href="#">
-                                                <img class="media-object" src="assets/img/preview/shop/top-sellers-2.jpg" alt="">
-                                                <i class="fa fa-plus"></i>
-                                            </a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading"><a href="#">Standard Product Header</a></h4>
-                                                <div class="rating">
-                                                    <span class="star"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                </div>
-                                                <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
-                                            </div>
-                                        </div>
-                                        <div class="media">
-                                            <a class="pull-left media-link" href="#">
-                                                <img class="media-object" src="assets/img/preview/shop/top-sellers-3.jpg" alt="">
-                                                <i class="fa fa-plus"></i>
-                                            </a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading"><a href="#">Standard Product Header</a></h4>
-                                                <div class="rating">
-                                                    <span class="star"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                </div>
-                                                <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
-                                            </div>
-                                        </div>
+                                        }
                                     </div>
                                 </div>
 
                                 <!-- tab 2 -->
                                 <div class="tab-pane fade in active" id="tab-s2">
                                     <div class="product-list">
-                                        <div class="media">
-                                            <a class="pull-left media-link" href="#">
-                                                <img class="media-object" src="assets/img/preview/shop/top-sellers-4.jpg" alt="">
-                                                <i class="fa fa-plus"></i>
-                                            </a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading"><a href="#">Standard Product Header</a></h4>
-                                                <div class="rating">
-                                                    <span class="star"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
+                                        @foreach (var newProducts in ViewBag.NewProducts)
+                                        {
+                                            Product productInfo = (Product)newProducts;
+                                            Photo photo = productInfo.Photos.SingleOrDefault(ph => ph.Status && ph.Featured);
+                                            var photoName = photo == null ? "no-image.jpg" : photo.Name;
+                                            <div class="media">
+                                                <a class="pull-left media-link" asp-controller="Product" asp-action="details" asp-route-id="@newProducts.ProductId">
+                                                    <img class="media-object" src="~/images/products/@photoName" alt="" style="width: 70px; height:90px;">
+                                                    <i class="fa fa-plus"></i>
+                                                </a>
+                                                <div class="media-body">
+                                                    <h4 class="media-heading"><a href="#">@newProducts.Name</a></h4>
+                                                    <div class="rating">
+                                                        <span class="star"></span>
+                                                        <!--
+                                                        -->
+                                                        <span class="star active"></span>
+                                                        <!--
+                                                        -->
+                                                        <span class="star active"></span>
+                                                        <!--
+                                                        -->
+                                                        <span class="star active"></span>
+                                                        <!--
+                                                        -->
+                                                        <span class="star active"></span>
+                                                    </div>
+                                                    <div class="price"><ins>$ @newProducts.Price</ins> <del>$ @newProducts.SalePrice</del></div>
                                                 </div>
-                                                <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
                                             </div>
-                                        </div>
-                                        <div class="media">
-                                            <a class="pull-left media-link" href="#">
-                                                <img class="media-object" src="assets/img/preview/shop/top-sellers-5.jpg" alt="">
-                                                <i class="fa fa-plus"></i>
-                                            </a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading"><a href="#">Standard Product Header</a></h4>
-                                                <div class="rating">
-                                                    <span class="star"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                </div>
-                                                <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
-                                            </div>
-                                        </div>
-                                        <div class="media">
-                                            <a class="pull-left media-link" href="#">
-                                                <img class="media-object" src="assets/img/preview/shop/top-sellers-6.jpg" alt="">
-                                                <i class="fa fa-plus"></i>
-                                            </a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading"><a href="#">Standard Product Header</a></h4>
-                                                <div class="rating">
-                                                    <span class="star"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                </div>
-                                                <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
-                                            </div>
-                                        </div>
+                                        }
                                     </div>
                                 </div>
 
                                 <!-- tab 3 -->
                                 <div class="tab-pane fade" id="tab-s3">
                                     <div class="product-list">
-                                        <div class="media">
-                                            <a class="pull-left media-link" href="#">
-                                                <img class="media-object" src="assets/img/preview/shop/top-sellers-7.jpg" alt="">
-                                                <i class="fa fa-plus"></i>
-                                            </a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading"><a href="#">Standard Product Header</a></h4>
-                                                <div class="rating">
-                                                    <span class="star"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
+                                        @foreach (var saleProducts in ViewBag.SaleProducts)
+                                        {
+                                            Product productInfo = (Product)saleProducts;
+                                            Photo photo = productInfo.Photos.SingleOrDefault(ph => ph.Status && ph.Featured);
+                                            var photoName = photo == null ? "no-image.jpg" : photo.Name;
+                                            <div class="media">
+                                                <a class="pull-left media-link" asp-controller="Product" asp-action="details" asp-route-id="@saleProducts.ProductId">
+                                                    <img class="media-object" src="~/images/products/@photoName" alt="" style="width: 70px; height:90px;">
+                                                    <i class="fa fa-plus"></i>
+                                                </a>
+                                                <div class="media-body">
+                                                    <h4 class="media-heading"><a href="#">@saleProducts.Name</a></h4>
+                                                    <div class="rating">
+                                                        <span class="star"></span>
+                                                        <!--
+                                                        -->
+                                                        <span class="star active"></span>
+                                                        <!--
+                                                        -->
+                                                        <span class="star active"></span>
+                                                        <!--
+                                                        -->
+                                                        <span class="star active"></span>
+                                                        <!--
+                                                        -->
+                                                        <span class="star active"></span>
+                                                    </div>
+                                                    <div class="price"><ins>$ @saleProducts.Price</ins> <del>$ @saleProducts.SalePrice</del></div>
                                                 </div>
-                                                <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
                                             </div>
-                                        </div>
-                                        <div class="media">
-                                            <a class="pull-left media-link" href="#">
-                                                <img class="media-object" src="assets/img/preview/shop/top-sellers-8.jpg" alt="">
-                                                <i class="fa fa-plus"></i>
-                                            </a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading"><a href="#">Standard Product Header</a></h4>
-                                                <div class="rating">
-                                                    <span class="star"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                </div>
-                                                <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
-                                            </div>
-                                        </div>
-                                        <div class="media">
-                                            <a class="pull-left media-link" href="#">
-                                                <img class="media-object" src="assets/img/preview/shop/top-sellers-9.jpg" alt="">
-                                                <i class="fa fa-plus"></i>
-                                            </a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading"><a href="#">Standard Product Header</a></h4>
-                                                <div class="rating">
-                                                    <span class="star"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                    <!--
-                                                    -->
-                                                    <span class="star active"></span>
-                                                </div>
-                                                <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
-                                            </div>
-                                        </div>
+                                        }
+
                                     </div>
                                 </div>
                             </div>
-                            <a class="btn btn-theme btn-theme-dark btn-theme-sm btn-block" href="#">More Products</a>
                         </div>
                     </div>
                     <!-- /widget tabs -->
@@ -327,354 +187,105 @@
                         </ul>
                     </div>
                     <!-- /widget tag cloud -->
-                    <!-- widget products carousel -->
-                    <div class="widget">
-                        <a class="btn btn-theme btn-title-more" href="#">See All</a>
-                        <h4 class="widget-title"><span>Top products</span></h4>
-                        <div class="sidebar-products-carousel">
-                            <div class="owl-carousel" id="sidebar-products-carousel">
-                                <div class="thumbnail no-border no-padding">
-                                    <div class="media">
-                                        <a class="media-link" href="#">
-                                            <img src="assets/img/preview/shop/product-1.jpg" alt="" />
-                                            <span class="icon-view">
-                                                <strong><i class="fa fa-eye"></i></strong>
-                                            </span>
-                                        </a>
-                                    </div>
-                                    <div class="caption text-center">
-                                        <h4 class="caption-title">Standard Product Header</h4>
-                                        <div class="rating">
-                                            <span class="star"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                        </div>
-                                        <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
-                                        <div class="buttons">
-                                            <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>
-                                            <!--
-                                            -->
-                                            <a class="btn btn-theme btn-theme-transparent btn-icon-left" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                            <!--
-                                            -->
-                                            <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="thumbnail no-border no-padding">
-                                    <div class="media">
-                                        <a class="media-link" href="#">
-                                            <img src="assets/img/preview/shop/product-2.jpg" alt="" />
-                                            <span class="icon-view">
-                                                <strong><i class="fa fa-eye"></i></strong>
-                                            </span>
-                                        </a>
-                                    </div>
-                                    <div class="caption text-center">
-                                        <h4 class="caption-title">Standard Product Header</h4>
-                                        <div class="rating">
-                                            <span class="star"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                        </div>
-                                        <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
-                                        <div class="buttons">
-                                            <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>
-                                            <!--
-                                            -->
-                                            <a class="btn btn-theme btn-theme-transparent btn-icon-left" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                            <!--
-                                            -->
-                                            <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="thumbnail no-border no-padding">
-                                    <div class="media">
-                                        <a class="media-link" href="#">
-                                            <img src="assets/img/preview/shop/product-3.jpg" alt="" />
-                                            <span class="icon-view">
-                                                <strong><i class="fa fa-eye"></i></strong>
-                                            </span>
-                                        </a>
-                                    </div>
-                                    <div class="caption text-center">
-                                        <h4 class="caption-title">Standard Product Header</h4>
-                                        <div class="rating">
-                                            <span class="star"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                        </div>
-                                        <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
-                                        <div class="buttons">
-                                            <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>
-                                            <!--
-                                            -->
-                                            <a class="btn btn-theme btn-theme-transparent btn-icon-left" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                            <!--
-                                            -->
-                                            <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /widget products carousel -->
-                    <!-- widget shop hot deals -->
-                    <div class="widget widget-shop-deals">
-                        <a class="btn btn-theme btn-title-more" href="#">See All</a>
-                        <h4 class="widget-title"><span>Hot Deals</span></h4>
-                        <div class="hot-deals-carousel">
-                            <div class="owl-carousel" id="hot-deals-carousel">
-                                <div class="thumbnail thumbnail-hot-deal no-border no-padding">
-                                    <div class="media">
-                                        <a class="media-link" href="#">
-                                            <img src="assets/img/preview/shop/product-5.jpg" alt="" />
-                                            <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
-                                            <div class="countdown-wrapper">
-                                                <div id="dealCountdown1" class="defaultCountdown clearfix"></div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="caption text-center">
-                                        <h4 class="caption-title">Standard Hot Deal Product</h4>
-                                        <div class="rating">
-                                            <span class="star"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                        </div>
-                                        <span class="reviews">16 reviews</span>
-                                        <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
-                                        <div class="caption-text">Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan.</div>
-                                    </div>
-                                </div>
-                                <div class="thumbnail thumbnail-hot-deal no-border no-padding">
-                                    <div class="media">
-                                        <a class="media-link" href="#">
-                                            <img src="assets/img/preview/shop/product-4.jpg" alt="" />
-                                            <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
-                                            <div class="countdown-wrapper">
-                                                <div id="dealCountdown2" class="defaultCountdown clearfix"></div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="caption text-center">
-                                        <h4 class="caption-title">Standard Hot Deal Product</h4>
-                                        <div class="rating">
-                                            <span class="star"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                        </div>
-                                        <span class="reviews">16 reviews</span>
-                                        <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
-                                        <div class="caption-text">Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan.</div>
-                                    </div>
-                                </div>
-                                <div class="thumbnail thumbnail-hot-deal no-border no-padding">
-                                    <div class="media">
-                                        <a class="media-link" href="#">
-                                            <img src="assets/img/preview/shop/product-1.jpg" alt="" />
-                                            <span class="icon-view"><strong><i class="fa fa-eye"></i></strong></span>
-                                            <div class="countdown-wrapper">
-                                                <div id="dealCountdown3" class="defaultCountdown clearfix"></div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="caption text-center">
-                                        <h4 class="caption-title">Standard Hot Deal Product</h4>
-                                        <div class="rating">
-                                            <span class="star"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                        </div>
-                                        <span class="reviews">16 reviews</span>
-                                        <div class="price"><ins>$400.00</ins> <del>$425.00</del></div>
-                                        <div class="caption-text">Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan.</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /widget shop hot deals -->
                 </aside>
                 <!-- /SIDEBAR -->
                 <!-- CONTENT -->
                 <div class="col-md-9 content" id="content">
-
-
-
                     <!-- shop-sorting -->
                     <div class="shop-sorting">
                         <div class="row">
-                            <div class="col-sm-8">
-                                <form class="form-inline" action="">
-                                    <div class="form-group selectpicker-wrapper">
-                                        <select class="selectpicker input-price" data-live-search="true" data-width="100%"
-                                                data-toggle="tooltip" title="Select">
-                                            <option>Product Name</option>
-                                            <option>Product Name</option>
-                                            <option>Product Name</option>
-                                        </select>
+                            <div class="col-sm-6">
+                                <!-- widget search -->
+                                <div class="widget">
+                                    <div class="widget-search">
+                                        <form asp-action="Index" method="get">
+                                            <input class="form-control" type="text" name="Search" placeholder="Search">
+                                            <button type="submit"><i class="fa fa-search"></i></button>
+                                        </form>
                                     </div>
-                                    <div class="form-group selectpicker-wrapper">
-                                        <select class="selectpicker input-price" data-live-search="true" data-width="100%"
-                                                data-toggle="tooltip" title="Select">
-                                            <option>Select Manifacturers</option>
-                                            <option>Select Manifacturers</option>
-                                            <option>Select Manifacturers</option>
-                                        </select>
-                                    </div>
-                                </form>
+                                </div>
+                                <!-- /widget search -->
                             </div>
-                            <div class="col-sm-4 text-right-sm">
-                                <a class="btn btn-theme btn-theme-transparent btn-theme-sm" href="#"><img src="assets/img/icon-list.png" alt="" /></a>
-                                <a class="btn btn-theme btn-theme-transparent btn-theme-sm" href="#"><img src="assets/img/icon-grid.png" alt="" /></a>
+                            <div class="col-sm-6 text-right-sm">
+                                <a class="btn btn-theme btn-theme-transparent btn-theme-sm" href="#"><img src="~/frontend/assets/img/icon-list.png" alt="" /></a>
+                                <a class="btn btn-theme btn-theme-transparent btn-theme-sm" href="#"><img src="~/frontend/assets/img/icon-grid.png" alt="" /></a>
                             </div>
                         </div>
                     </div>
                     <!-- /shop-sorting -->
                     <!-- Products grid -->
-                    <div class="row products grid">
-                        @foreach (var product in ViewBag.Products)
-                        {
-                            Product productInfo = (Product)product;
-                            Photo photo = productInfo.Photos.SingleOrDefault(ph => ph.Status && ph.Featured);
-                            var photoName = photo == null ? "no-image.jpg" : photo.Name;
-                            <div class="col-md-4 col-sm-6">
-                                <div class="thumbnail no-border no-padding">
-                                    <div class="media">
-                                        <a class="media-link" asp-controller="Product" asp-action="index" asp-route-id="@product.ProductId">
-                                            <img src="~/products/@photoName" alt="" />
-                                            <span class="icon-view">
-                                                <strong><i class="fa fa-eye"></i></strong>
-                                            </span>
-                                        </a>
-                                    </div>
-                                    <div class="caption text-center">
-                                        <h4 class="caption-title"><a asp-controller="Product" asp-action="details" asp-route-id="@product.ProductId">@productInfo.Name</a></h4>
-                                        <div class="rating">
-                                            <span class="star"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
-                                            <!--
-                                            -->
-                                            <span class="star active"></span>
+                    <div class="row products grid" id="products">
+                            @foreach (var product in ViewBag.Products)
+                            {
+                                Product productInfo = (Product)product;
+                                Photo photo = productInfo.Photos.SingleOrDefault(ph => ph.Status && ph.Featured);
+                                var photoName = photo == null ? "no-image.jpg" : photo.Name;
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="thumbnail no-border no-padding">
+                                        <div class="media">
+                                            <a class="media-link" data-gal="prettyPhoto" href="~/images/products/@photoName">
+                                                <img src="~/images/products/@photoName" alt="" />
+                                                <span class="icon-view">
+                                                    <strong><i class="fa fa-eye"></i></strong>
+                                                </span>
+                                            </a>
                                         </div>
-                                        <div class="price"><ins>@productInfo.Price</ins> <del>$425.00</del></div>
-                                        <div class="buttons">
-                                            <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>
-                                            <!--
-                                            -->
-                                            <a class="btn btn-theme btn-theme-transparent btn-icon-left" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                            <!--
-                                            -->
-                                            <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
+                                        <div class="caption text-center">
+                                            <h4 class="caption-title"><a asp-controller="Product" asp-action="details" asp-route-id="@product.ProductId">@productInfo.Name</a></h4>
+                                            <div class="rating">
+                                                <span class="star"></span>
+
+
+                                                <span class="star active"></span>
+
+
+                                                <span class="star active"></span>
+
+
+                                                <span class="star active"></span>
+
+
+                                                <span class="star active"></span>
+                                            </div>
+                                            <div class="price"><ins>@productInfo.Price</ins> <del>@productInfo.SalePrice</del></div>
+                                            <div class="buttons">
+                                                <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>
+                                                <!--
+        -->
+                                                <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@product.ProductId"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                                                <!--
+        -->
+                                                <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        }
-                    </div>
+                            }
+                        </div>
                     <!-- /Products grid -->
                     <!-- Pagination -->
-                    <div class="pagination-wrapper">
-                        <ul class="pagination">
-                            <li class="disabled"><a href="#"><i class="fa fa-angle-double-left"></i> Previous</a></li>
-                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">Next <i class="fa fa-angle-double-right"></i></a></li>
-                        </ul>
+                    <div class="pagination-wrapper" id="pagination">
+                        @Html.PagedListPager((IPagedList)ViewBag.Products, page => Url.Action("index", "ProductUser", new { page = page, currentSearch = ViewData["CurrentSearch"] }))
                     </div>
                     <!-- /Pagination -->
 
                 </div>
                 <!-- /CONTENT -->
-
-            </div>
         </div>
-    </section>
+    
+        </section>
     <!-- /PAGE WITH SIDEBAR -->
     <!-- PAGE -->
     <section class="page-section no-padding-top">
         <div class="container">
-            <div class="row blocks shop-info-banners">
+            <div class="row blocks shop-info-banners" style="margin-top: 30px">
                 <div class="col-md-4">
                     <div class="block">
                         <div class="media">
                             <div class="pull-right"><i class="fa fa-gift"></i></div>
                             <div class="media-body">
-                                <h4 class="media-heading">Buy 1 Get 1</h4>
-                                Proin dictum elementum velit. Fusce euismod consequat ante.
+                                <h4 class="media-heading">Free Shipping</h4>
+                                Ship around the world
                             </div>
                         </div>
                     </div>
@@ -685,7 +296,7 @@
                             <div class="pull-right"><i class="fa fa-comments"></i></div>
                             <div class="media-body">
                                 <h4 class="media-heading">Call to Free</h4>
-                                Proin dictum elementum velit. Fusce euismod consequat ante.
+                                Support 24/7. call number: 1800 1530
                             </div>
                         </div>
                     </div>
@@ -695,8 +306,8 @@
                         <div class="media">
                             <div class="pull-right"><i class="fa fa-trophy"></i></div>
                             <div class="media-body">
-                                <h4 class="media-heading">Money Back!</h4>
-                                Proin dictum elementum velit. Fusce euismod consequat ante.
+                                <h4 class="media-heading">Payment</h4>
+                                Credit Card - Paypal - Card
                             </div>
                         </div>
                     </div>
@@ -708,3 +319,78 @@
 
 </div>
 <!-- /CONTENT AREA -->
+
+@section scripts {
+    <script>
+        var priceSliderRange = $('#slider-range');
+        jQuery(document).ready(function () {
+            if ($.ui) {
+                if ($(priceSliderRange).length) {
+                    $(priceSliderRange).slider({
+                        range: true,
+                        min: @ViewBag.MinPrice,
+                        max: @ViewBag.MaxPrice,
+                        values: [@ViewBag.MinPrice, @ViewBag.MaxPrice],
+                        slide: function (event, ui) {
+                            $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                        }
+                    });
+                    $("#amount").val(
+                        "$" + $("#slider-range").slider("values", 0) +
+                        " - $" + $("#slider-range").slider("values", 1)
+                    );
+
+                }
+            }
+        });
+
+        function Filter() {
+            var minPrice = $("#slider-range").slider("values", 0);
+            var maxPrice = $("#slider-range").slider("values", 1)
+
+            $.ajax({
+                  url: 'filterPrice/' + minPrice + "/" + maxPrice,
+                  type: 'GET',
+                success: function (response) {
+                    console.log(response)
+                    $("#products").html('');
+                    $("#pagination").html('');
+
+                    for (var i in response) {
+                        var listProducts = '<div class="col-md-4 col-sm-6">\
+                                    <div class="thumbnail no-border no-padding">\
+                                        <div class="media">\
+                                            <a class="media-link" data-gal="prettyPhoto" href="#">\
+                                                <img src="../images/products/' + response[i].photos[0].name + '" alt="" />\
+                                                <span class="icon-view">\
+                                                    <strong><i class="fa fa-eye"></i></strong>\
+                                                </span>\
+                                            </a>\
+                                        </div>\
+                                        <div class="caption text-center">\
+                                            <h4 class="caption-title"><a asp-controller="Product" asp-action="details" asp-route-id="' + response[i].productId + '"> ' + response[i].name + ' </a></h4>\
+                                            <div class="rating">\
+                                                <span class="star"></span>\
+                                                <span class="star active"></span>\
+                                                <span class="star active"></span>\
+                                                <span class="star active"></span>\
+                                                <span class="star active"></span>\
+                                            </div>\
+                                            <div class="price"><ins>' + response[i].price + '</ins> <del>' + response[i].salePrice + '</del></div>\
+                                            <div class="buttons">\
+                                                <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>\
+                                                <a class="btn btn-theme btn-theme-transparent btn-icon-left" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>\
+                                                <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                </div>';
+                        $("#products").append(listProducts);
+                    }
+
+                    var objectResponse = JSON.parse(response);
+                }
+            });
+        }
+    </script>
+}

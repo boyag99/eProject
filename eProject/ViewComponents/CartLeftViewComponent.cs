@@ -28,7 +28,7 @@ namespace eProject.ViewComponents
             {
                 List<Item> cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
                 ViewBag.countItems = cart.Count;
-                ViewBag.Total = cart.Sum(it => it.Price * it.Quantity);
+                ViewBag.Total = cart.Sum(it => it.Price);
             }
            
             return View("Index");

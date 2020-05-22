@@ -26,6 +26,12 @@ namespace eProject.Models
         [StringLength(255)]
         public string ProfileImage { get; set; }
 
+        [StringLength(255)]
+        public string Biography { get; set; }
+
+        [StringLength(255)]
+        public string Exhibition { get; set; }
+
         [ForeignKey(nameof(Address))]
         public Guid AddressId { get; set; }
         public virtual Address Address { get; set; }
@@ -33,8 +39,9 @@ namespace eProject.Models
 
         public enum GenderType
         {
+            Other = 2,
             Male = 0,
-            Female = 1
+            Female = 1,
         }
     }
 }

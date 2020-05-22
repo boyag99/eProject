@@ -49,7 +49,7 @@ namespace eProjectASP.Areas.Admin.Controllers
         [Route("add/{productId}")]
         public IActionResult Add(int productId, Photo photo, IFormFile fileUpload)
         {
-            var path = Path.Combine(this._environment.ContentRootPath, "wwwroot/products", fileUpload.FileName);
+            var path = Path.Combine(this._environment.ContentRootPath, "wwwroot/images/products", fileUpload.FileName);
             var stream = new FileStream(path, FileMode.Create);
             fileUpload.CopyToAsync(stream);
             photo.Name = fileUpload.FileName;
@@ -82,7 +82,7 @@ namespace eProjectASP.Areas.Admin.Controllers
             var currentPhoto = _applicationDbContext.Photos.Find(photo.PhotoId);
             if (fileUpload != null && !string.IsNullOrEmpty(fileUpload.FileName))
             {
-                var path = Path.Combine(this._environment.ContentRootPath, "wwwroot/products", fileUpload.FileName);
+                var path = Path.Combine(this._environment.ContentRootPath, "wwwroot/images/products", fileUpload.FileName);
                 var stream = new FileStream(path, FileMode.Create);
                 fileUpload.CopyToAsync(stream);
                 currentPhoto.Name = fileUpload.FileName;

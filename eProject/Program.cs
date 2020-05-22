@@ -28,6 +28,8 @@ namespace eProject
 
                     var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
 
+                    context.Database.EnsureDeleted();
+
                     if (context.Database.EnsureCreated())
                     {
                         var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
@@ -35,6 +37,7 @@ namespace eProject
                         var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
                         IdentityDataInitializer.SeedData(userManager, roleManager);
+                        DataInitializer.SeedData(context, userManager);
                     }
                 }
             }
