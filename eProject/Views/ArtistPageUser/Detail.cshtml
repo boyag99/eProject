@@ -28,7 +28,16 @@
                 <div class="row">
                     <div class="col-lg-8 col-md-7 col-sm-12 project-media">
                         <div class="img-carousel">
-                            <div><img src="~/images/users/@ViewBag.Artist.ProfileImage" alt="" /></div>
+                            <div>
+                                @if (ViewBag.Artist.ProfileImage is null)
+                                {
+                                    <img src="~/backend/dist/img/user2-160x160.jpg" alt="">
+                                }
+                                else
+                                {
+                                    <img src="~/images/users/@ViewBag.Artist.ProfileImage" alt="">
+                                }
+                            </div>
                         </div>
                     </div>
 
