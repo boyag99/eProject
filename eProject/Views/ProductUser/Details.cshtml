@@ -88,7 +88,7 @@
                                 <button class="btn"><i class="fa fa-plus"></i></button>
                             </div>*@
                         <a class="btn btn-theme btn-cart btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@ViewBag.Product.ProductId"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                        <a class="btn btn-theme btn-wish-list"><i class="fa fa-heart"></i></a>
+                        <a class="btn btn-theme btn-wish-list" asp-controller="WishList" asp-action="Add" asp-route-id="@ViewBag.Product.ProductId" asp-route-returnController="@Html.ViewContext.RouteData.Values["controller"].ToString()" asp-route-returnAction="@Html.ViewContext.RouteData.Values["action"].ToString()"><i class="fa fa-heart"></i></a>
                         <a class="btn btn-theme btn-compare" asp-controller="Portfolio" asp-action="Add" asp-route-id="@ViewBag.Product.ProductId"><i class="fa fa-exchange"></i></a>
                     </div>
 
@@ -132,15 +132,15 @@
         <div class="container">
             <div class="tabs-wrapper content-tabs">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#item-description" data-toggle="tab">Item Description</a></li>
-                    <li><a href="#reviews" data-toggle="tab">Reviews (2)</a></li>
+                    <li><a href="#item-description" data-toggle="tab">Item Description</a></li>
+                    <li class="active"><a href="#reviews" data-toggle="tab">Reviews</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane fade in active" id="item-description">
+                    <div class="tab-pane fade" id="item-description">
                         <p>@ViewBag.Product.Description</p>
 
                     </div>
-                    <div class="tab-pane fade" id="reviews">
+                    <div class="tab-pane fade in active" id="reviews">
 
                         <div class="comments">
                             @if (ViewBag.Reviews.Count == 0)

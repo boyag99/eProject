@@ -3,7 +3,8 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_FrontendLayout.cshtml";
 }
-
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
 <!-- BREADCRUMBS -->
 <section class="page-section breadcrumbs">
     <div class="container">
@@ -60,14 +61,7 @@
 
         <!-- Pagination -->
         <div class="pagination-wrapper">
-            <ul class="pagination">
-                <li class="disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
-            </ul>
+            @Html.PagedListPager((IPagedList)ViewBag.page, page => Url.Action("Index", "Portfolio", new { page = page }))
         </div>
         <!-- /Pagination -->
 

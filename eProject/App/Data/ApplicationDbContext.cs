@@ -24,7 +24,7 @@ namespace eProject.Data
         public virtual DbSet<Blog> Blog { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<Porfolio> Porfolios { get; set; }
-
+        public virtual DbSet<WishList> WishLists { get; set; }
         public virtual DbSet<Contact> Contacts {get;set; }
 
         //public virtual DbSet<Delivery> Delivery { get; set; }
@@ -42,6 +42,7 @@ namespace eProject.Data
             modelBuilder.Entity<Blog>(entity => { entity.ToTable(name: "Blogs"); });
             modelBuilder.Entity<Review>(entity => { entity.ToTable(name: "Reviews"); });
             modelBuilder.Entity<Porfolio>(entity => { entity.ToTable(name: "Porfolios"); });
+            modelBuilder.Entity<WishList>(entity => { entity.ToTable(name: "WishLists"); });
             modelBuilder.Entity<IdentityRole>(entity => { entity.ToTable(name: "Roles"); });
             modelBuilder.Entity<IdentityUserRole<string>>(entity => { entity.ToTable("UserRoles"); });
             modelBuilder.Entity<IdentityUserClaim<string>>(entity => { entity.ToTable("UserClaims"); });
