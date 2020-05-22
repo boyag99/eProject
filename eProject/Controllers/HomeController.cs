@@ -41,13 +41,21 @@ namespace eProject.Controllers
         public IActionResult Index()
         {
             ViewBag.isHome = true;
-            var featuredProducts = _applicationDbContext.Products.Include(p=>p.Photos).OrderByDescending(p => p.ProductId).Where(p => p.Status && p.Featured).Take(8).ToList();
-            ViewBag.FeaturedProducts = featuredProducts;
-            ViewBag.NewestProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.ProductId).Where(p => p.Status).Take(8).ToList();
 
+            //featured products in index
+            ViewBag.FeaturedProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p=>p.ProductId).Where(p => p.Status && p.Featured && p.Auction == false).Take(8).ToList();
+
+            //Newest Products in index
+            ViewBag.NewestProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.ProductId).Where(p => p.Status && p.Auction == false).Take(8).ToList();
+
+            //Auction Products in index
+            ViewBag.AuctionProducts = _applicationDbContext.Products.Include(p => p.Photos).Where(p => p.Status && p.Auction).Take(8).ToList();
+
+            //Post in index
             ViewBag.Post = _applicationDbContext.Blog.Include(b => b.User).Take(4).ToList();
             
-            List<Product> saleProducts = _applicationDbContext.Products.Include(p => p.Photos).Where(p => p.SalePrice > 0).ToList();
+            //carousel sale products
+            List<Product> saleProducts = _applicationDbContext.Products.Include(p => p.Photos).Where(p => p.SalePrice > 0  && p.Auction == false).ToList();
             ViewBag.SaleProducts = saleProducts;
 
             //artist in home
@@ -61,7 +69,7 @@ namespace eProject.Controllers
                 }
             }
             ViewBag.Artists = roleUser;
-            //end
+
             return View();
         }
 
