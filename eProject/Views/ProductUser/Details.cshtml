@@ -1,4 +1,4 @@
-﻿@model eProject.Models.ViewModels.ReviewRequest
+@model eProject.Models.ViewModels.ReviewRequest
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_FrontendLayout.cshtml";
@@ -269,3 +269,23 @@
 
 </div>
 <!-- /CONTENT AREA -->
+@section scripts {
+    <script src="~/frontend/assets/plugins/countdown/jquery.plugin.min.js"></script>
+    <script src="~/frontend/assets/plugins/countdown/jquery.countdown.min.js"></script>
+
+    <script>
+       @{
+           DateTime toDate = Convert.ToDateTime(ViewBag.Product.ToDate);
+
+       }
+       $(document).ready(function () {
+           var austDay = new Date();
+           austDay = new Date(@toDate.Year, @toDate.Month - 1, @toDate.Day);
+
+           $('#dealCountdown').countdown('@toDate.Year/@toDate.Month/@toDate.Day', function (event) {
+               $(this).html(event.strftime('%D days %H hours %M minutes %S secons'));
+           });
+       });
+    </script>
+} 
+

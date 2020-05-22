@@ -67,15 +67,23 @@ namespace eProject.Controllers
 
         [HttpGet]
         [Route("Login")]
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl = null)
         {
-            return View();
+            returnUrl = returnUrl ?? Url.Content("~/");
+
+            LoginRequest loginRequest = new LoginRequest
+            {
+                ReturnUrl = returnUrl
+            };
+            return View(loginRequest);
         }
 
         [HttpPost]
         [Route("Login")]
-        public async Task<IActionResult> Login(LoginRequest loginRequest)
+        public async Task<IActionResult> Login(LoginRequest loginRequest, string returnUrl = null)
         {
+            returnUrl = returnUrl ?? Url.Content("~/");
+
             if (!ModelState.IsValid)
             {
                 return View(loginRequest);
@@ -90,7 +98,7 @@ namespace eProject.Controllers
                     return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
                 }
 
-                return RedirectToAction("Index", "Account");
+                return LocalRedirect(returnUrl);
             }
 
             if (signInResult.IsLockedOut)

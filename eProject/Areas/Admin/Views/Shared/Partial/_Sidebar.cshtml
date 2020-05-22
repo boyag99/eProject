@@ -185,6 +185,15 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "WareHouseAddress")">
+                    <a asp-area="Admin" asp-controller="WareHouseAddress" asp-action="Index" class="nav-link @Html.ActiveMenuLink(actions: null, controllers: "WareHouseAddress")">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            WareHouseAddress
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "SlideShow")">
                     <a href="#" class="nav-link @Html.ActiveMenuLink(actions: null, controllers: "SlideShow")">
                         <i class="nav-icon fas fa-copy"></i>
