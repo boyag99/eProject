@@ -29,9 +29,12 @@ namespace eProject.Models
         [StringLength(255)]
         public string BuyerId { get; set; }
 
+        [ForeignKey(nameof(ShippingAddress))]
+        public int? ShippingAddressId { get; set; }
+
+        public virtual ShippingAddress ShippingAddress { get; set; }
         public virtual User User { get; set; }
 
-        public string Role { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
 
     }

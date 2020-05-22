@@ -551,7 +551,9 @@ namespace eProject.App.Data.SeedData
             {
                 WareHouseId = 1,
                 CompanyName = "Heaven Art",
-                StreetAddress = "590 CMT8, District 3, HCMC, Vietnam",
+                City = "HCMC",
+                Country = "Vietnam",
+                StreetAddress = "590 CMT8, District 3",
                 PostalCode = "70000",
                 PhoneNumber = "0909123456",
                 Email = "admin@gmail.com"

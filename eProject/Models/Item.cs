@@ -12,6 +12,9 @@ namespace eProject.Models
         public string Name { get; set; }
         public double Price { get; set; }
         public string Photo { get; set; }
+        public string BuyerId { get; set; }
+
+        public virtual ShippingAddress ShippingAddress { get; set; }
 
     }
 }

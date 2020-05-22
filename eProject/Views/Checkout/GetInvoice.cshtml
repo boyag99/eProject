@@ -27,23 +27,40 @@
                     <div class="col-md-4">
                         <h2 class="block-title"><span>From</span></h2>
                         <address>
-                            795 Folsom Ave, Suite 600<br>
-                            San Francisco, CA 94107<br>
-                            Phone: (804) 123-5432<br>
-                            Email: info@almasaeedstudio.com
+                            <b>@ViewBag.WareHouseAddress.CompanyName</b><br>
+                            @ViewBag.WareHouseAddress.StreetAddress<br>
+                            @ViewBag.WareHouseAddress.City @ViewBag.WareHouseAddress.PostalCode, @ViewBag.WareHouseAddress.Country <br />
+                            Phone: @ViewBag.WareHouseAddress.PhoneNumber<br>
+                            Email: @ViewBag.WareHouseAddress.Email
                         </address>
                     </div>
                     <div class="col-md-4">
                         <h2 class="block-title"><span>To</span></h2>
-                        <address>
-                            795 Folsom Ave, Suite 600<br>
-                            San Francisco, CA 94107<br>
-                            Phone: (804) 123-5432<br>
-                            Email: info@almasaeedstudio.com
-                        </address>
+                        @{
+                            if (ViewBag.Invoice.Address != null)
+                            {
+                                                <address>
+                                                    @ViewBag.Invoice.FirstName @ViewBag.Invoice.LastName<br>
+                                                    @ViewBag.Invoice.Address.StreetAddress<br>
+                                                    @ViewBag.Invoice.Address.City @ViewBag.Invoice.Address.PostalCode,  @ViewBag.Invoice.Address.Country<br>
+                                                    Phone: @ViewBag.Invoice.PhoneNumber<br>
+                                                    Email: @ViewBag.Invoice.Email
+                                                </address>
+                            }
+                            else
+                            {
+                                <address>
+                                    @ViewBag.Invoice.FirstName @ViewBag.Invoice.LastName<br>
+                                    @ViewBag.Invoice.StreetAddress<br>
+                                    @ViewBag.Invoice.City @ViewBag.Invoice.PostalCode, @ViewBag.Invoice.Country<br>
+                                    Phone: @ViewBag.Invoice.PhoneNumber<br>
+                                    Email: @ViewBag.Invoice.Email
+                                </address>
+                            }
+                        }
                     </div>
                     <div class="col-md-4">
-                        <h2 class="block-title"><span>Invoice Id</span></h2>
+                        <h2 class="block-title"><span>Invoice Information</span></h2>
                         <address>
                             795 Folsom Ave, Suite 600<br>
                             San Francisco, CA 94107<br>
@@ -58,42 +75,31 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Qty</th>
+                                    <th>#</th>
                                     <th>Product</th>
-                                    <th>Serial #</th>
-                                    <th>Description</th>
+                                    <th>Type</th>
+                                    <th>Artist</th>
                                     <th>Subtotal</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach (Product product in ViewBag.Products)
+                                {
                                 <tr>
-                                    <td>1</td>
-                                    <td>Call of Duty</td>
-                                    <td>455-981-221</td>
-                                    <td>El snort testosterone trophy driving gloves handsome</td>
-                                    <td>$64.50</td>
+                                    <td>@product.ProductId</td>
+                                    <td>@product.Name</td>
+                                    <td>@product.Category.CategoryName</td>
+                                    <td>@product.User.FirstName @product.User.LastName</td>
+                                    @if (product.Auction is false)
+                                    {
+                                        <td>@product.Price</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@product.SalePrice</td>
+                                    }
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Need for Speed IV</td>
-                                    <td>247-925-726</td>
-                                    <td>Wes Anderson umami biodiesel</td>
-                                    <td>$50.00</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Monsters DVD</td>
-                                    <td>735-845-642</td>
-                                    <td>Terry Richardson helvetica tousled street art master</td>
-                                    <td>$10.70</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Grown Ups Blue Ray</td>
-                                    <td>422-568-642</td>
-                                    <td>Tousled lomo letterpress</td>
-                                    <td>$25.99</td>
-                                </tr>
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -106,24 +112,29 @@
                         <p class="lead">Amount Due 2/22/2014</p>
 
                         <div class="table-responsive">
-                            <table class="table">
-                                <tr>
-                                    <th style="width:50%">Subtotal:</th>
-                                    <td>$250.30</td>
-                                </tr>
-                                <tr>
-                                    <th>Tax (9.3%)</th>
-                                    <td>$10.34</td>
-                                </tr>
-                                <tr>
-                                    <th>Shipping:</th>
-                                    <td>$5.80</td>
-                                </tr>
-                                <tr>
-                                    <th>Total:</th>
-                                    <td>$265.24</td>
-                                </tr>
-                            </table>
+                            @{
+                                List<Product> products = (List< Product>)ViewBag.Products;
+
+
+                                <table class="table">
+                                    <tr>
+                                        <th style="width:50%">Subtotal:</th>
+                                        <td>@products.Sum(p => p.Price)</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tax (9.3%)</th>
+                                        <td>$10.34</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Shipping:</th>
+                                        <td>$5.80</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total:</th>
+                                        <td>@products.Sum(p => p.Price)</td>
+                                    </tr>
+                                </table>
+                            }
                         </div>
                     </div>
                     <!-- /.col -->
