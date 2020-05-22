@@ -19,6 +19,9 @@ namespace eProject.Models
 
         public double Price { get; set; }
         public int Quantity { get; set; }
+
+        public string Note { get; set; }
+
         public virtual Invoice Invoice { get; set; }
         public virtual Product Product { get; set; }
     }

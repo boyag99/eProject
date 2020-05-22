@@ -14,6 +14,8 @@ namespace eProject.Models
         public int WareHouseId { get; set; }
         public string CompanyName { get; set; }
         public string StreetAddress { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
         public string PostalCode { get; set; }
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }

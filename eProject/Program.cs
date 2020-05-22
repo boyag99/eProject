@@ -28,7 +28,7 @@ namespace eProject
 
                     var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
 
-                    //context.Database.EnsureDeleted();
+                    context.Database.EnsureDeleted();
 
                     if (context.Database.EnsureCreated())
                     {
