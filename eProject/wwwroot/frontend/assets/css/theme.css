@@ -1809,14 +1809,16 @@ input[type=checkbox] {
   }
 }
 .main-slider .caption-title {
-  font-size: 50px;
-  font-weight: 100;
-  line-height: 1;
-  color: #232323;
-  clear: both;
-  display: inline-block;
-  text-transform: uppercase;
-  margin: 0 0 0 0;
+    font-size: 50px;
+    font-weight: 100;
+    line-height: 1;
+    color: #00BFFF;
+    clear: both;
+    display: inline-block;
+    text-transform: uppercase;
+    margin: 0 0 0 0;
+    width: 100%;
+    background-color: rgba(0,0,0,0.3);
 }
 @media (max-width: 1280px) {
   .main-slider .caption-title {
@@ -4117,7 +4119,7 @@ input[type=checkbox] {
   background-color: rgba(0, 0, 0, 0);
 }
 .top-products-carousel .buttons .btn {
-  padding: 5px;
+  padding: 1px;
   font-size: 10px;
 }
 .top-products-carousel .buttons .btn-wish-list {
@@ -4399,7 +4401,7 @@ input[type=checkbox] {
   margin-top: 10px;
   float: left;
   margin-right: 1px;
-  width: 40px;
+  width: 100px;
   height: 60px;
   background-color: #232323;
   border-color: #232323;

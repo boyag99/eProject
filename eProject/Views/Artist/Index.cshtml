@@ -10,7 +10,7 @@
         <div class="wrap container">
             <div class="row">
                 <!--start main contain of page-->
-                <div class="col-lg-9 col-md-9 col-sm-8">
+                <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="information-title">List All Product</div>
                     <div class="details-wrap">
                         <div class="block-title alt" style="margin-bottom:50px;"><a asp-controller="Artist" asp-action="Create"><i class="fa fa-plus"></i>Add new Product</a></div>
@@ -28,6 +28,7 @@
                                                     <th>Description</th>
                                                     <th>Status</th>
                                                     <th>Featured</th>
+                                                    <th>Auction</th>
                                                     <th>Action</th>
 
                                                 </tr>
@@ -37,51 +38,52 @@
                                                 {
                                                     Product pr = (Product)item;
                                                     Photo mainPhoto = pr.Photos.SingleOrDefault(p => p.Featured == true);
-                                                    <tr>
-                                                        <td>@item.Name</td>
-                                                        <td><img src="~/images/products/@(mainPhoto != null ? mainPhoto.Name :"")" width="70" height="70" /></td>
-                                                        <td>@item.Price</td>
-                                                        <td>@item.SalePrice</td>
-                                                        <td>@item.Category.CategoryName</td>
-                                                        <td>@item.Description</td>
-                                                        <td>
-                                                            @if (item.Status == true)
-                                                            {
-                                                                <span style="color:green;font-weight:bold;">Show</span>
-                                                            }
-                                                            else
-                                                            {
-                                                                <span style="color:red;">Hide</span>
-                                                            }
-                                                        </td>
-                                                        <td>@(item.Featured ? "Featured" : "")</td>
-                                                        <td>
-                                                            <a asp-controller="Artist"
-                                                               asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-primary">
-                                                                <i class="fa fa-wrench" aria-hidden="true"></i>
-                                                                Edit
-                                                            </a>
+                                                <tr>
+                                                    <td>@item.Name</td>
+                                                    <td><img src="~/images/products/@(mainPhoto != null ? mainPhoto.Name :"")" width="70" height="70" /></td>
+                                                    <td>@item.Price</td>
+                                                    <td>@item.SalePrice</td>
+                                                    <td>@item.Category.CategoryName</td>
+                                                    <td>@item.Description</td>
+                                                    <td>
+                                                        @if (item.Status == true)
+                                                        {
+                                                            <span style="color:green;font-weight:bold;">Show</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span style="color:red;">Hide</span>
+                                                        }
+                                                    </td>
+                                                    <td>@(item.Featured ? "Featured" : "")</td>
+                                                    <td>@(item.Auction ? "Auction" : "")</td>
+                                                    <td>
+                                                        <a asp-controller="Artist"
+                                                           asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-primary">
+                                                            <i class="fa fa-wrench" aria-hidden="true"></i>
+                                                            Edit
+                                                        </a>
 
-                                                            <a asp-controller="Artist"
-                                                               asp-action="delete" asp-route-id="@item.ProductId"
-                                                               onclick="return confirm('Are you sure?')" class="btn btn-danger">
-                                                                <i class="fa fa-trash" aria-hidden="true"></i>
-                                                                Delete
-                                                            </a>
+                                                        <a asp-controller="Artist"
+                                                           asp-action="delete" asp-route-id="@item.ProductId"
+                                                           onclick="return confirm('Are you sure?')" class="btn btn-danger">
+                                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            Delete
+                                                        </a>
 
-                                                            <a asp-controller="PhotoProductArtist"
-                                                               asp-action="index" asp-route-id="@item.ProductId" class="btn btn-info">
-                                                                <i class="fa fa-list-alt" aria-hidden="true"></i>
-                                                                Photo List
-                                                            </a>
+                                                        <a asp-controller="PhotoProductArtist"
+                                                           asp-action="index" asp-route-id="@item.ProductId" class="btn btn-info">
+                                                            <i class="fa fa-list-alt" aria-hidden="true"></i>
+                                                            Photo List
+                                                        </a>
 
-                                                            <a asp-controller="PhotoProductArtist"
-                                                               asp-action="add" asp-route-id="@item.ProductId" class="btn btn-warning">
-                                                                <i class="fa fa-plus" aria-hidden="true"></i>
-                                                                Add Photo
-                                                            </a>
-                                                        </td>
-                                                    </tr>
+                                                        <a asp-controller="PhotoProductArtist"
+                                                           asp-action="add" asp-route-id="@item.ProductId" class="btn btn-warning">
+                                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                                            Add Photo
+                                                        </a>
+                                                    </td>
+                                                </tr>
 
                                                 }
                                             </tbody>
@@ -95,6 +97,7 @@
                                                     <th>Description</th>
                                                     <th>Status</th>
                                                     <th>Featured</th>
+                                                    <th>Auction</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </tfoot>
@@ -107,16 +110,7 @@
                     </div>
                 </div>
                 <!--end main contain of page-->
-                <!--start sidebar-->
-                <div class="col-lg-3 col-md-3 col-sm-4">
-                    <div class="widget account-details">
-                        <h2 class="widget-title">Account</h2>
-                        <ul>
-                            @await Html.PartialAsync("../Account/Partial/_Sidebar")
-                        </ul>
-                    </div>
-                </div>
-                <!--end sidebar-->
+               
             </div>
 
         </div>
