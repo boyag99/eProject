@@ -37,7 +37,7 @@
 
     <!-- Theme CSS -->
     <link href="~/frontend/assets/css/theme.css" rel="stylesheet">
-    <link href="~/frontend/assets/css/theme-gray.css" rel="stylesheet" id="theme-config-link">
+    <link href="~/frontend/assets/css/theme-pink.css" rel="stylesheet" id="theme-config-link">
 
     <!-- summernote -->
     <link rel="stylesheet" href="~/backend/plugins/summernote/summernote-bs4.css">
@@ -134,8 +134,8 @@
                     <div class="header-cart">
                         <div class="cart-wrapper">
                            
-                            
-                            <a asp-controller="=Cart" asp-action="Index" class="btn btn-theme-transparent" data-toggle="modal" data-target="#popup-cart"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs"> @ViewBag.CountItems item(s) - $@ViewBag.Total </span> <i class="fa fa-angle-down"></i></a>
+                            <a asp-controller="WishList" asp-action="Index" class="btn btn-theme-transparent hidden-xs hidden-sm"><i class="fa fa-heart"></i></a>
+                            <a asp-controller="Cart" asp-action="Index" class="btn btn-theme-transparent" data-toggle="modal" data-target="#popup-cart"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs"> @ViewBag.CountItems item(s) - $@ViewBag.Total </span> <i class="fa fa-angle-down"></i></a>
                             <!-- Mobile menu toggle button -->
                             <a href="#" class="menu-toggle btn btn-theme-transparent"><i class="fa fa-bars"></i></a>
                             <!-- /Mobile menu toggle button -->
