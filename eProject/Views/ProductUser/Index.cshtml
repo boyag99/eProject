@@ -244,10 +244,20 @@
                                             <div class="buttons">
                                                 <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>
                                                 <!--
-        -->
-                                                <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@product.ProductId"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+    -->
+                                                @{
+                                                    if (productInfo.Auction == true)
+                                                    {
+                                                        <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="ProductUser" asp-action="Details" asp-route-id="@productInfo.ProductId"><i class="fa fa-shopping-cart"></i>Bid Now</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@productInfo.ProductId"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                                                    }
+
+                                                }
                                                 <!--
-        -->
+    -->
                                                 <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
                                             </div>
                                         </div>

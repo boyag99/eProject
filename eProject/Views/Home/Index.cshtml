@@ -60,10 +60,20 @@
                                     <div class="buttons">
                                         <a class="btn btn-theme btn-theme-transparent btn-wish-list" asp-controller="WishList" asp-action="Add" asp-route-id="@featuredProduct.ProductId" asp-route-returnController="@Html.ViewContext.RouteData.Values["controller"].ToString()" asp-route-returnAction="@Html.ViewContext.RouteData.Values["action"].ToString()"><i class="fa fa-heart"></i></a>
                                         <!--
-                                        -->
-                                        <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@featuredProduct.ProductId"><i class="fa fa-shopping-cart" ></i>Add to Cart</a>
+    -->
+                                        @{
+                                            if (featuredProduct.Auction == true)
+                                            {
+                                                <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="ProductUser" asp-action="Details" asp-route-id="@featuredProduct.ProductId"><i class="fa fa-shopping-cart"></i>Bid Now</a>
+                                            }
+                                            else
+                                            {
+                                                <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@featuredProduct.ProductId"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                                            }
+
+                                        }
                                         <!--
-                                        -->
+    -->
                                         <a asp-controller="Portfolio" asp-action="Add" asp-route-id="@featuredProduct.ProductId" asp-route-returnController="@Html.ViewContext.RouteData.Values["controller"].ToString()" asp-route-returnAction="@Html.ViewContext.RouteData.Values["action"].ToString()" class="btn btn-theme btn-theme-transparent btn-compare"><i class="fa fa-exchange"></i></a>
                                     </div>
                                 </div>
@@ -110,10 +120,20 @@
                                     <div class="buttons">
                                         <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>
                                         <!--
-                        -->
-                                        <a class="btn btn-theme btn-theme-transparent btn-icon-left" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+    -->
+                                        @{
+                                            if (newestProduct.Auction == true)
+                                            {
+                                                <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="ProductUser" asp-action="Details" asp-route-id="@newestProduct.ProductId"><i class="fa fa-shopping-cart"></i>Bid Now</a>
+                                            }
+                                            else
+                                            {
+                                                <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@newestProduct.ProductId"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                                            }
+
+                                        }
                                         <!--
-                        -->
+    -->
                                         <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
                                     </div>
                                 </div>
@@ -180,10 +200,20 @@
                         <div class="buttons">
                             <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>
                             <!--
-                            -->
-                            <a class="btn btn-theme btn-theme-transparent" href="#">Add to Cart</a>
+    -->
+                            @{
+                                if (saleProducts.Auction == true)
+                                {
+                                    <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="ProductUser" asp-action="Details" asp-route-id="@saleProducts.ProductId"><i class="fa fa-shopping-cart"></i>Bid Now</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-theme btn-theme-transparent btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@saleProducts.ProductId"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                                }
+
+                            }
                             <!--
-                            -->
+    -->
                             <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
                         </div>
                     </div>
