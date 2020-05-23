@@ -29,7 +29,7 @@ namespace eProject.Areas.Admin.Controllers
             List<Category> categories = await _applicationDbContext.Categories.Where(p=>p.Status==true).ToListAsync();
             return View(categories);
         }
-
+        
         [HttpGet]
         [Route("Create")]
         public IActionResult Create()

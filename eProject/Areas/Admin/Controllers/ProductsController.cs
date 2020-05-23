@@ -85,9 +85,8 @@ namespace eProject.Areas.Admin.Controllers
             return RedirectToAction("Index", "Products", new { area = "Admin" });
         }
 
-
         [HttpGet]
-        [Route("edit/{id}")]
+        [Route("Edit/{id}")]
         public ActionResult Edit(int id)
         {
             var productViewModel = new ProductViewModel();
@@ -116,6 +115,7 @@ namespace eProject.Areas.Admin.Controllers
             _applicationDbContext.SaveChanges();
             return RedirectToAction("Index", "Products", new { area = "Admin" });
         }
+
 
         [HttpGet]
         [Route("Delete")]

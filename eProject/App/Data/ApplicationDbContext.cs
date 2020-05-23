@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using eProject.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
