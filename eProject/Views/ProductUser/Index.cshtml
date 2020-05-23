@@ -92,7 +92,7 @@
                                                         else
                                                         {
                                                             <div class="price"><span>Current Price: </span><ins>$ @HotProduct.Price</ins> </div>
-                                                            <div class="price"><span>Staring price: </span><del>$ @HotProduct.SalePrice</del></div>
+                                                            <div class="price"><span>Starting price: </span><del>$ @HotProduct.SalePrice</del></div>
                                                         }
                                                     }
                                                 </div>
@@ -140,7 +140,7 @@
                                                         else
                                                         {
                                                             <div class="price"><span>Current Price: </span><ins>$ @newProducts.Price</ins> </div>
-                                                            <div class="price"><span>Staring price: </span><del>$ @newProducts.SalePrice</del></div>
+                                                            <div class="price"><span>Starting price: </span><del>$ @newProducts.SalePrice</del></div>
                                                         }
                                                     }
                                                 </div>
@@ -188,7 +188,7 @@
                                                         else
                                                         {
                                                             <div class="price"><span>Current Price: </span><ins>$ @saleProducts.Price</ins> </div>
-                                                            <div class="price"><span>Staring price: </span><del>$ @saleProducts.SalePrice</del></div>
+                                                            <div class="price"><span>Starting price: </span><del>$ @saleProducts.SalePrice</del></div>
                                                         }
                                                     }
                                                 </div>
@@ -283,12 +283,12 @@
                                                 else
                                                 {
                                                     <div class="price"><span>Current Price: </span><ins>$ @product.Price</ins> </div>
-                                                    <div class="price"><span>Staring price: </span><del>$ @product.SalePrice</del></div>
+                                                    <div class="price"><span>Starting price: </span><del>$ @product.SalePrice</del></div>
                                                 }
                                             }
 
                                             <div class="buttons">
-                                                <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>
+                                                <a class="btn btn-theme btn-theme-transparent btn-wish-list" asp-controller="WishList" asp-action="Add" asp-route-id="@product.ProductId"><i class="fa fa-heart"></i></a>
                                                 <!--
         -->
                                                 @{
@@ -304,7 +304,7 @@
                                                 }
                                                 <!--
         -->
-                                                <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
+                                                <a class="btn btn-theme btn-theme-transparent btn-compare" asp-controller="Portfolio" asp-action="Add" asp-route-id="@product.ProductId"><i class="fa fa-list-ul"></i></a>
                                             </div>
                                         </div>
                                     </div>

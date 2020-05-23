@@ -91,7 +91,7 @@
                                         <span class="star active"></span>
                                     </div>
                                     <div class="price"><span>Current Price: </span><ins>$ @auctionProducts.Price</ins> </div>
-                                    <div class="price"><span>Staring price: </span><del>$ @auctionProducts.SalePrice</del></div>
+                                    <div class="price"><span>Starting price: </span><del>$ @auctionProducts.SalePrice</del></div>
                                     <div class="buttons">
                                         <a class="btn btn-theme btn-theme-transparent btn-wish-list" asp-controller="WishList" asp-action="Add" asp-route-id="@auctionProducts.ProductId" asp-route-returnController="@Html.ViewContext.RouteData.Values["controller"].ToString()" asp-route-returnAction="@Html.ViewContext.RouteData.Values["action"].ToString()"><i class="fa fa-heart"></i></a>
 
