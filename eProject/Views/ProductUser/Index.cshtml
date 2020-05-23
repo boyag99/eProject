@@ -71,19 +71,30 @@
                                                     <div class="rating">
                                                         <span class="star"></span>
                                                         <!--
-                                                        -->
+        -->
                                                         <span class="star active"></span>
                                                         <!--
-                                                        -->
+        -->
                                                         <span class="star active"></span>
                                                         <!--
-                                                        -->
+        -->
                                                         <span class="star active"></span>
                                                         <!--
-                                                        -->
+        -->
                                                         <span class="star active"></span>
                                                     </div>
-                                                    <div class="price"><ins>$ @HotProduct.Price</ins> <del>$ @HotProduct.SalePrice</del></div>
+                                                    @{
+                                                        if (productInfo.Auction == true)
+                                                        {
+                                                            <div class="price"><span>Sale Price: </span><ins>$ @HotProduct.SalePrice</ins> </div>
+                                                            <div class="price"><span>Price: </span><del>$ @HotProduct.Price</del></div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="price"><span>Current Price: </span><ins>$ @HotProduct.Price</ins> </div>
+                                                            <div class="price"><span>Staring price: </span><del>$ @HotProduct.SalePrice</del></div>
+                                                        }
+                                                    }
                                                 </div>
                                             </div>
                                         }
@@ -108,19 +119,30 @@
                                                     <div class="rating">
                                                         <span class="star"></span>
                                                         <!--
-                                                        -->
+        -->
                                                         <span class="star active"></span>
                                                         <!--
-                                                        -->
+        -->
                                                         <span class="star active"></span>
                                                         <!--
-                                                        -->
+        -->
                                                         <span class="star active"></span>
                                                         <!--
-                                                        -->
+        -->
                                                         <span class="star active"></span>
                                                     </div>
-                                                    <div class="price"><ins>$ @newProducts.Price</ins> <del>$ @newProducts.SalePrice</del></div>
+                                                    @{
+                                                        if (newProducts.Auction == true)
+                                                        {
+                                                            <div class="price"><span>Sale Price: </span><ins>$ @newProducts.SalePrice</ins> </div>
+                                                            <div class="price"><span>Price: </span><del>$ @newProducts.Price</del></div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="price"><span>Current Price: </span><ins>$ @newProducts.Price</ins> </div>
+                                                            <div class="price"><span>Staring price: </span><del>$ @newProducts.SalePrice</del></div>
+                                                        }
+                                                    }
                                                 </div>
                                             </div>
                                         }
@@ -145,19 +167,30 @@
                                                     <div class="rating">
                                                         <span class="star"></span>
                                                         <!--
-                                                        -->
+        -->
                                                         <span class="star active"></span>
                                                         <!--
-                                                        -->
+        -->
                                                         <span class="star active"></span>
                                                         <!--
-                                                        -->
+        -->
                                                         <span class="star active"></span>
                                                         <!--
-                                                        -->
+        -->
                                                         <span class="star active"></span>
                                                     </div>
-                                                    <div class="price"><ins>$ @saleProducts.Price</ins> <del>$ @saleProducts.SalePrice</del></div>
+                                                    @{
+                                                        if (saleProducts.Auction == true)
+                                                        {
+                                                            <div class="price"><span>Sale Price: </span><ins>$ @saleProducts.SalePrice</ins> </div>
+                                                            <div class="price"><span>Price: </span><del>$ @saleProducts.Price</del></div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="price"><span>Current Price: </span><ins>$ @saleProducts.Price</ins> </div>
+                                                            <div class="price"><span>Staring price: </span><del>$ @saleProducts.SalePrice</del></div>
+                                                        }
+                                                    }
                                                 </div>
                                             </div>
                                         }
@@ -240,11 +273,24 @@
 
                                                 <span class="star active"></span>
                                             </div>
-                                            <div class="price"><ins>@productInfo.Price</ins> <del>@productInfo.SalePrice</del></div>
+
+                                            @{
+                                                if (productInfo.Auction == true)
+                                                {
+                                                    <div class="price"><span>Sale Price: </span><ins>$ @product.SalePrice</ins> </div>
+                                                    <div class="price"><span>Price: </span><del>$ @product.Price</del></div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="price"><span>Current Price: </span><ins>$ @product.Price</ins> </div>
+                                                    <div class="price"><span>Staring price: </span><del>$ @product.SalePrice</del></div>
+                                                }
+                                            }
+
                                             <div class="buttons">
                                                 <a class="btn btn-theme btn-theme-transparent btn-wish-list" href="#"><i class="fa fa-heart"></i></a>
                                                 <!--
-    -->
+        -->
                                                 @{
                                                     if (productInfo.Auction == true)
                                                     {
@@ -257,7 +303,7 @@
 
                                                 }
                                                 <!--
-    -->
+        -->
                                                 <a class="btn btn-theme btn-theme-transparent btn-compare" href="#"><i class="fa fa-exchange"></i></a>
                                             </div>
                                         </div>

@@ -49,6 +49,9 @@
     <Folder Include="wwwroot\images\abouts\" />
     <Folder Include="Views\Shared\Components\HeaderCart\" />
     <Folder Include="Views\Shared\Components\PopupCart\" />
+    <Folder Include="Areas\Admin\Views\ContactAdmin\" />
+    <Folder Include="Areas\Admin\Views\Review\" />
+    <Folder Include="Areas\Admin\Views\Gateway\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\frontend\assets\css\inc\pagination.less" />

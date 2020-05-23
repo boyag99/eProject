@@ -200,24 +200,27 @@
                             }
                             else
                             {
-                                @foreach (Review review in ViewBag.Reviews)
+                                foreach (Review review in ViewBag.Reviews)
                                 {
-                                    <div class="media comment">
-                                        <a href="#" class="pull-left comment-avatar">
-                                            @if (review.User.ProfileImage is null)
-                                            {
-                                                <img alt="" src="~/backend/dist/img/user2-160x160.jpg" class="media-object">
-                                            }
-                                            else
-                                            {
-                                                <img alt="" src="~/images/users/@review.User.ProfileImage" class="media-object">
-                                            }
-                                        </a>
-                                        <div class="media-body">
-                                            <p class="comment-meta"><span class="comment-author"><a href="#">@review.User.FirstName @review.User.LastName</a> <span class="pull-right comment-date"> @review.Created_At.Day <i class="pull-right fa fa-flag"></i></span></span></p>
-                                            <p class="comment-text">@review.Message</p>
+                                    if (review.Status == Review.ReviewStatus.Approved)
+                                    {
+                                        <div class="media comment">
+                                            <a href="#" class="pull-left comment-avatar">
+                                                @if (review.User.ProfileImage is null)
+                                                {
+                                                    <img alt="" src="~/backend/dist/img/user2-160x160.jpg" class="media-object">
+                                                }
+                                                else
+                                                {
+                                                    <img alt="" src="~/images/users/@review.User.ProfileImage" class="media-object">
+                                                }
+                                            </a>
+                                            <div class="media-body">
+                                                <p class="comment-meta"><span class="comment-author"><a href="#">@review.User.FirstName @review.User.LastName</a> <span class="pull-right comment-date"> @review.Created_At.Day <i class="pull-right fa fa-flag"></i></span></span></p>
+                                                <p class="comment-text">@review.Message</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
                                 }
                             }
 

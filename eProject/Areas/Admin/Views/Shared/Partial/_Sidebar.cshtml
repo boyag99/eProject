@@ -195,6 +195,23 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "ContactAdmin")">
+                    <a href="#" class="nav-link @Html.ActiveMenuLink(actions: null, controllers: "ContactAdmin")">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            Contact Admin
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="ContactAdmin" asp-action="Index" class="nav-link @Html.ActiveMenuLink(actions: "Index", controllers: "ContactAdmin")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List ContactAdmin</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

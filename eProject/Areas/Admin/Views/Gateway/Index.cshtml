@@ -1,0 +1,108 @@
+﻿@model IEnumerable<eProject.Models.Gateway>
+
+@{
+    ViewData["Title"] = "List All Gateways";
+}
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Gateways</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">List All Gateways</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+
+            <div class="card">
+                <div class="card-header">
+                    <a class="btn btn-primary float-right" asp-area="Admin" asp-controller="Gateway" asp-action="Create">Add new gateway</a>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Bank Name</th>
+                                <th>Account Number</th>
+                                <th>Account Name</th>
+                                <th>Branch</th>
+                                <th>Message</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var gateway in Model)
+                            {
+                            <tr>
+                                <td>
+                                    <img src="~/images/gateways/@gateway.Logo" atl/>    
+                                </td>
+                                <td>@gateway.BankName</td>
+                                <td>@gateway.AccountNumber</td>
+                                <td>@gateway.AccountName</td>
+                                <td>@gateway.Branch</td>
+                                <td>@gateway.Message</td>
+                                <td>@gateway.Status</td>
+                                <td></td>
+                            </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>Bank Name</th>
+                                <th>Account Number</th>
+                                <th>Account Name</th>
+                                <th>Branch</th>
+                                <th>Message</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+
+@section Scripts
+{
+    <script>
+$(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });</script>
+}

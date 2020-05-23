@@ -54,7 +54,7 @@ namespace eProject.Models.ViewModels
         {
             get
             {
-                return "/backend/images/users/" + ProfileImage;
+                return "/images/users/" + ProfileImage;
             }
         }
     }
