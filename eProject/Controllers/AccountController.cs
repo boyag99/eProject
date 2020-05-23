@@ -307,5 +307,20 @@ namespace eProject.Controllers
                 await _userManager.AddToRoleAsync(user, role); // add role for user
             }
         }
+
+        [HttpGet]
+        [Route("Payment")]
+        public async Task<IActionResult> Payment()
+        {
+            List<Gateway> gateways = await _applicationDbContext.Gateways.ToListAsync();
+
+            GatewayVM gatewayVM = new GatewayVM
+            {
+                Gateway = new Gateway(),
+                Gateways = gateways
+            };
+
+            return View(gatewayVM);
+        }
     }
 }
