@@ -20,7 +20,6 @@ namespace eProject.Models
 
         public GenderType Gender { get; set; }
 
-        [StringLength(255)]
         public DateTime DateOfBirthDay { get; set; }
 
         [StringLength(255)]
