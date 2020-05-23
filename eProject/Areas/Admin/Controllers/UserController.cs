@@ -256,6 +256,34 @@ namespace eProject.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
+        [Route("Deposit")]
+        public IActionResult Deposit()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route("Deposit")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Deposit(DepositUserRequest depositUserRequest)
+        {
+            User user = await _applicationDbContext.Users.FirstOrDefaultAsync(u => u.Email.Equals(depositUserRequest.Email));
+
+            if(user is null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            if (ModelState.IsValid)
+            {
+                user.Balance += depositUserRequest.Balance;
+
+                await _applicationDbContext.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
 
         private async Task UpdatePassword(User user, string password)
         {
