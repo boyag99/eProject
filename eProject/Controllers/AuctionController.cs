@@ -77,7 +77,7 @@ namespace eProject.Controllers
                     emailUser.Add(item.User.Email);
                 }
 
-                var content = string.Format("Product ID is <a asp-controller='ProductUser' asp-action='Details' asp-route-id='{0}'>#{0}</a> you have a bid higher. Currently bid {1}.", productId, productUserVM.Product.SalePrice);
+                var content = string.Format("Product ID is <a href='/product/details/{0}'>#{0}</a> you have a bid higher. Currently bid {1}.", productId, productUserVM.Product.SalePrice);
                 if (emailUser.Count > 0)
                 {
                     var message = new EmailMessage(emailUser.Distinct(), "Bid Information", content, null);
