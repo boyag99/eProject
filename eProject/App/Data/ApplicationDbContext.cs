@@ -31,6 +31,7 @@ namespace eProject.Data
         public virtual DbSet<WareHouseAddress> WareHouseAddresses { get; set; }
         public virtual DbSet<ContactAdmin> ContactAdmins { get; set; }
         public virtual DbSet<Gateway> Gateways { get; set; }
+        public virtual DbSet<GeneralSetting> GeneralSettings { get; set; }
 
         //public virtual DbSet<Delivery> Delivery { get; set; }
 
@@ -53,6 +54,7 @@ namespace eProject.Data
             modelBuilder.Entity<WareHouseAddress>(entity => { entity.ToTable(name: "WareHouseAddresses"); });
             modelBuilder.Entity<ContactAdmin>(entity => { entity.ToTable(name: "ContactAdmins"); });
             modelBuilder.Entity<Gateway>(entity => { entity.ToTable(name: "Gateways"); });
+            modelBuilder.Entity<GeneralSetting>(entity => { entity.ToTable(name: "GeneralSettings"); });
             modelBuilder.Entity<IdentityRole>(entity => { entity.ToTable(name: "Roles"); });
             modelBuilder.Entity<IdentityUserRole<string>>(entity => { entity.ToTable("UserRoles"); });
             modelBuilder.Entity<IdentityUserClaim<string>>(entity => { entity.ToTable("UserClaims"); });

@@ -31,6 +31,8 @@ namespace eProject.Models
         [StringLength(255)]
         public string Exhibition { get; set; }
 
+        public double Balance { get; set; }
+
         [ForeignKey(nameof(Address))]
         public Guid AddressId { get; set; }
         public virtual Address Address { get; set; }
