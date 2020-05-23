@@ -235,6 +235,15 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "General")">
+                    <a asp-area="Admin" asp-controller="General" asp-action="Index" class="nav-link @Html.ActiveMenuLink(actions: null, controllers: "General")">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            General
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
