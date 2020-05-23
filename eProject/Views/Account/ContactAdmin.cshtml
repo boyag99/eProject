@@ -1,0 +1,50 @@
+﻿@model eProject.Models.ViewModels.ContactAdminRequest
+
+@{
+    ViewData["Title"] = "Contact Admin";
+}
+
+<section class="page-section">
+    <div class="wrap container">
+        <div class="row">
+            <!--start main contain of page-->
+            <div class="col-lg-9 col-md-9 col-sm-8">
+                <div class="information-title">Contact Admin</div>
+                <div class="details-wrap">
+                    <div class="block-title alt"> <i class="fa fa-angle-down"></i> Send message for admin </div>
+                    <div class="details-box">
+                        @if(ViewBag.Message != null)
+                        {
+                            <span class="text-danger">@ViewBag.Message</span>
+                        }
+                        <form class="form-delivery" asp-controller="Account" asp-action="ContactAdmin" method="post">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <textarea asp-for="Message" placeholder="Please enter a message" class="form-control" rows="10" cols="30"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <button class="btn btn-theme btn-theme-dark" type="submit"> Send </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--end main contain of page-->
+            <!--start sidebar-->
+            <div class="col-lg-3 col-md-3 col-sm-4">
+                <div class="widget account-details">
+                    <h2 class="widget-title">Account</h2>
+                    <ul>
+                        @await Html.PartialAsync("./Partial/_Sidebar")
+                    </ul>
+                </div>
+            </div>
+            <!--end sidebar-->
+        </div>
+
+    </div>
+</section>

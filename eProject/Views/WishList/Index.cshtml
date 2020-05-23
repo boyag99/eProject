@@ -1,0 +1,107 @@
+﻿@model IEnumerable<eProject.Models.WishList>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_FrontendLayout.cshtml";
+}
+
+<!-- CONTENT AREA -->
+<div class="content-area">
+
+    <!-- BREADCRUMBS -->
+    <section class="page-section breadcrumbs">
+        <div class="container">
+            <div class="page-header">
+                <h1>Wishlist</h1>
+            </div>
+            <ul class="breadcrumb">
+                <li><a asp-controller="Home" asp-action="index">Home</a></li>
+                <li class="active">Wishlist</li>
+            </ul>
+        </div>
+    </section>
+    <!-- /BREADCRUMBS -->
+    <!-- PAGE -->
+    <section class="page-section color no-padding-bottom">
+        <div class="container">
+
+            <div class="row wishlist">
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Product Name</th>
+                                <th>Unit Price</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (WishList wishList in Model)
+                            {
+                                <tr>
+                                    <td class="image"><a class="media-link" href="#"><i class="fa fa-plus"></i><img style="width:100px" src="~/images/products/@wishList.Product.Photos.FirstOrDefault().Name" alt="" /></a></td>
+                                    <td class="description">
+                                        <h4><a href="#">@wishList.Product.Name</a></h4>
+                                        by @wishList.Product.Category.CategoryName
+                                    </td>
+                                    <td class="price">$@wishList.Product.Price</td>
+                                    <td class="add"><a class="btn btn-theme btn-theme-dark btn-icon-left" asp-controller="Cart" asp-action="Buy" asp-route-id="@wishList.Product.ProductId"><i class="fa fa-shopping-cart"></i> Add to cart</a></td>
+                                    <td class="total"><a asp-controller="WishList" asp-action="remove" asp-route-id="@wishList.WishListId"><i class="fa fa-close"></i></a></td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                    <a class="btn btn-theme btn-theme-transparent btn-icon-left btn-continue-shopping" asp-controller="home"><i class="fa fa-shopping-cart"></i>Continue shopping</a>
+                </div>
+               
+            </div>
+        </div>
+    </section>
+    <!-- /PAGE -->
+    <!-- PAGE -->
+    <section class="page-section no-padding-top">
+        <div class="container">
+            <div class="row blocks shop-info-banners" style="margin-top:30px;">
+                <div class="col-md-4">
+                    <div class="block">
+                        <div class="media">
+                            <div class="pull-right"><i class="fa fa-gift"></i></div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Free Shipping</h4>
+                                Ship around the world
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="block">
+                        <div class="media">
+                            <div class="pull-right"><i class="fa fa-comments"></i></div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Call to Free</h4>
+                                Support 24/7. call number: 1800 1530
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="block">
+                        <div class="media">
+                            <div class="pull-right"><i class="fa fa-trophy"></i></div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Payment</h4>
+                                Credit Card - Paypal - Card
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /PAGE -->
+
+</div>
+<!-- /CONTENT AREA -->

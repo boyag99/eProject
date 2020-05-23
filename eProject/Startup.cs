@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using eProject.App.Extensions;
+using eProject.Service;
+using Newtonsoft.Json;
 
 namespace eProject
 {
@@ -20,10 +22,14 @@ namespace eProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSession();
             services.ConfigureDbContext(Configuration);
             services.ConfigureIdentity();
             services.ConfigureAuthentication();
-            services.AddControllersWithViews();
+            services.AddScoped<IEmailSender, EmailSender>();
+            services.ConfigureEmail(Configuration);
+            services.ConfigureService();
+            services.AddControllersWithViews().AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,13 +42,14 @@ namespace eProject
             }
             else
             {
+
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthentication();

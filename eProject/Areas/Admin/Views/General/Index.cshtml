@@ -1,0 +1,61 @@
+﻿@model eProject.Models.GeneralSetting
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_BackendLayout.cshtml";
+}
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>General</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">List All General</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Registration Artist Cost</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                        <!-- /.card-tools -->
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <form asp-area="Admin" asp-controller="General" asp-action="Edit" method="post" role="form">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+
+                            <div class="form-group">
+                                <label asp-for="RegistrationArtistCost">Registration Cost</label>
+                                <input class="form-control" asp-for="RegistrationArtistCost">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ShippingCost">Shipping Cost</label>
+                                <input class="form-control" asp-for="ShippingCost">
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                                <button type="reset" class="btn btn-warning">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+

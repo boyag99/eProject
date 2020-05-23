@@ -1,0 +1,110 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_BackendLayout.cshtml";
+}
+
+@model eProject.Models.SlideShow
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Slide Show List</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item active">SlideShow List</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <a class="btn btn-primary float-right" asp-area="Admin" asp-controller="SlideShow" asp-action="Add">Add new SlideShow</a>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var slideShow in ViewBag.SlideShows)
+                            {
+                                <tr>
+                                    <td>@slideShow.Id</td>
+                                    <td>
+                                        <img class="w-100" src="~/images/slideshows/@slideShow.Name" />
+                                    </td>
+                                    <td>
+                                        @slideShow.Title
+                                    </td>
+                                    <td>
+                                        @slideShow.Description
+                                    </td>
+                                    <td>
+                                        @if (slideShow.Status == true)
+                                        {
+                                            <span style="color:green;font-weight:bold;">Show</span>
+                                        }
+                                        else
+                                        {
+                                            <span style="color:red;">Hide</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a asp-area="admin" asp-controller="SlideShow"
+                                           asp-action="edit" asp-route-id="@slideShow.Id" class="btn btn-primary">
+                                            <i class="fa fa-wrench" aria-hidden="true"></i>
+                                            Edit
+                                        </a>
+                                        <a asp-area="admin" asp-controller="SlideShow"
+                                           asp-action="delete" asp-route-id="@slideShow.Id"
+                                           onclick="return confirm('Are you sure?')" class="btn btn-danger">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                            Delete
+                                        </a>
+                                    </td>
+                                </tr>
+
+                            }
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->

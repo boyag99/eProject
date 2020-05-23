@@ -20,7 +20,7 @@ namespace eProject.Areas.Admin.Controllers
     [Route("Admin/User")]
     public class UserController : Controller
     {
-        private const string USER_PATH = "backend/images/users";
+        private const string USER_PATH = "images/users";
 
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly UserManager<User> _userManager;
@@ -58,7 +58,7 @@ namespace eProject.Areas.Admin.Controllers
                     StreetAddress = user.Address.StreetAddress,
                     County = user.Address.County,
                     City = user.Address.City,
-                    State = user.Address.State,
+                    Country = user.Address.Country,
                     PostalCode = user.Address.PostalCode
                 });
             }
@@ -98,7 +98,7 @@ namespace eProject.Areas.Admin.Controllers
                     City = storeUserRequest.City,
                     County = storeUserRequest.County,
                     PostalCode = storeUserRequest.PostalCode,
-                    State = storeUserRequest.State
+                    Country = storeUserRequest.Country
                 },
                 ProfileImage = uniqueFileName
             };
@@ -149,7 +149,7 @@ namespace eProject.Areas.Admin.Controllers
                 StreetAddress = user.Address.StreetAddress,
                 County = user.Address.County,
                 City = user.Address.City,
-                State = user.Address.State
+                Country = user.Address.Country
 
             };
 
@@ -188,7 +188,7 @@ namespace eProject.Areas.Admin.Controllers
             user.Address.PostalCode = updateUserRequest.PostalCode;
             user.Address.City = updateUserRequest.City;
             user.Address.County = updateUserRequest.County;
-            user.Address.State = updateUserRequest.State;
+            user.Address.Country = updateUserRequest.Country;
             user.ProfileImage = uniqueImageName ?? userImage;
 
             _applicationDbContext.Users.Update(user);
@@ -256,6 +256,7 @@ namespace eProject.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
         private async Task UpdatePassword(User user, string password)
         {
             if (password != null)
@@ -267,6 +268,8 @@ namespace eProject.Areas.Admin.Controllers
                 }
             }
         }
+
+
 
         private async Task UpdateRole(User user, string role)
         {

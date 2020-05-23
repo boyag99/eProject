@@ -1,0 +1,39 @@
+﻿@{
+    if (ViewBag.Products != null)
+    {
+        foreach (Product product in ViewBag.Products)
+        {
+            <div class="media">
+                <a class="pull-left" href="#"><img class="media-object item-image" src="~/images/products/@product.Photos.FirstOrDefault().Name" alt=""></a>
+                <p class="pull-right item-price">@product.Price</p>
+                <div class="media-body">
+                    <h4 class="media-heading item-title"><a asp-controller="ProductUser" asp-action="Details" asp-route-id="@product.ProductId">1x @product.Name</a></h4>
+                    <p class="item-desc">@product.Description</p>
+                </div>
+            </div>
+        }
+
+        List<Product> products = (List<Product>)ViewBag.Products;
+
+        <div class="media">
+            <p class="pull-right item-price">@products.Sum(p => p.Price)</p>
+            <div class="media-body">
+                <h4 class="media-heading item-title summary">Subtotal</h4>
+            </div>
+        </div>
+
+        <div class="media">
+            <div class="media-body">
+                <div>
+                    <a href="#" class="btn btn-theme btn-theme-dark" data-dismiss="modal">Close</a>
+                    <!--
+    -->
+                    @if (ViewBag.Products.Count > 0)
+                    {
+                        <a asp-controller="Cart" asp-action="Index" class="btn btn-theme btn-theme-transparent btn-call-checkout">Checkout</a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+}

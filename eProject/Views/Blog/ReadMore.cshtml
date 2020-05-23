@@ -1,0 +1,70 @@
+﻿@model eProject.Models.Blog
+@{
+    ViewData["Title"] = "ReadMore";
+    Layout = "~/Views/Shared/_FrontendLayout.cshtml";
+}
+
+<!-- CONTENT AREA -->
+<div class="content-area">
+
+    <!-- BREADCRUMBS -->
+    <section class="page-section breadcrumbs">
+        <div class="container">
+            <div class="page-header">
+                <h1>Blog Post Page</h1>
+            </div>
+            <ul class="breadcrumb">
+                <li><a asp-controller="Home" asp-action="index">Home</a></li>
+                <li class="active">Blog</li>
+            </ul>
+        </div>
+    </section>
+    <!-- /BREADCRUMBS -->
+    <!-- PAGE WITH SIDEBAR -->
+    <section class="page-section with-sidebar">
+        <div class="container">
+                <!-- CONTENT -->
+                <div class="content" id="content">
+
+                   
+                        <!-- Blog posts -->
+                    <article class="post-wrap">
+                        <div class="post-header">
+                            <h2 class="post-title"><a href="#">@Model.Title</a></h2>
+                            <div class="post-meta">By <a href="#">@Model.User.FirstName @Model.User.LastName</a> / @Model.PostedDate </div>
+                        </div>
+
+                        <div class="post-media">
+                            <a href=""><img style="display:block;margin:auto" src="~/images/blogs/@Model.Photo" alt=""></a>
+                        </div>
+
+                        <div class="post-body">
+                            <div class="post-excerpt">
+                                <p>@Html.Raw(@Model.Content)</p>
+                            </div>
+                        </div>
+
+                        <div class="post-footer">
+                            <span class="post-read-more"><a asp-controller="Blog" asp-action="Index" class="btn btn-theme btn-theme-transparent btn-icon-left"><i class="fa fa-file-text-o"></i>Back</a></span>
+
+                        </div>
+                    </article>
+                        <!-- / -->
+
+                        <!-- / -->
+
+
+                        <!-- /Blog posts -->
+                   
+
+
+                </div>
+                <!-- /CONTENT -->
+
+            </div>
+    </section>
+    <!-- /PAGE WITH SIDEBAR -->
+   
+
+</div>
+<!-- /CONTENT AREA -->

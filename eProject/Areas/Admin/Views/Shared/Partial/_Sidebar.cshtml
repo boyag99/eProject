@@ -5,40 +5,18 @@
     <a href="index3.html" class="brand-link">
         <img src="~/backend/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
              style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light">Admin</span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                @{
-                    if (Model.ProfileImage is null)
-                    {
-                        <img src="~/backend/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image" />
-                    }
-                    else
-                    {
-                        <img src="@Model.Picture" class="img-circle elevation-2" alt="User Image" />
-                    }
-                }
-            </div>
-            <div class="info">
-                <a href="#" class="d-block">@Model.FullName</a>
-            </div>
-            <div>
-                <a asp-area="Admin" asp-controller="Account" asp-action="Logout" data-original-title="Logout"><i class="fas fa-door-open"></i></a>
-            </div>
-        </div>
-
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
     with font-awesome or any other icon font library -->
-                <li class="nav-item has-treeview menu-open">
-                    <a href="#" class="nav-link @Html.IsSelected(actions: "Index", controllers: "Dashboard")">
+                <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "Dashboard")">
+                    <a href="#" class="nav-link @Html.ActiveMenuLink(actions: "Index", controllers: "Dashboard")">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -47,15 +25,15 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link @Html.IsSelected(actions: "Index", controllers: "Dashboard")">
+                            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link @Html.ActiveMenuLink(actions: "Index", controllers: "Dashboard")">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Dashboard v1</p>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link @Html.IsSelected(actions: null, controllers: "User")">
+                <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "User")">
+                    <a href="#" class="nav-link @Html.ActiveMenuLink(actions: null, controllers: "User")">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
                             Users
@@ -64,13 +42,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a asp-area="Admin" asp-controller="User" asp-action="Index" class="nav-link @Html.IsSelected(actions: "Index", controllers: "User")">
+                            <a asp-area="Admin" asp-controller="User" asp-action="Index" class="nav-link @Html.ActiveMenuLink(actions: "Index", controllers: "User")">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>List All Users</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-area="Admin" asp-controller="User" asp-action="Create" class="nav-link @Html.IsSelected(actions: "Create", controllers: "User")">
+                            <a asp-area="Admin" asp-controller="User" asp-action="Create" class="nav-link @Html.ActiveMenuLink(actions: "Create", controllers: "User")">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Create User Detail</p>
                             </a>
@@ -79,23 +57,23 @@
                 </li>
 
 
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link @Html.IsSelected(actions: null, controllers: "Category")">
+                <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "Category")">
+                    <a href="#" class="nav-link @Html.ActiveMenuLink(actions: null, controllers: "Category")">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
                             Category
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
+                    <ul class="nav nav-treeview @Html.ActiveMenuItem(actions: "Index", controllers: "Category")">
                         <li class="nav-item">
-                            <a asp-area="Admin" asp-controller="Category" asp-action="Index" class="nav-link @Html.IsSelected(actions: "Index", controllers: "Category")">
+                            <a asp-area="Admin" asp-controller="Category" asp-action="Index" class="nav-link @Html.ActiveMenuLink(actions: "Index", controllers: "Category")">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>List All Categories</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-area="Admin" asp-controller="Category" asp-action="Create" class="nav-link @Html.IsSelected(actions: "Create", controllers: "Category")">
+                            <a asp-area="Admin" asp-controller="Category" asp-action="Create" class="nav-link @Html.ActiveMenuLink(actions: "Create", controllers: "Category")">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Create new Category </p>
                             </a>
@@ -103,8 +81,8 @@
                     </ul>
                 </li>
 
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link @Html.IsSelected(actions: null, controllers: "Products")">
+                <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "Products")">
+                    <a href="#" class="nav-link @Html.ActiveMenuLink(actions: null, controllers: "Products")">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
                             Products
@@ -113,13 +91,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a asp-area="Admin" asp-controller="Products" asp-action="Index" class="nav-link @Html.IsSelected(actions: "Index", controllers: "Products")">
+                            <a asp-area="Admin" asp-controller="Products" asp-action="Index" class="nav-link @Html.ActiveMenuLink(actions: "Index", controllers: "Products")">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>List All Products</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-area="Admin" asp-controller="Products" asp-action="Create" class="nav-link @Html.IsSelected(actions: "Create", controllers: "Products")">
+                            <a asp-area="Admin" asp-controller="Products" asp-action="Create" class="nav-link @Html.ActiveMenuLink(actions: "Create", controllers: "Products")">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Create new Product </p>
                             </a>
@@ -127,433 +105,163 @@
                     </ul>
                 </li>
 
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link @Html.IsSelected(actions: null, controllers: "SlideShows")">
+                <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "Order")">
+                    <a href="#" class="nav-link @Html.ActiveMenuLink(actions: null, controllers: "Order")">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
-                            SlideShows
+                            Orders
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a asp-area="Admin" asp-controller="SlideShows" asp-action="Index" class="nav-link @Html.IsSelected(actions: "Index", controllers: "SlideShows")">
+                            <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="nav-link @Html.ActiveMenuLink(actions: "Index", controllers: "Order")">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>List All Slides</p>
+                                <p>List All Orders</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+              
+                <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "About")">
+                    <a href="#" class="nav-link @Html.ActiveMenuLink(actions: null, controllers: "About")">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            About Content
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="About" asp-action="Index" class="nav-link @Html.ActiveMenuLink(actions: "Index", controllers: "About")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List About Content</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-area="Admin" asp-controller="SlideShows" asp-action="Create" class="nav-link @Html.IsSelected(actions: "Create", controllers: "SlideShows")">
+                            <a asp-area="Admin" asp-controller="About" asp-action="Create" class="nav-link @Html.ActiveMenuLink(actions: "Create", controllers: "About")">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Create new Slide</p>
+                                <p>Create new content </p>
                             </a>
                         </li>
                     </ul>
                 </li>
 
-                @*<li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-tree"></i>
-                <p>
-                    UI Elements
-                    <i class="fas fa-angle-left right"></i>
-                </p>
-            </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="pages/UI/general.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>General</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/UI/icons.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Icons</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/UI/buttons.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Buttons</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/UI/sliders.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Sliders</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/UI/modals.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Modals & Alerts</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/UI/navbar.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Navbar & Tabs</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/UI/timeline.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Timeline</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/UI/ribbons.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Ribbons</p>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-edit"></i>
-                <p>
-                    Forms
-                    <i class="fas fa-angle-left right"></i>
-                </p>
-            </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="pages/forms/general.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>General Elements</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/forms/advanced.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Advanced Elements</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/forms/editors.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Editors</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/forms/validation.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Validation</p>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-table"></i>
-                <p>
-                    Tables
-                    <i class="fas fa-angle-left right"></i>
-                </p>
-            </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="pages/tables/simple.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Simple Tables</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/tables/data.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>DataTables</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/tables/jsgrid.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>jsGrid</p>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="nav-header">EXAMPLES</li>
-        <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
-                <i class="nav-icon far fa-calendar-alt"></i>
-                <p>
-                    Calendar
-                    <span class="badge badge-info right">2</span>
-                </p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
-                <i class="nav-icon far fa-image"></i>
-                <p>
-                    Gallery
-                </p>
-            </a>
-        </li>
-        <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-                <i class="nav-icon far fa-envelope"></i>
-                <p>
-                    Mailbox
-                    <i class="fas fa-angle-left right"></i>
-                </p>
-            </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="pages/mailbox/mailbox.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Inbox</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/mailbox/compose.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Compose</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/mailbox/read-mail.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Read</p>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                    Pages
-                    <i class="fas fa-angle-left right"></i>
-                </p>
-            </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="pages/examples/invoice.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Invoice</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/profile.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Profile</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/e-commerce.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>E-commerce</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/projects.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Projects</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/project-add.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Project Add</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/project-edit.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Project Edit</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/project-detail.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Project Detail</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/contacts.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Contacts</p>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-                <i class="nav-icon far fa-plus-square"></i>
-                <p>
-                    Extras
-                    <i class="fas fa-angle-left right"></i>
-                </p>
-            </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="pages/examples/login.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Login</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/register.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Register</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/forgot-password.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Forgot Password</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/recover-password.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Recover Password</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/lockscreen.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Lockscreen</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Legacy User Menu</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/language-menu.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Language Menu</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/404.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Error 404</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/500.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Error 500</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/pace.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Pace</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/examples/blank.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Blank Page</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="starter.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Starter Page</p>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="nav-header">MISCELLANEOUS</li>
-        <li class="nav-item">
-            <a href="https://adminlte.io/docs/3.0" class="nav-link">
-                <i class="nav-icon fas fa-file"></i>
-                <p>Documentation</p>
-            </a>
-        </li>
-        <li class="nav-header">MULTI LEVEL EXAMPLE</li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="fas fa-circle nav-icon"></i>
-                <p>Level 1</p>
-            </a>
-        </li>
-        <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-circle"></i>
-                <p>
-                    Level 1
-                    <i class="right fas fa-angle-left"></i>
-                </p>
-            </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Level 2</p>
-                    </a>
-                </li>
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
+
+                <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "Blog")">
+                    <a href="#" class="nav-link @Html.ActiveMenuLink(actions: null, controllers: "Blog")">
+                        <i class="nav-icon fas fa-copy"></i>
                         <p>
-                            Level 2
-                            <i class="right fas fa-angle-left"></i>
+                            Blog Content
+                            <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-dot-circle nav-icon"></i>
-                                <p>Level 3</p>
+                            <a asp-area="Admin" asp-controller="Blog" asp-action="Index" class="nav-link @Html.ActiveMenuLink(actions: "Index", controllers: "Blog")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List Blog Content</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-dot-circle nav-icon"></i>
-                                <p>Level 3</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-dot-circle nav-icon"></i>
-                                <p>Level 3</p>
+                            <a asp-area="Admin" asp-controller="Blog" asp-action="Create" class="nav-link @Html.ActiveMenuLink(actions: "Create", controllers: "Blog")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create new content </p>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Level 2</p>
+
+                <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "Contact")">
+                    <a asp-area="Admin" asp-controller="Contact" asp-action="Index" class="nav-link @Html.ActiveMenuLink(actions: null, controllers: "Contact")">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            Contact
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
                     </a>
                 </li>
-            </ul>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="fas fa-circle nav-icon"></i>
-                <p>Level 1</p>
-            </a>
-        </li>
-        <li class="nav-header">LABELS</li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="nav-icon far fa-circle text-danger"></i>
-                <p class="text">Important</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="nav-icon far fa-circle text-warning"></i>
-                <p>Warning</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="nav-icon far fa-circle text-info"></i>
-                <p>Informational</p>
-            </a>
-        </li>*@
+                <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "WareHouseAddress")">
+                    <a asp-area="Admin" asp-controller="WareHouseAddress" asp-action="Index" class="nav-link @Html.ActiveMenuLink(actions: null, controllers: "WareHouseAddress")">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            WareHouseAddress
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "SlideShow")">
+                    <a href="#" class="nav-link @Html.ActiveMenuLink(actions: null, controllers: "SlideShow")">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            SlideShow
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="SlideShow" asp-action="Index" class="nav-link @Html.ActiveMenuLink(actions: "Index", controllers: "SlideShow")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List SlideShow</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="SlideShow" asp-action="Add" class="nav-link @Html.ActiveMenuLink(actions: "Add", controllers: "SlideShow")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create new SlideShow </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "ContactAdmin")">
+                    <a href="#" class="nav-link @Html.ActiveMenuLink(actions: null, controllers: "ContactAdmin")">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            Contact Admin
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="ContactAdmin" asp-action="Index" class="nav-link @Html.ActiveMenuLink(actions: "Index", controllers: "ContactAdmin")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List ContactAdmin</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "Gateway")">
+                    <a href="#" class="nav-link @Html.ActiveMenuLink(actions: null, controllers: "Gateway")">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            Gateway
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="Gateway" asp-action="Index" class="nav-link @Html.ActiveMenuLink(actions: "Index", controllers: "Gateway")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List Gateway</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="Gateway" asp-action="Add" class="nav-link @Html.ActiveMenuLink(actions: "Add", controllers: "Gateway")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create new Gateway </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "General")">
+                    <a asp-area="Admin" asp-controller="General" asp-action="Index" class="nav-link @Html.ActiveMenuLink(actions: null, controllers: "General")">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            General
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

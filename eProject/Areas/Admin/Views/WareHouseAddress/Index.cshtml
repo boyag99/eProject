@@ -1,0 +1,75 @@
+﻿@model eProject.Models.WareHouseAddress
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_BackendLayout.cshtml";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>WareHouseAddress</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active"> WareHouseAddress Information</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">WareHouseAddress Information</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form asp-area="Admin" asp-controller="WareHouseAddress" asp-action="Edit" method="post" role="form">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="WareHouseId">StreetAddress</label>
+                            <input class="form-control" asp-for="StreetAddress">
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="CompanyName">CompanyName</label>
+                            <textarea class="form-control" asp-for="CompanyName"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="StreetAddress">StreetAddress</label>
+                            <input class="form-control" asp-for="StreetAddress">
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="PostalCode">PostalCode</label>
+                            <textarea class="form-control" asp-for="PostalCode"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="PhoneNumber">PhoneNumber</label>
+                            <textarea class="form-control" asp-for="PhoneNumber"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email">Email</label>
+                            <textarea class="form-control" asp-for="Email"></textarea>
+                        </div>
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="reset" class="btn btn-warning">Reset</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

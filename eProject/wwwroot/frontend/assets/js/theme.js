@@ -284,15 +284,6 @@ jQuery(document).ready(function () {
             });
         }
     }
-    // countdown
-    // ---------------------------------------------------------------------------------------
-    if ($().countdown) {
-        var austDay = new Date();
-        austDay = new Date(austDay.getFullYear() + 1, 1 - 1, 26);
-        $('#dealCountdown1').countdown({until: austDay});
-        $('#dealCountdown2').countdown({until: austDay});
-        $('#dealCountdown3').countdown({until: austDay});
-    }
     // Google map
     // ---------------------------------------------------------------------------------------
     if (typeof google === 'object' && typeof google.maps === 'object') {
@@ -320,23 +311,23 @@ jQuery(document).ready(function () {
     }
     // Price range / need jquery ui
     // ---------------------------------------------------------------------------------------
-    if ($.ui) {
-        if ($(priceSliderRange).length) {
-            $(priceSliderRange).slider({
-                range: true,
-                min: 0,
-                max: 500,
-                values: [75, 300],
-                slide: function (event, ui) {
-                    $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-                }
-            });
-            $("#amount").val(
-                "$" + $("#slider-range").slider("values", 0) +
-                " - $" + $("#slider-range").slider("values", 1)
-            );
-        }
-    }
+    //if ($.ui) {
+    //    if ($(priceSliderRange).length) {
+    //        $(priceSliderRange).slider({
+    //            range: true,
+    //            min: 0,
+    //            max: 500,
+    //            values: [75, 300],
+    //            slide: function (event, ui) {
+    //                $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+    //            }
+    //        });
+    //        $("#amount").val(
+    //            "$" + $("#slider-range").slider("values", 0) +
+    //            " - $" + $("#slider-range").slider("values", 1)
+    //        );
+    //    }
+    //}
     // Shop categories widget slide in/out
     // ---------------------------------------------------------------------------------------
     $('.shop-categories .arrow').click(

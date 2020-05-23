@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_BackendLayout.cshtml";
+}
+
+@using eProject.Areas.Admin.Models;
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Photo of @ViewBag.Product.Name</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Product List</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Photo List</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Photo</th>
+                                <th>Status</th>
+                                <th>Featured</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var photo in ViewBag.Photos)
+                            {
+                                <tr>
+                                    <td>@photo.PhotoId</td>
+                                    <td><img src="~/images/products/@photo.Name" width="120" /></td>
+                                    <td>
+                                        @if (photo.Status == true)
+                                        {
+                                            <span style="color:green;font-weight:bold;">Show</span>
+                                        }
+                                        else
+                                        {
+                                            <span style="color:red;">Hide</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (photo.Featured == false)
+                                        {
+                                            <a asp-area="admin" asp-controller="Photo" asp-action="SetFeatured" asp-route-id="@photo.PhotoId" asp-route-productId="@photo.ProductId">Set Featured</a>
+                                        }
+                                        else
+                                        {
+                                            <span style="font-weight:bold;">Featured</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a asp-area="admin" asp-controller="Photo"
+                                           asp-action="edit" asp-route-id="@photo.PhotoId" asp-route-productId="@photo.ProductId" class="btn btn-primary">
+                                            <i class="fa fa-wrench" aria-hidden="true"></i>
+                                            Edit
+                                        </a>
+                                        @if (!photo.Featured)
+                                        {
+                                            <a asp-area="admin" asp-controller="Photo"
+                                               asp-action="delete" asp-route-id="@photo.PhotoId" asp-route-productId="@photo.ProductId"
+                                               onclick="return confirm('Are you sure?')" class="btn btn-danger">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                Delete
+                                            </a>
+                                        }
+
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Id</th>
+                                <th>Photo</th>
+                                <th>Status</th>
+                                <th>Featured</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->

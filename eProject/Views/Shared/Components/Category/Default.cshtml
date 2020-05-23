@@ -1,0 +1,21 @@
+﻿@using eProject.Models
+
+<!-- widget shop categories -->
+<div class="widget shop-categories">
+    <h4 class="widget-title">Categories</h4>
+    <div class="widget-content">
+        <ul>
+            @foreach (var category in Model)
+            {
+                @if (category.Status)
+                {
+                    <li>
+                        @*<span class="arrow"><i class="fa fa-angle-down"></i></span>*@
+                        <a asp-controller="ProductUser" asp-action="category" asp-route-id="@category.CategoryId">@category.CategoryName</a>
+                    </li>
+                }
+            }
+            </ul>
+    </div>
+</div>
+<!-- /widget shop categories -->

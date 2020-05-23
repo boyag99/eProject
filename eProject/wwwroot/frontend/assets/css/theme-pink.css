@@ -95,7 +95,9 @@ a:hover .btn-play,
     border-top: solid 10px #ec005f;   
 }
 .main-slider .caption-subtitle {    
-    color: #ec005f;   
+    color: #ec005f;
+    width:100%;
+    background-color: rgba(0,0,0,0.3)
 }
 .main-slider .btn-theme:hover {
     border-color: #ec005f;

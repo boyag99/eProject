@@ -6,7 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using eProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using eProject.Data;
+using eProject.Areas.Admin.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace eProject.Areas.Admin.Controllers
 {
@@ -27,9 +30,14 @@ namespace eProject.Areas.Admin.Controllers
         [Route("Index")]
         public IActionResult Index()
         {
-            List<Product> data = _applicationDbContext.Products.ToList();
-            return View(data);
-            
+            ViewBag.Products = _applicationDbContext.Products
+                .Include(p=>p.Photos)
+                .Include(p => p.Category)
+                .Include(p => p.User)
+                .ToList();
+
+            var data = ViewBag.Products;
+            return View();
         }
 
 
@@ -37,45 +45,44 @@ namespace eProject.Areas.Admin.Controllers
         [Route("Create")]
         public IActionResult Create()
         {
-           var productViewModel = new ProductViewModel();
+            var productViewModel = new ProductViewModel();
             productViewModel.Product = new Product();
             productViewModel.Categories = new List<SelectListItem>();
             var categories = _applicationDbContext.Categories.ToList();
-            foreach(var category in categories)
+            foreach (var category in categories)
             {
-                var group = new SelectListGroup { Name = category.Name };
-                if(category.InverseParent !=null && category.InverseParent.Count > 0)
+                var selectListItem = new SelectListItem
                 {
-                    foreach (var subCategory in category.InverseParent)
-                    {
-                        var selectListItem = new SelectListItem
-                        {
-                            Text = subCategory.Name,
-                            Value = subCategory.Id.ToString(),
-                            Group = group
-                        };
-                        productViewModel.Categories.Add(selectListItem);
-                    }
-                }
+                    Text = category.CategoryName,
+                    Value = category.CategoryId.ToString(),
+                };
+               productViewModel.Categories.Add(selectListItem);      
             }
-            return View(productViewModel);
+            return View("Create", productViewModel);
         }
 
         [HttpPost]
         [Route("Create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Product product)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await _userManager.GetUserAsync(User);
-                product.UserId = user.Id;
-                _applicationDbContext.Products.Add(product);
-                _applicationDbContext.SaveChanges();
 
-                return RedirectToAction("Index", "Products", new { area = "Admin" });
-            }
-            return View(product);
+        public async Task<IActionResult> Create(ProductViewModel productViewModel)
+        {
+            User user = await _userManager.GetUserAsync(User);
+            productViewModel.Product.UserId = user.Id;
+            _applicationDbContext.Products.Add(productViewModel.Product);
+            _applicationDbContext.SaveChanges();
+
+            //Create default photo for new product
+            var defaultPhoto = new Photo
+            {
+                Name = "no-image.jpg",
+                Status = true,
+                ProductId = productViewModel.Product.ProductId,
+                Featured = true
+            };
+            _applicationDbContext.Photos.Add(defaultPhoto);
+            _applicationDbContext.SaveChanges();
+            return RedirectToAction("Index", "Products", new { area = "Admin" });
         }
 
         [HttpGet]
@@ -88,34 +95,25 @@ namespace eProject.Areas.Admin.Controllers
             var categories = _applicationDbContext.Categories.ToList();
             foreach (var category in categories)
             {
-                var group = new SelectListGroup { Name = category.Name };
-                if (category.InverseParent != null && category.InverseParent.Count > 0)
+                var selectListItem = new SelectListItem
                 {
-                    foreach (var subCategory in category.InverseParent)
-                    {
-                        var selectListItem = new SelectListItem
-                        {
-                            Text = subCategory.Name,
-                            Value = subCategory.Id.ToString(),
-                            Group = group
-                        };
-                        productViewModel.Categories.Add(selectListItem);
-                    }
-                }
+                    Text = category.CategoryName,
+                    Value = category.CategoryId.ToString(),
+                };
+                productViewModel.Categories.Add(selectListItem);
             }
             return View("Edit", productViewModel);
         }
 
-
-
-
         [HttpPost]
-        [Route("Edit")]
-        public IActionResult Edit(ProductViewModel productViewModel)
+        [Route("edit/{id}")]
+        public async Task<IActionResult> Edit(int id, ProductViewModel productViewModel)
         {
+            User user = await _userManager.GetUserAsync(User);
+            productViewModel.Product.UserId = user.Id;
             _applicationDbContext.Entry(productViewModel.Product).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             _applicationDbContext.SaveChanges();
-            return RedirectToAction("Index", "Products", new { area = "admin" });
+            return RedirectToAction("Index", "Products", new { area = "Admin" });
         }
 
 
@@ -124,18 +122,13 @@ namespace eProject.Areas.Admin.Controllers
         public IActionResult Delete(int id)
         {
             Product product = _applicationDbContext.Products.SingleOrDefault(p => p.ProductId == id);
-            if ( product!= null)
+            if (product != null)
             {
                 _applicationDbContext.Products.Remove(product);
                 _applicationDbContext.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-
             return RedirectToAction(nameof(Index));
         }
-
-
-      
-
     }
 }

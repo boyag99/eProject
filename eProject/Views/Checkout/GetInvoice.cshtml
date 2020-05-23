@@ -1,0 +1,160 @@
+﻿
+@{
+    ViewData["Title"] = "GetInvoice";
+}
+
+
+    <div class="content-area">
+
+        <!-- BREADCRUMBS -->
+        <section class="page-section breadcrumbs">
+            <div class="container">
+                <div class="page-header">
+                    <h1>INVOICE</h1>
+                </div>
+                <ul class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Pages</a></li>
+                    <li class="active">Invoice</li>
+                </ul>
+            </div>
+        </section>
+        <!-- /BREADCRUMBS -->
+        <!-- PAGE -->
+        <section class="page-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h2 class="block-title"><span>From</span></h2>
+                        <address>
+                            <b>@ViewBag.WareHouseAddress.CompanyName</b><br>
+                            @ViewBag.WareHouseAddress.StreetAddress<br>
+                            @ViewBag.WareHouseAddress.City @ViewBag.WareHouseAddress.PostalCode, @ViewBag.WareHouseAddress.Country <br />
+                            Phone: @ViewBag.WareHouseAddress.PhoneNumber<br>
+                            Email: @ViewBag.WareHouseAddress.Email
+                        </address>
+                    </div>
+                    <div class="col-md-4">
+                        <h2 class="block-title"><span>To</span></h2>
+                        @{
+                            if (ViewBag.Invoice.Address != null)
+                            {
+                                                <address>
+                                                    @ViewBag.Invoice.FirstName @ViewBag.Invoice.LastName<br>
+                                                    @ViewBag.Invoice.Address.StreetAddress<br>
+                                                    @ViewBag.Invoice.Address.City @ViewBag.Invoice.Address.PostalCode,  @ViewBag.Invoice.Address.Country<br>
+                                                    Phone: @ViewBag.Invoice.PhoneNumber<br>
+                                                    Email: @ViewBag.Invoice.Email
+                                                </address>
+                            }
+                            else
+                            {
+                                <address>
+                                    @ViewBag.Invoice.FirstName @ViewBag.Invoice.LastName<br>
+                                    @ViewBag.Invoice.StreetAddress<br>
+                                    @ViewBag.Invoice.City @ViewBag.Invoice.PostalCode, @ViewBag.Invoice.Country<br>
+                                    Phone: @ViewBag.Invoice.PhoneNumber<br>
+                                    Email: @ViewBag.Invoice.Email
+                                </address>
+                            }
+                        }
+                    </div>
+                    <div class="col-md-4">
+                        <h2 class="block-title"><span>Invoice Information</span></h2>
+                        <address>
+                            795 Folsom Ave, Suite 600<br>
+                            San Francisco, CA 94107<br>
+                            Phone: (804) 123-5432<br>
+                            Email: info@almasaeedstudio.com
+                        </address>
+                    </div>
+                </div>
+                <!-- Table row -->
+                <div class="row">
+                    <div class="col-12 table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Product</th>
+                                    <th>Type</th>
+                                    <th>Artist</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (Product product in ViewBag.Products)
+                                {
+                                <tr>
+                                    <td>@product.ProductId</td>
+                                    <td>@product.Name</td>
+                                    <td>@product.Category.CategoryName</td>
+                                    <td>@product.User.FirstName @product.User.LastName</td>
+                                    @if (product.Auction is false)
+                                    {
+                                        <td>@product.Price</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@product.SalePrice</td>
+                                    }
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <p class="lead">Invoice Date @DateTime.Now</p>
+
+                        <div class="table-responsive">
+                            @{
+                                List<Product> products = (List< Product>)ViewBag.Products;
+
+
+                                <table class="table">
+                                    <tr>
+                                        <th style="width:50%">Subtotal:</th>
+                                        <td>@products.Sum(p => p.Price)</td>
+                                    </tr>
+                                   
+                                    <tr>
+                                        <th>Shipping:</th>
+                                        <td>$0.00</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total:</th>
+                                        <td>@products.Sum(p => p.Price)</td>
+                                    </tr>
+                                </table>
+                            }
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+                <!-- this row will not appear when printing -->
+                <div class="row no-print">
+                    <div class="col-12">
+                        <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+                        <button type="button" class="btn btn-success float-right">
+                            <i class="fa fa-credit-card"></i> Ok
+                        </button>
+                        <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                            <i class="fa fa-download"></i> Generate PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /PAGE -->
+
+    </div>
+        
+
+        
+

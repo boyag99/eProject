@@ -1,0 +1,103 @@
+﻿@model IEnumerable<eProject.Models.Invoice>
+
+@{
+    ViewData["Title"] = "List All Users";
+}
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Orders</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">List All Orders</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+
+            <div class="card">
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <td>Order</td>
+                                <td>Order Total</td>
+                                <td>Customer</td>
+                                <td>Date</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Invoice order in Model)
+                            {
+                                <tr>
+                                    <td><a asp-controller="Order" asp-action="Invoice" asp-route-id="@order.Id">@order.Id</a></td>
+                                    <td>@order.OrderDetails.Sum(o => o.Price)</td>
+                                    @{
+                                        if (order.BuyerId is null)
+                                        {
+                                            <td>@order.ShippingAddress.FirstName @order.ShippingAddress.LastName</td>
+                                        }
+                                        else
+                                        {
+                                            <td><a href="#">@ViewBag.Buyer.FirstName @ViewBag.Buyer.LastName</a></td>
+                                        }
+                                    }
+                                    <td>@order.Created</td>
+                                    <td></td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Order</th>
+                                <th>Order Total</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+
+@section Scripts
+{
+    <script>
+$(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });</script>
+}

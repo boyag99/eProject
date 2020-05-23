@@ -1,0 +1,32 @@
+﻿@using eProject.App.Helpers
+
+@{
+    Layout = null;
+}
+
+@if (User.IsInRole("Customer"))
+{
+    <li class="@Html.ActiveMenuLink(actions: "AccountInformation", controllers: "Account")"><a asp-controller="Account" asp-action="AccountInformation"> Account Information </a></li>
+    <li class="@Html.ActiveMenuLink(actions: "Index", controllers: "Account")"><a asp-controller="Account" asp-action="Index">My Account</a></li>
+    <li class="@Html.ActiveMenuLink(actions: "ChangePassword", controllers: "Account")"><a asp-controller="Account" asp-action="ChangePassword">Change Password</a></li>
+    <li class="@Html.ActiveMenuLink(actions: "AddressBook", controllers: "Account")"><a asp-controller="Account" asp-action="AddressBook">Address Books</a></li>
+    <li><a asp-controller="Account" asp-action="OrderHistory">Order History</a></li>
+    <li><a href="review-rating.html">Reviews and Ratings</a></li>
+    <li><a href="return.html">Returns Requests</a></li>
+    <li class="@Html.ActiveMenuLink(actions: "Artist", controllers: "Account")"><a asp-controller="Account" asp-action="Artist">Artist Management</a></li>
+    <li><a href="myaccount-leftsidebar.html">Left Sidebar</a></li>
+}
+else
+{
+    <li class="@Html.ActiveMenuLink(actions: "AccountInformation", controllers: "Account")"><a asp-controller="Account" asp-action="AccountInformation"> Account Information </a></li>
+    <li class="@Html.ActiveMenuLink(actions: "Index", controllers: "Account")"><a asp-controller="Account" asp-action="Index">My Account</a></li>
+    <li class="@Html.ActiveMenuLink(actions: "ChangePassword", controllers: "Account")"><a asp-controller="Account" asp-action="ChangePassword">Change Password</a></li>
+    <li class="@Html.ActiveMenuLink(actions: "AddressBook", controllers: "Account")"><a asp-controller="Account" asp-action="AddressBook">Address Books</a></li>
+    <li><a asp-controller="Account" asp-action="OrderHistory">Order History</a></li>
+    <li><a href="review-rating.html">Reviews and Ratings</a></li>
+    <li><a href="return.html">Returns Requests</a></li>
+    <li class="@Html.ActiveMenuLink(actions: "Artist", controllers: "Account")"><a asp-controller="Account" asp-action="Artist">Artist Management</a></li>
+    <li><a href="myaccount-leftsidebar.html">Left Sidebar</a></li>
+}
+<li class="@Html.ActiveMenuLink(actions: "ContactAdmin", controllers: "Account")"><a asp-controller="Account" asp-action="ContactAdmin">Contact Admin</a></li>
+<li class="@Html.ActiveMenuLink(actions: "Payment", controllers: "Account")"><a asp-controller="Account" asp-action="ContactAdmin">Payment Management</a></li>

@@ -4,6 +4,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_BackendLayout.cshtml";
 }
 
+<h1>Edit new Product</h1>
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
@@ -27,74 +28,62 @@
         <!-- general form elements -->
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Edit Product</h3>
+                <h3 class="card-title">Product information</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form asp-area="Admin" asp-controller="Products" asp-action="Edit" role="form">
-
-                <div asp-validation-summary="All" class="text-danger"></div>
+            <form method="post" asp-area="Admin" asp-controller="Products" asp-action="edit">
                 <div class="card-body">
-                    <div>
-                        <input type="hidden" asp-for="Product.ProductId" />
+
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" asp-for="Product.Name" required>
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="Product.Name"></label>
-                        <input class="form-control" asp-for="Product.Name" required="required" type="text">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputFile">Photo</label>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile" name="photo" accept="image/*">
-                                <label class="custom-file-label" for="exampleInputFile">Photo</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="Product.Price"></label>
-                        <input class="form-control" asp-for="Product.Price" required="required" type="number" min="0">
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="Product.SalePrice"></label>
-                        <input class="form-control" asp-for="Product.SalePrice" required="required" type="number" min="0">
-                    </div>
-
-                    @*<div class="form-group">
-                            <label asp-for="Product.UserId"></label>
-                            <select asp-for="Product.UserId" asp-items="@Model.Users" class="form-control">
-                            </select>
-                        </div>*@
-
-                    <div class="form-group">
-                        <label>Category</label>
-                        <select asp-for="Product.CategoryId" asp-items="@Model.Categories" class="form-control">
-                        </select>
-
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="Product.Description"></label>
+                        <label>Description</label>
                         <textarea class="form-control" rows="3" asp-for="Product.Description"></textarea>
                     </div>
 
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" asp-for="Product.Status">
-                        <label asp-for="Product.Status"></label>
+                    <div class="form-group">
+                        <label>Price</label>
+                        <input type="number" class="form-control" asp-for="Product.Price" min="0" required>
+                    </div>
 
+                    <div class="form-group">
+                        <label>Sale Price</label>
+                        <input type="number" class="form-control" asp-for="Product.SalePrice" min="0" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="number" class="form-control" asp-for="Product.Quantity" min="0" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select class="form-control" asp-for="Product.CategoryId" asp-items="Model.Categories"></select>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="checkbox" asp-for="Product.Status">
+                        <label class="form-check-label" for="checkbox">Status</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="checkbox1" asp-for="Product.Featured">
+                        <label class="form-check-label" for="checkbox1">Featured</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="checkbox1" asp-for="Product.Auction">
+                        <label class="form-check-label" for="checkbox1">Auction</label>
                     </div>
                 </div>
                 <!-- /.card-body -->
-
-                <div class="col-lg-12">
-                    <button type="submit" class="btn btn-primary">Create</button>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <input type="hidden" asp-for="Product.ProductId" />
                 </div>
             </form>
         </div>
-    </div><!-- /.container-fluid -->
+    </div>
 </section>
-<!-- /.content -->

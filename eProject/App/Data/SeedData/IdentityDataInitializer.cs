@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using eProject.Models;
 using Microsoft.AspNetCore.Identity;
 
@@ -19,34 +20,97 @@ namespace eProject.App.Data.SeedData
         {
 
             if (userManager.FindByNameAsync
-            ("admin@gmail.com").Result == null)
+            ("admin@gmail.com").Result == null &&
+            userManager.FindByNameAsync
+            ("artist@gmail.com").Result == null &&
+            userManager.FindByNameAsync
+            ("customer@gmail.com").Result == null)
             {
-                User user = new User
+
+                List<User> users = new List<User>
                 {
-                    FirstName = "Trinh Hao",
-                    LastName = "Hiep",
-                    UserName = "admin@gmail.com",
-                    Email = "admin@gmail.com",
-                    PhoneNumber = "0909090909",
-                    Gender = User.GenderType.Male,
-                    DateOfBirthDay = new DateTime(1999, 7, 26),
-                    Address = new Address
+                    new User
                     {
-                        StreetAddress = "123 Pham Hung",
-                        PostalCode = "80000",
-                        City = "Ho Chi Minh",
-                        County = "Binh Chanh",
-                        State = "Viet Nam"
+                        FirstName = "To Dao",
+                        LastName = "Viet Hoang",
+                        UserName = "customer@gmail.com",
+                        Email = "customer@gmail.com",
+                        PhoneNumber = "0909090909",
+                        Gender = User.GenderType.Male,
+                        DateOfBirthDay = new DateTime(1999, 7, 26),
+                        Address = new Address
+                        {
+                            StreetAddress = "123 Pham Hung",
+                            PostalCode = "80000",
+                            City = "Ho Chi Minh",
+                            County = "Binh Chanh",
+                            Country = "Vietnam"
+                        },
+                        EmailConfirmed = true
+                    },
+                    new User
+                    {
+                        FirstName = "Tran Quang",
+                        LastName = "Tuyen",
+                        UserName = "artist@gmail.com",
+                        Email = "artist@gmail.com",
+                        PhoneNumber = "0909090909",
+                        Gender = User.GenderType.Male,
+                        DateOfBirthDay = new DateTime(1999, 7, 26),
+                        Address = new Address
+                        {
+                            StreetAddress = "123 Pham Hung",
+                            PostalCode = "80000",
+                            City = "Ho Chi Minh",
+                            County = "Binh Chanh",
+                            Country = "Vietnam"
+                        },
+                        EmailConfirmed = true
+                    },
+                    new User
+                    {
+                        FirstName = "Trinh Hao",
+                        LastName = "Hiep",
+                        UserName = "admin@gmail.com",
+                        Email = "admin@gmail.com",
+                        PhoneNumber = "0909090909",
+                        Gender = User.GenderType.Male,
+                        DateOfBirthDay = new DateTime(1999, 7, 26),
+                        Address = new Address
+                        {
+                            StreetAddress = "123 Pham Hung",
+                            PostalCode = "80000",
+                            City = "Ho Chi Minh",
+                            County = "Binh Chanh",
+                            Country = "Vietnam"
+                        },
+                        EmailConfirmed = true
                     }
                 };
 
-                IdentityResult result = userManager.CreateAsync(user, "123456!Aa").Result;
-
-                if (result.Succeeded)
+                foreach (var user in users)
                 {
-                    userManager.AddToRoleAsync(user,
-                                        "Admin").Wait();
-                }
+                    IdentityResult result = userManager.CreateAsync(user, "123456!Aa").Result;
+
+                    if (result.Succeeded)
+                    {
+                        switch (user.Email)
+                        {
+                            case "admin@gmail.com":
+                                userManager.AddToRoleAsync(user,
+                                            "Admin").Wait();
+                                break;
+                            case "artist@gmail.com":
+                                userManager.AddToRoleAsync(user,
+                                            "Artist").Wait();
+                                break;
+                            case "customer@gmail.com":
+                                userManager.AddToRoleAsync(user,
+                                            "Customer").Wait();
+                                break;
+                        }
+                    }
+                }   
             }
         }
 
@@ -63,10 +127,10 @@ namespace eProject.App.Data.SeedData
             }
 
             if (!roleManager.RoleExistsAsync
-                ("Artis").Result)
+                ("Artist").Result)
             {
                 IdentityRole role = new IdentityRole();
-                role.Name = "Artis";
+                role.Name = "Artist";
                 IdentityResult roleResult = roleManager.
                 CreateAsync(role).Result;
             }

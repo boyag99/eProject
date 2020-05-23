@@ -1,0 +1,98 @@
+﻿@model eProject.Models.ViewModels.StoreUserRequest
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<!-- PAGE -->
+<section class="page-section color">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3 class="block-title"><span>Register</span></h3>
+                <form asp-controller="Home" asp-action="Register" method="post" class="form-login">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-md-12 hello-text-wrap">
+                            <span class="hello-text text-thin">Hello, welcome to your account</span>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group"><input class="form-control" asp-for="Email" placeholder="Enter email"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group"><input class="form-control" asp-for="Password" placeholder="Enter password"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group"><input class="form-control" asp-for="ConfirmPassword" placeholder="Enter comfirm password"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-theme btn-block btn-theme-dark" type="submit">Register</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-6">
+                <h3 class="block-title"><span>Create New Account</span></h3>
+                <form action="#" class="create-account">
+                    <div class="row">
+                        <div class="col-md-12 hello-text-wrap">
+                            <span class="hello-text text-thin">Create Your Account on Heaven Art</span>
+                        </div>
+                        <div class="col-md-12">
+                            <h3 class="block-title">Signup Today and You'll be able to</h3>
+                            <ul class="list-check">
+                                <li>Online Order Status</li>
+                                <li>See Ready Hot Deals</li>
+                                <li>Love List</li>
+                                <li>Sign up to receive exclusive news and private sales</li>
+                                <li>Quick Buy Stuffs</li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /PAGE -->
+<!-- PAGE -->
+<section class="page-section no-padding-top">
+    <div class="container">
+        <div class="row blocks shop-info-banners" style="margin-top:30px;">
+            <div class="col-md-4">
+                <div class="block">
+                    <div class="media">
+                        <div class="pull-right"><i class="fa fa-gift"></i></div>
+                        <div class="media-body">
+                            <h4 class="media-heading">Free Shipping</h4>
+                            Ship around the world
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="block">
+                    <div class="media">
+                        <div class="pull-right"><i class="fa fa-comments"></i></div>
+                        <div class="media-body">
+                            <h4 class="media-heading">Call to Free</h4>
+                            Support 24/7. call number: 1800 1530
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="block">
+                    <div class="media">
+                        <div class="pull-right"><i class="fa fa-trophy"></i></div>
+                        <div class="media-body">
+                            <h4 class="media-heading">Payment</h4>
+                            Credit Card - Paypal - Card
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /PAGE -->
