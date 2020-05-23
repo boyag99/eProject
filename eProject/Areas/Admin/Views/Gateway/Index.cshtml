@@ -36,7 +36,6 @@
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Logo</th>
                                 <th>Bank Name</th>
                                 <th>Account Number</th>
                                 <th>Account Name</th>
@@ -50,9 +49,6 @@
                             @foreach (var gateway in Model)
                             {
                             <tr>
-                                <td>
-                                    <img style="width: 120px" src="~/images/gateways/@gateway.Logo" atl/>    
-                                </td>
                                 <td>@gateway.BankName</td>
                                 <td>@gateway.AccountNumber</td>
                                 <td>@gateway.AccountName</td>
@@ -71,7 +67,6 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Logo</th>
                                 <th>Bank Name</th>
                                 <th>Account Number</th>
                                 <th>Account Name</th>

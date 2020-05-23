@@ -13,37 +13,36 @@
                 <div class="details-wrap">
                     <div class="block-title alt"> <i class="fa fa-angle-down"></i> Gateways Information </div>
                     <h3 class="text-danger">*Please transfer to the correct content. We will check your payment as soon as possible.</h3>
-                    <div class="details-box">
-                        <div class="col-md-6 col-sm-6">
-
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (Gateway gateway in Model.Gateways)
-                                    {
+                    <div class="details-box" style="margin-top:60px">
+                        <div class="row">
+                            <div class="col-12">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
                                         <tr>
-                                            <td>
-                                                <p class="font-bold">@gateway.BankName</p>
-                                                <center><img src="~/images/gateways/@gateway.Logo" class="img-responsive" alt="Image"></center>
-                                            </td>
-                                            <td style="text-align: left;">
-                                                <p class="font-bold col-pink"> <font color="black">STK: </font>@gateway.AccountNumber</p>
-                                                <p class="font-bold col-pink"> <font color="black">Tên: </font>@gateway.AccountName</p>
-                                                <p class="font-bold col-pink"> <font color="black">Chi Nhánh: </font>@gateway.Branch</p>
-                                                <p class="font-bold col-pink"> <font color="black">ND Chuyển Khoản: </font>@gateway.Message</p>
-                                            </td>
+                                            <th>Bank Name</th>
+                                            <th>Information</th>
                                         </tr>
-                                    }
-                                </tbody>
-                            </table>
-
+                                    </thead>
+                                    <tbody>
+                                        @foreach (Gateway gateway in Model.Gateways)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <p class="font-bold">@gateway.BankName</p>
+                                                </td>
+                                                <td style="text-align: left;">
+                                                    <p class="font-bold col-pink"> <font color="black">Account Number: </font>@gateway.AccountNumber</p>
+                                                    <p class="font-bold col-pink"> <font color="black">Account Name: </font>@gateway.AccountName</p>
+                                                    <p class="font-bold col-pink"> <font color="black">Branch: </font>@gateway.Branch</p>
+                                                    <p class="font-bold col-pink"> <font color="black">Message: </font>@gateway.Message</p>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                   
                 </div>
             </div>
 
@@ -62,3 +61,23 @@
 
     </div>
 </section>
+
+@section scripts {
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": false,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+}
