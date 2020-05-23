@@ -256,6 +256,7 @@ namespace eProject.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
         private async Task UpdatePassword(User user, string password)
         {
             if (password != null)
@@ -267,6 +268,8 @@ namespace eProject.Areas.Admin.Controllers
                 }
             }
         }
+
+
 
         private async Task UpdateRole(User user, string role)
         {

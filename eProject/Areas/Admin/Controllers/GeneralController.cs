@@ -39,6 +39,7 @@ namespace eProject.Areas.Admin.Controllers
             {
                 GeneralSetting currentGeneral = await _applicationDbContext.GeneralSettings.FirstOrDefaultAsync(c => c.GeneralId == 1);
                 currentGeneral.RegistrationArtistCost = general.RegistrationArtistCost;
+                currentGeneral.ShippingCost = general.ShippingCost;
 
                 await _applicationDbContext.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

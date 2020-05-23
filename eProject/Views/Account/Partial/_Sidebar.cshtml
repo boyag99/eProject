@@ -10,7 +10,7 @@
     <li class="@Html.ActiveMenuLink(actions: "Index", controllers: "Account")"><a asp-controller="Account" asp-action="Index">My Account</a></li>
     <li class="@Html.ActiveMenuLink(actions: "ChangePassword", controllers: "Account")"><a asp-controller="Account" asp-action="ChangePassword">Change Password</a></li>
     <li class="@Html.ActiveMenuLink(actions: "AddressBook", controllers: "Account")"><a asp-controller="Account" asp-action="AddressBook">Address Books</a></li>
-    <li><a href="order-history.html">Order History</a></li>
+    <li><a asp-controller="Account" asp-action="OrderHistory">Order History</a></li>
     <li><a href="review-rating.html">Reviews and Ratings</a></li>
     <li><a href="return.html">Returns Requests</a></li>
     <li class="@Html.ActiveMenuLink(actions: "Artist", controllers: "Account")"><a asp-controller="Account" asp-action="Artist">Artist Management</a></li>
@@ -22,7 +22,7 @@ else
     <li class="@Html.ActiveMenuLink(actions: "Index", controllers: "Account")"><a asp-controller="Account" asp-action="Index">My Account</a></li>
     <li class="@Html.ActiveMenuLink(actions: "ChangePassword", controllers: "Account")"><a asp-controller="Account" asp-action="ChangePassword">Change Password</a></li>
     <li class="@Html.ActiveMenuLink(actions: "AddressBook", controllers: "Account")"><a asp-controller="Account" asp-action="AddressBook">Address Books</a></li>
-    <li><a href="order-history.html">Order History</a></li>
+    <li><a asp-controller="Account" asp-action="OrderHistory">Order History</a></li>
     <li><a href="review-rating.html">Reviews and Ratings</a></li>
     <li><a href="return.html">Returns Requests</a></li>
     <li class="@Html.ActiveMenuLink(actions: "Artist", controllers: "Account")"><a asp-controller="Account" asp-action="Artist">Artist Management</a></li>

@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Order Details";
+}
+<section class="page-section">
+    <div class="wrap container">
+        <div class="row">
+            <!--start main contain of page-->
+            <div class="col-md-12">
+                <div class="information-title">Your Order History</div>
+                <div class="details-wrap">
+                    <div class="details-box orders">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Product Name</th>
+                                    <th>Price</th>
+                                    <th>Order ID</th>
+                                    <th>Delivered on</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (OrderDetail orderDetail in ViewBag.OrderDetails)
+                                {
+                                    <tr>
+                                        <td class="image"><a href="#" class="media-link"><i class="fa fa-plus"></i><img alt="" src="~/images/products/@orderDetail.Product.Photos.FirstOrDefault().Name"></a></td>
+                                        <td class="description">
+                                            <h4><a href="#">@orderDetail.Product.Name</a></h4>
+                                            by Category <a href="#">@orderDetail.Product.Category.CategoryName</a>
+                                        </td>
+                                        <td class="total">$@orderDetail.Product.Price </td>
+                                        <td class="order-id"> @orderDetail.InvoiceId </td>
+                                        <td class="diliver-date"> @orderDetail.Invoice.Created </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+
+                        <div>
+                            <a asp-controller="Account" asp-action="Index" class="btn btn-theme"> Back To Account </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end main contain of page-->
+        </div>
+    </div>
+</section>

@@ -21,6 +21,7 @@ namespace eProject.App.Data.SeedData
             SeedContacts(applicationDbContext);
             SeedWareHouseAddress(applicationDbContext);
             SeedAbouts(applicationDbContext);
+            SeedGeneralSettings(applicationDbContext);
         }
 
         private static void SeedCategories(ApplicationDbContext applicationDbContext)
@@ -730,6 +731,19 @@ namespace eProject.App.Data.SeedData
             };
 
             applicationDbContext.About.AddRange(abouts);
+            applicationDbContext.SaveChanges();
+        }
+
+        private static void SeedGeneralSettings(ApplicationDbContext applicationDbContext)
+        {
+            GeneralSetting generalSetting = new GeneralSetting
+            {
+                GeneralId = 1,
+                RegistrationArtistCost = 5,
+                ShippingCost = 5
+            };
+
+            applicationDbContext.GeneralSettings.Add(generalSetting);
             applicationDbContext.SaveChanges();
         }
     }
