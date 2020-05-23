@@ -50,10 +50,10 @@
     <div class="wrapper">
 
         <!-- Navbar -->
-        @await Html.PartialAsync("./Partial/_Navbar")
+        @await Html.PartialAsync("./Partial/_Navbar", userInfo)
         <!-- /.navbar -->
         <!-- Main Sidebar Container -->
-        @await Html.PartialAsync("./Partial/_Sidebar", userInfo)
+        @await Html.PartialAsync("./Partial/_Sidebar")
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">

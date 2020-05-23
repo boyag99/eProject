@@ -28,11 +28,9 @@ namespace eProject.Controllers
         [HttpGet]
         [Route("")]
         [Route("Index")]
-
         public async Task<IActionResult> Index()
         {
             User user = await _userManager.GetUserAsync(User);
-
             List<WishList> wishList = await _applicationDbContext.WishLists
                                                 .Include(p => p.User)
                                                 .Include(p => p.Product)
@@ -42,8 +40,7 @@ namespace eProject.Controllers
                                                 .Where(p => p.UserId.Equals(user.Id))
                                                 .ToListAsync();
 
-            return View(wishList);
-            
+            return View(wishList);    
         }
 
         [HttpGet]
@@ -53,27 +50,21 @@ namespace eProject.Controllers
             WishList currentWishList = await _applicationDbContext.WishLists.FirstOrDefaultAsync(w => w.ProductId == id);
             Product product = await _applicationDbContext.Products.FirstOrDefaultAsync(p => p.ProductId == id);
             User user = await _userManager.GetUserAsync(User);
-
             if (currentWishList != null)
             {
                 return RedirectToAction(returnAction, returnController);
             }
-
             if (product is null)
             {
                 return RedirectToAction(returnAction, returnController);
             }
-
-
             WishList wishList = new WishList
             {
                 ProductId = product.ProductId,
                 UserId = user.Id
             };
-
             _applicationDbContext.WishLists.Add(wishList);
             await _applicationDbContext.SaveChangesAsync();
-
             return RedirectToAction(nameof(Index));
         }
 
@@ -81,10 +72,8 @@ namespace eProject.Controllers
         public IActionResult Remove(int id)
         {
             WishList wishList = _applicationDbContext.WishLists.SingleOrDefault(w => w.WishListId == id);
-
             _applicationDbContext.WishLists.Remove(wishList);
             _applicationDbContext.SaveChanges();
-
             return RedirectToAction(nameof(Index));
         }
 

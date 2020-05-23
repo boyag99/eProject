@@ -24,30 +24,27 @@ namespace eProject.Controllers
             _userManager = userManager;
 
         }
+
         [Route("details/{id}")]
         public async Task<IActionResult> Details(int id)
         {
             User user = await _userManager.GetUserAsync(User);
-
             if(user is null)
             {
                 user = new User();
             }
-
             Product product = _applicationDbContext.Products.Include(p=>p.Photos).Include(p => p.Category)
                 .Include(p => p.User)
                 .ThenInclude(u => u.Address)
                 .FirstOrDefault(p=>p.ProductId ==id);
-
-            AuctionHistory auctionHistory = _applicationDbContext.AuctionHistories.Include(ah => ah.User).OrderByDescending(ah => ah.Bid).FirstOrDefault(ah => ah.ProductId == id);
-
-
-
+            AuctionHistory auctionHistory = _applicationDbContext.AuctionHistories
+                .Include(ah => ah.User)
+                .OrderByDescending(ah => ah.Bid)
+                .FirstOrDefault(ah => ah.ProductId == id);
             if (product is null)
             {
                 return RedirectToAction(nameof(Index));
             }
-
             if (auctionHistory is null)
             {
                 if(product.ToDate < DateTime.Now && product.Auction == true)
@@ -55,11 +52,9 @@ namespace eProject.Controllers
                     product.ToDate = product.ToDate.AddDays(7);
                 }
             }
-
             product.Hot += 1;
             _applicationDbContext.Products.Update(product);
             _applicationDbContext.SaveChanges();
-
             List<Product> products = _applicationDbContext.Products.OrderByDescending(p => p.Hot).Take(1).ToList();
             ViewBag.Hot = false;
             foreach (var item in products)
@@ -75,19 +70,18 @@ namespace eProject.Controllers
                     }
                 }
             }
-
             var featuredPhoto = product.Photos.SingleOrDefault(p => p.Status && p.Featured);
             ViewBag.Product = product;
             ViewBag.FeaturedPhoto = featuredPhoto == null ? "no-image.jpg" : featuredPhoto.Name;
             ViewBag.ProductImages = product.Photos.Where(p => p.Status).ToList();
-            ViewBag.RelatedProduct = _applicationDbContext.Products.Include(p => p.Photos).Where(p => p.CategoryId == product.CategoryId && p.ProductId != id && p.Status).ToList();
+            ViewBag.RelatedProduct = _applicationDbContext.Products
+                .Include(p => p.Photos)
+                .Where(p => p.CategoryId == product.CategoryId && p.ProductId != id && p.Status).ToList();
             ViewBag.Reviews = await _applicationDbContext.Reviews.Include(r => r.User).Where(r => r.ProductId == id).ToListAsync();
             ViewBag.MaxBid = _applicationDbContext.AuctionHistories.OrderBy(ah => ah.Bid).FirstOrDefault(ah => ah.ProductId == id);
             ViewBag.AuctionHistories = await _applicationDbContext.AuctionHistories.Include(ah => ah.User).Where(ah => ah.ProductId == id).ToListAsync();
             ViewBag.AuctionHistory = auctionHistory;
-
             ViewBag.User = user;
-
             return View("Details");
         }
 
@@ -95,7 +89,6 @@ namespace eProject.Controllers
         public IActionResult Index(int? page, string currentSearch = null, string search = null)
         {
             var pageNumber = page ?? 1;
-
             if(search != null)
             {
                 pageNumber = 1;
@@ -103,30 +96,21 @@ namespace eProject.Controllers
             {
                 search = currentSearch;
             }
-
             ViewData["CurrentSearch"] = search;
-
             var product = _applicationDbContext.Products.Include(p => p.Photos).Where(p => p.Status);
-
             if (!string.IsNullOrEmpty(search))
             {
                 product = product.Where(p => p.Name.ToLower().Contains(search.Trim().ToLower()));
             }
-
             ViewBag.Products = product.ToPagedList(pageNumber, 12);
-
             List<Product> hotProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.Hot).Take(4).ToList();
             ViewBag.Hot = hotProducts;
-
             List<Product> newProducts = _applicationDbContext.Products.Include(p => p.Photos).OrderByDescending(p => p.FromDate).Take(4).ToList();
             ViewBag.NewProducts = newProducts;
-
             List<Product> saleProducts = _applicationDbContext.Products.Include(p => p.Photos).Where(p=>p.SalePrice>0).Take(4).ToList();
             ViewBag.SaleProducts = saleProducts;
-
             ViewBag.MinPrice = _applicationDbContext.Products.Min(p => p.Price);
             ViewBag.MaxPrice = _applicationDbContext.Products.Max(p => p.Price);
-
             return View("Index");
         }
 
