@@ -212,6 +212,29 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "Gateway")">
+                    <a href="#" class="nav-link @Html.ActiveMenuLink(actions: null, controllers: "Gateway")">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            Gateway
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="Gateway" asp-action="Index" class="nav-link @Html.ActiveMenuLink(actions: "Index", controllers: "Gateway")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List Gateway</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="Gateway" asp-action="Add" class="nav-link @Html.ActiveMenuLink(actions: "Add", controllers: "Gateway")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create new Gateway </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
