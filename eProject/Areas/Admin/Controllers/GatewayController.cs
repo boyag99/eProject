@@ -48,12 +48,8 @@ namespace eProject.Areas.Admin.Controllers
 
         [HttpPost]
         [Route("add")]
-        public IActionResult Add(Gateway gateWay, IFormFile photo)
+        public IActionResult Add(Gateway gateWay)
         {
-            var path = Path.Combine(this._environment.ContentRootPath, "wwwroot/images/gateways", photo.FileName);
-            var stream = new FileStream(path, FileMode.Create);
-            photo.CopyToAsync(stream);
-            gateWay.Logo = photo.FileName;
             _applicationDbContext.Gateways.Add(gateWay);
             _applicationDbContext.SaveChanges();
             return RedirectToAction("index", "gateway", new { area = "admin" });
@@ -69,16 +65,9 @@ namespace eProject.Areas.Admin.Controllers
 
         [HttpPost]
         [Route("edit/{id}")]
-        public IActionResult Edit(int id, Gateway gateway, IFormFile photo)
+        public IActionResult Edit(int id, Gateway gateway)
         {
             var currentGateway = _applicationDbContext.Gateways.Find(id);
-            if (photo != null && !string.IsNullOrEmpty(photo.FileName))
-            {
-                var path = Path.Combine(this._environment.ContentRootPath, "wwwroot/images/gateways", photo.FileName);
-                var stream = new FileStream(path, FileMode.Create);
-                photo.CopyToAsync(stream);
-                currentGateway.Logo = photo.FileName;
-            }
             currentGateway.BankName = gateway.BankName;
             currentGateway.AccountNumber = gateway.AccountNumber;
             currentGateway.AccountName = gateway.AccountName;
