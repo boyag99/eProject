@@ -6,6 +6,7 @@ using eProject.App.Helpers;
 using eProject.Data;
 using eProject.Models;
 using eProject.Models.ViewModels;
+using eProject.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,12 +24,14 @@ namespace eProject.Controllers
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IEmailSender _emailSender;
 
-        public AccountController(ApplicationDbContext applicationDbContext , UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(ApplicationDbContext applicationDbContext , UserManager<User> userManager, SignInManager<User> signInManager, IEmailSender emailSender)
         {
             _applicationDbContext = applicationDbContext;
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailSender = emailSender;
         }
 
         [Route("")]
@@ -235,6 +238,62 @@ namespace eProject.Controllers
             }
 
             return View("Artist", artistRegisterRequest);
+        }
+
+        [HttpGet]
+        [Route("ContactAdmin")]
+        public IActionResult ContactAdmin()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route("ContactAdmin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ContactAdmin(ContactAdminRequest contactAdminRequest)
+        {
+            User user = await _userManager.GetUserAsync(User);
+
+            if(user is null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (ModelState.IsValid)
+            {
+                ContactAdmin contactAdmin = new ContactAdmin
+                {
+                    Message = contactAdminRequest.Message,
+                    UserId = user.Id
+                };
+
+                _applicationDbContext.ContactAdmins.Add(contactAdmin);
+                await _applicationDbContext.SaveChangesAsync();
+
+                var contentUser = string.Format("Hello {0} {1}! Thank you for emailing us. We will review and respond as soon as possible.", user.FirstName, user.LastName);
+                var messageUser = new EmailMessage(new string[] { user.Email }, "Contact Admin", contentUser, null);
+
+                List<string> emailAdmin = new List<string>();
+                List<User> users = await _applicationDbContext.Users.ToListAsync();
+                foreach (var i in users)
+                {
+                    IList<string> role = await _userManager.GetRolesAsync(i);
+                    if (role[0].Equals("Admin"))
+                    {
+                        emailAdmin.Add(i.Email);
+                    }
+                }
+                var contentAdmin = string.Format("You have a new email from the customer, <a href='" + Url.Action("Detals", "ContactAdmin", new { id = contactAdmin.ContactAdminId }) + "'>click here to reply</a>.");
+                var messageAdmin = new EmailMessage(emailAdmin, "Locked out account information", contentAdmin, null);
+
+                await _emailSender.SendEmailAsync(messageUser);
+                await _emailSender.SendEmailAsync(messageAdmin);
+
+                ViewBag.Message = $"Hello {user.FirstName} {user.LastName}! Thank you for emailing us. We will review and respond as soon as possible.";
+                return RedirectToAction(nameof(ContactAdmin));
+            }
+
+            return View(contactAdminRequest);
         }
 
         private async Task UpdateRole(User user, string role)

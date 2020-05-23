@@ -202,6 +202,8 @@ namespace eProject.Controllers
                     UserId = user.Id
                 };
 
+                review.Status = Models.Review.ReviewStatus.Approved;
+
                 _applicationDbContext.Reviews.Add(review);
                 await _applicationDbContext.SaveChangesAsync();
 

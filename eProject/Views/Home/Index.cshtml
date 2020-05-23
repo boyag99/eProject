@@ -49,7 +49,8 @@
                                         <span class="star active"></span>
                                         <span class="star active"></span>
                                     </div>
-                                    <div class="price"><ins>$ @featuredProduct.Price</ins> <del>@featuredProduct.SalePrice</del></div>
+                                    <div class="price"><span>Sale Price: </span><ins>$ @featuredProduct.SalePrice</ins> </div>
+                                    <div class="price"><span>Price: </span><del>$ @featuredProduct.Price</del></div>
                                     <div class="buttons">
                                         <a class="btn btn-theme btn-theme-transparent btn-wish-list" asp-controller="WishList" asp-action="Add" asp-route-id="@featuredProduct.ProductId" asp-route-returnController="@Html.ViewContext.RouteData.Values["controller"].ToString()" asp-route-returnAction="@Html.ViewContext.RouteData.Values["action"].ToString()"><i class="fa fa-heart"></i></a>
 
@@ -130,7 +131,8 @@
                                         <span class="star active"></span>
                                         <span class="star active"></span>
                                     </div>
-                                    <div class="price"><ins>$ @newestProduct.Price</ins> <del>@newestProduct.SalePrice</del></div>
+                                    <div class="price"><span>Sale Price: </span><ins>$ @newestProduct.SalePrice</ins> </div>
+                                    <div class="price"><span>Price: </span><del>$ @newestProduct.Price</del></div>
                                     <div class="buttons">
                                         <a class="btn btn-theme btn-theme-transparent btn-wish-list" asp-controller="WishList" asp-action="Add" asp-route-id="@newestProduct.ProductId" asp-route-returnController="@Html.ViewContext.RouteData.Values["controller"].ToString()" asp-route-returnAction="@Html.ViewContext.RouteData.Values["action"].ToString()"><i class="fa fa-heart"></i></a>
 
@@ -185,19 +187,20 @@
                             <div class="rating">
                                 <span class="star"></span>
                                 <!--
-                                -->
+        -->
                                 <span class="star active"></span>
                                 <!--
-                                -->
+        -->
                                 <span class="star active"></span>
                                 <!--
-                                -->
+        -->
                                 <span class="star active"></span>
                                 <!--
-                                -->
+        -->
                                 <span class="star active"></span>
                             </div>
-                            <div class="price"><ins>$ @saleProducts.Price</ins> <del>@saleProducts.SalePrice</del></div>
+                            <div class="price"><span>Sale Price: </span><ins>$ @saleProducts.SalePrice</ins> </div>
+                            <div class="price"><span>Price: </span><del>$ @saleProducts.Price</del></div>
                             <div class="buttons">
                                 <a class="btn btn-theme btn-theme-transparent btn-wish-list" asp-controller="WishList" asp-action="Add" asp-route-id="@saleProducts.ProductId" asp-route-returnController="@Html.ViewContext.RouteData.Values["controller"].ToString()" asp-route-returnAction="@Html.ViewContext.RouteData.Values["action"].ToString()"><i class="fa fa-heart"></i></a>
 

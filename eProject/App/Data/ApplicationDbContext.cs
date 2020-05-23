@@ -29,6 +29,8 @@ namespace eProject.Data
         public virtual DbSet<WishList> WishLists { get; set; }
         public virtual DbSet<Contact> Contacts {get;set; }
         public virtual DbSet<WareHouseAddress> WareHouseAddresses { get; set; }
+        public virtual DbSet<ContactAdmin> ContactAdmins { get; set; }
+        public virtual DbSet<Gateway> Gateways { get; set; }
 
         //public virtual DbSet<Delivery> Delivery { get; set; }
 
@@ -48,6 +50,9 @@ namespace eProject.Data
             modelBuilder.Entity<Porfolio>(entity => { entity.ToTable(name: "Porfolios"); });
             modelBuilder.Entity<ShippingAddress>(entity => { entity.ToTable(name: "ShippingAddresses"); });
             modelBuilder.Entity<WishList>(entity => { entity.ToTable(name: "WishLists"); });
+            modelBuilder.Entity<WareHouseAddress>(entity => { entity.ToTable(name: "WareHouseAddresses"); });
+            modelBuilder.Entity<ContactAdmin>(entity => { entity.ToTable(name: "ContactAdmins"); });
+            modelBuilder.Entity<Gateway>(entity => { entity.ToTable(name: "Gateways"); });
             modelBuilder.Entity<IdentityRole>(entity => { entity.ToTable(name: "Roles"); });
             modelBuilder.Entity<IdentityUserRole<string>>(entity => { entity.ToTable("UserRoles"); });
             modelBuilder.Entity<IdentityUserClaim<string>>(entity => { entity.ToTable("UserClaims"); });

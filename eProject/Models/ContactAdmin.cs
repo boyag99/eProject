@@ -4,33 +4,30 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eProject.Models
 {
-    [Table("Reviews")]
-    public class Review
+    [Table("ContactAdmins")]
+    public class ContactAdmin
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int ReviewId { get; set; }
+        public int ContactAdminId { get; set; }
 
         public string Message { get; set; }
 
-        public ReviewStatus Status { get; set; }
+        public StatusMessage Status { get; set; } = StatusMessage.NotApproved;
 
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
-        public User User { get; set; }
 
-        [ForeignKey(nameof(Product))]
-        public int ProductId { get; set; }
-        public Product Product { get; set; }
-
-        [DataType(DataType.Date)]
         public DateTime Created_At { get; set; } = DateTime.Now;
 
-        public enum ReviewStatus
+        public DateTime Updated_At { get; set; } = DateTime.Now;
+
+        public virtual User User { get; set; }
+
+        public enum StatusMessage
         {
             Approved,
             NotApproved
         }
-
     }
 }
