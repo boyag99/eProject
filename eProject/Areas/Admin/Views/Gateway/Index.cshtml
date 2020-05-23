@@ -29,21 +29,21 @@
 
             <div class="card">
                 <div class="card-header">
-                    <a class="btn btn-primary float-right" asp-area="Admin" asp-controller="Gateway" asp-action="Create">Add new gateway</a>
+                    <a class="btn btn-primary float-right" asp-area="Admin" asp-controller="Gateway" asp-action="Add">Add new gateway</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>Logo</th>
                                 <th>Bank Name</th>
                                 <th>Account Number</th>
                                 <th>Account Name</th>
                                 <th>Branch</th>
                                 <th>Message</th>
                                 <th>Status</th>
-                                <th></th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,7 +51,7 @@
                             {
                             <tr>
                                 <td>
-                                    <img src="~/images/gateways/@gateway.Logo" atl/>    
+                                    <img style="width: 120px" src="~/images/gateways/@gateway.Logo" atl/>    
                                 </td>
                                 <td>@gateway.BankName</td>
                                 <td>@gateway.AccountNumber</td>
@@ -59,20 +59,26 @@
                                 <td>@gateway.Branch</td>
                                 <td>@gateway.Message</td>
                                 <td>@gateway.Status</td>
-                                <td></td>
+                                <td>
+                                <a asp-area="admin" asp-controller="Gateway"
+                                    asp-action="edit" asp-route-id="@gateway.GatewayId" class="btn btn-primary">
+                                    <i class="fa fa-wrench" aria-hidden="true"></i>
+                                    Edit
+                                </a>
+                                </td>
                             </tr>
                             }
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>#</th>
+                                <th>Logo</th>
                                 <th>Bank Name</th>
                                 <th>Account Number</th>
                                 <th>Account Name</th>
                                 <th>Branch</th>
                                 <th>Message</th>
                                 <th>Status</th>
-                                <th></th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>
