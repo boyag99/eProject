@@ -208,8 +208,41 @@ namespace eProject.Controllers
 
         [HttpGet]
         [Route("Artist")]
-        public IActionResult Artist()
+        public async Task<IActionResult> Artist()
         {
+            User user = await _userManager.GetUserAsync(User);
+            List<User> users = await _applicationDbContext.Users.ToListAsync();
+            GeneralSetting generalSetting = await _applicationDbContext.GeneralSettings.FirstOrDefaultAsync();
+            //List<OrderDetail> orderDetails = await _applicationDbContext.InvoiceDetails
+            //                                            .Include(id => id.Product)
+            //                                            .Include(id => id.Invoice)
+            //                                            .Where(id => id.Invoice.SellerId == user.Id)
+            //                                            .ToListAsync();
+
+            List<Invoice> invoices = await _applicationDbContext.Invoices
+                .Include(i => i.OrderDetails)
+                .Include(i => i.ShippingAddress)
+                .Include(i => i.User)
+                .Where(i => i.SellerId == user.Id)
+                .ToListAsync();
+
+            ViewBag.User = user;
+            ViewBag.GeneralSetting = generalSetting;
+            ViewBag.Invoices = invoices;
+
+            foreach (var u in users)
+            {
+                foreach (var i in invoices)
+                {
+                    if (u.Id.Equals(i.BuyerId))
+                    {
+                        ViewBag.Buyer = u;
+                    }
+                }
+            }
+
+
+
             return View();
         }
 
@@ -217,16 +250,27 @@ namespace eProject.Controllers
         [Route("RegisterArtist")]
         public async Task<IActionResult> RegisterArtist(ArtistRegisterRequest artistRegisterRequest)
         {
+            GeneralSetting generalSetting = await _applicationDbContext.GeneralSettings.FirstOrDefaultAsync();
             User user = await _userManager.GetUserAsync(User);
+
+            if(user.Balance < generalSetting.RegistrationArtistCost)
+            {
+
+                ViewData["Message"] = "Balance is not enough. Please refill.";
+                return RedirectToAction(nameof(Artist));
+            }
 
             var userImage = user.ProfileImage;
             var uniqueImageName = GeneralHelpers.UploadedFile(artistRegisterRequest.ProfileImage, USER_PATH).Result; // upload image & return image name
 
             if (ModelState.IsValid)
             {
+                var costCharge = user.Balance - generalSetting.RegistrationArtistCost;
+
                 user.Exhibition = artistRegisterRequest.Exhibition;
                 user.Biography = artistRegisterRequest.Biography;
                 user.ProfileImage = uniqueImageName ?? userImage;
+                user.Balance = costCharge;
 
                 _applicationDbContext.Users.Update(user);
                 await _applicationDbContext.SaveChangesAsync();
@@ -237,7 +281,8 @@ namespace eProject.Controllers
                 return RedirectToAction("Artist", "Account");
             }
 
-            return View("Artist", artistRegisterRequest);
+            ViewData["Message"] = "Error";
+            return RedirectToAction(nameof(Artist));
         }
 
         [HttpGet]
@@ -321,6 +366,27 @@ namespace eProject.Controllers
             };
 
             return View(gatewayVM);
+        }
+
+        [HttpGet]
+        [Route("OrderHistory")]
+        public async Task<IActionResult> OrderHistory()
+        {
+            User user = await _userManager.GetUserAsync(User);
+            List<OrderDetail> orderDetails = await _applicationDbContext.InvoiceDetails
+                                                        .Include(id => id.Invoice)
+                                                        .Include(id => id.Product)
+                                                            .ThenInclude(p => p.Photos)
+                                                        .Include(id => id.Product)
+                                                            .ThenInclude(p => p.Category)
+                                                        .Where(id => id.Invoice.BuyerId == user.Id)
+                                                        .ToListAsync();
+
+
+            ViewBag.OrderDetails = orderDetails;
+
+            return View();
+
         }
     }
 }

@@ -105,6 +105,24 @@
                     </ul>
                 </li>
 
+                <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "Order")">
+                    <a href="#" class="nav-link @Html.ActiveMenuLink(actions: null, controllers: "Order")">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            Orders
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="nav-link @Html.ActiveMenuLink(actions: "Index", controllers: "Order")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List All Orders</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="nav-item has-treeview @Html.ActiveMenuItem(actions: null, controllers: "About")">
                     <a href="#" class="nav-link @Html.ActiveMenuLink(actions: null, controllers: "About")">
                         <i class="nav-icon fas fa-copy"></i>

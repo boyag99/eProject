@@ -12,5 +12,7 @@ namespace eProject.Models
         public int GeneralId { get; set; }
 
         public double RegistrationArtistCost { get; set; }
+
+        public double ShippingCost { get; set; }
     }
 }
